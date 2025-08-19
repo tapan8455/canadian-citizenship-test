@@ -5,6 +5,14 @@ import path from 'path'
 let db: Database | null = null
 
 export async function getDatabase(): Promise<Database> {
+  // Use PostgreSQL in production, SQLite in development
+  if (process.env.NODE_ENV === 'production') {
+    // Import PostgreSQL database module
+    const { getDatabase: getPostgresDB } = await import('./database-postgres')
+    return getPostgresDB()
+  }
+
+  // Use SQLite for development
   if (db) {
     return db
   }
