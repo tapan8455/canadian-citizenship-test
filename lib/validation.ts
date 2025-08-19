@@ -1,13 +1,6 @@
 import { z } from 'zod'
 
-// Question API validation
-export const questionQuerySchema = z.object({
-  category: z.string().optional().or(z.literal('')),
-  province: z.string().optional().or(z.literal('')),
-  limit: z.string().transform(val => parseInt(val)).pipe(
-    z.number().min(1).max(50).default(20)
-  ).optional()
-})
+
 
 // Test result validation
 export const testResultSchema = z.object({
@@ -54,17 +47,4 @@ export function sanitizeInput(input: string): string {
     .slice(0, 1000) // Limit length
 }
 
-// Validate and sanitize search parameters
-export function validateSearchParams(params: URLSearchParams) {
-  const result = questionQuerySchema.safeParse({
-    category: params.get('category'),
-    province: params.get('province'),
-    limit: params.get('limit')
-  })
 
-  if (!result.success) {
-    throw new Error(`Validation error: ${result.error.errors.map(e => e.message).join(', ')}`)
-  }
-
-  return result.data
-}
