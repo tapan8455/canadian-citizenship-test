@@ -69,7 +69,7 @@ export default function PracticeTestPage() {
           throw new Error('Failed to fetch questions')
         }
         const data = await response.json()
-        setQuestions(data.questions || [])
+        setQuestions(data.data || [])
         setIsLoading(false)
       } catch (err) {
         setError('Failed to load questions. Please try again.')
