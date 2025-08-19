@@ -3,6 +3,9 @@ import { getDatabase } from '@/lib/database'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)

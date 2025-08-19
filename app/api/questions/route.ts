@@ -3,6 +3,9 @@ import { getDatabase } from '@/lib/database'
 import { defaultRateLimit } from '@/lib/rate-limit'
 import { validateSearchParams, categorySchema, provinceSchema } from '@/lib/validation'
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     // Rate limiting
