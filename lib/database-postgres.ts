@@ -1,9 +1,10 @@
 import { Pool, PoolClient } from 'pg'
+import { DatabaseInterface } from './database'
 
 let pool: Pool | null = null
 
 // Create a database interface that matches SQLite's interface
-class PostgresDatabase {
+class PostgresDatabase implements DatabaseInterface {
   private client: PoolClient
 
   constructor(client: PoolClient) {

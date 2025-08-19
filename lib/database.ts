@@ -2,9 +2,18 @@ import sqlite3 from 'sqlite3'
 import { open, Database } from 'sqlite'
 import path from 'path'
 
+// Define a common interface for both SQLite and PostgreSQL
+export interface DatabaseInterface {
+  exec(sql: string): Promise<void>
+  all(sql: string, params?: unknown[]): Promise<unknown[]>
+  get(sql: string, params?: unknown[]): Promise<unknown>
+  run(sql: string, params?: unknown[]): Promise<{ lastID: number }>
+  close(): Promise<void>
+}
+
 let db: Database | null = null
 
-export async function getDatabase(): Promise<Database> {
+export async function getDatabase(): Promise<DatabaseInterface> {
   // Use PostgreSQL in production, SQLite in development
   if (process.env.NODE_ENV === 'production') {
     // Import PostgreSQL database module
@@ -14,7 +23,7 @@ export async function getDatabase(): Promise<Database> {
 
   // Use SQLite for development
   if (db) {
-    return db
+    return db as unknown as DatabaseInterface
   }
 
   const dbPath = path.join(process.cwd(), 'data', 'citizenship-test.db')
@@ -27,7 +36,7 @@ export async function getDatabase(): Promise<Database> {
   // Enable foreign keys
   await db.exec('PRAGMA foreign_keys = ON')
 
-  return db
+  return db as unknown as DatabaseInterface
 }
 
 export async function initializeDatabase() {
