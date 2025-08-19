@@ -17,9 +17,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    console.log('🔍 Attempting to connect to database...')
     const db = await getDatabase()
+    console.log('✅ Database connection established')
     
     // Check if user already exists
+    console.log('🔍 Checking if user exists...')
     const existingUser = await db.get('SELECT id FROM users WHERE email = ?', [email])
     
     if (existingUser) {
@@ -30,13 +33,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Hash password
+    console.log('🔐 Hashing password...')
     const hashedPassword = await bcrypt.hash(password, 12)
 
     // Create user
-    const result = await db.run(`
-      INSERT INTO users (email, password_hash, name)
-      VALUES (?, ?, ?)
-    `, [email, hashedPassword, name || null])
+    console.log('👤 Creating user...')
+    const sql = 'INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)'
+    console.log('📝 SQL Query:', sql)
+    console.log('📝 Parameters:', [email, hashedPassword, name || null])
+    
+    const result = await db.run(sql, [email, hashedPassword, name || null])
+    console.log('✅ User created successfully, ID:', result.lastID)
 
     return NextResponse.json({
       success: true,
@@ -44,7 +51,7 @@ export async function POST(request: NextRequest) {
     })
     
   } catch (error) {
-    console.error('Error creating user:', error)
+    console.error('❌ Error creating user:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to create user' },
       { status: 500 }
