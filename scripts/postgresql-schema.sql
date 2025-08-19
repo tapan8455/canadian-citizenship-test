@@ -56,14 +56,4 @@ CREATE INDEX IF NOT EXISTS idx_test_results_user_id ON test_results(user_id);
 CREATE INDEX IF NOT EXISTS idx_test_results_completed_at ON test_results(completed_at);
 CREATE INDEX IF NOT EXISTS idx_user_progress_user_id ON user_progress(user_id);
 
--- Update trigger for users table
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated_at = CURRENT_TIMESTAMP;
-  RETURN NEW;
-END;
-$$ language 'plpgsql';
-
-CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
-FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+-- Note: Automatic updated_at trigger removed for simplicity
