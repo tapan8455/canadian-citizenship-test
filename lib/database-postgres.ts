@@ -29,7 +29,7 @@ export async function closeDatabase() {
 }
 
 // Query helper function
-export async function query(text: string, params?: any[]) {
+export async function query(text: string, params?: unknown[]) {
   const client = await getDatabase()
   try {
     const result = await client.query(text, params)
