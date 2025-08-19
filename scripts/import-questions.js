@@ -30,37 +30,31 @@ function parseQuestions(content) {
       let category = 'general'
       const questionLower = questionText.toLowerCase()
       
-      if (questionNumber <= 146) {
-        // Federal questions - categorize by content
-        if (questionLower.includes('history') || questionLower.includes('confederation') || 
-            questionLower.includes('war') || questionLower.includes('battle') ||
-            questionLower.includes('first world war') || questionLower.includes('second world war') ||
-            questionLower.includes('vimy ridge') || questionLower.includes('plains of abraham') ||
-            questionLower.includes('underground railroad') || questionLower.includes('residential schools')) {
-          category = 'history'
-        } else if (questionLower.includes('government') || questionLower.includes('parliament') ||
-                   questionLower.includes('prime minister') || questionLower.includes('governor general') ||
-                   questionLower.includes('senate') || questionLower.includes('house of commons') ||
-                   questionLower.includes('election') || questionLower.includes('vote') ||
-                   questionLower.includes('political party') || questionLower.includes('cabinet')) {
-          category = 'government'
-        } else if (questionLower.includes('province') || questionLower.includes('territory') ||
-                   questionLower.includes('capital') || questionLower.includes('city') ||
-                   questionLower.includes('geography') || questionLower.includes('region') ||
-                   questionLower.includes('ocean') || questionLower.includes('lake') ||
-                   questionLower.includes('river') || questionLower.includes('mountain')) {
-          category = 'geography'
-        } else if (questionLower.includes('right') || questionLower.includes('freedom') ||
-                   questionLower.includes('charter') || questionLower.includes('responsibility') ||
-                   questionLower.includes('citizen') || questionLower.includes('vote') ||
-                   questionLower.includes('equality') || questionLower.includes('law')) {
-          category = 'rights'
-        } else {
-          category = 'general'
-        }
+      if (questionLower.includes('history') || questionLower.includes('confederation') || 
+          questionLower.includes('war') || questionLower.includes('battle') ||
+          questionLower.includes('first world war') || questionLower.includes('second world war') ||
+          questionLower.includes('vimy ridge') || questionLower.includes('plains of abraham') ||
+          questionLower.includes('underground railroad') || questionLower.includes('residential schools')) {
+        category = 'history'
+      } else if (questionLower.includes('government') || questionLower.includes('parliament') ||
+                 questionLower.includes('prime minister') || questionLower.includes('governor general') ||
+                 questionLower.includes('senate') || questionLower.includes('house of commons') ||
+                 questionLower.includes('election') || questionLower.includes('vote') ||
+                 questionLower.includes('political party') || questionLower.includes('cabinet')) {
+        category = 'government'
+      } else if (questionLower.includes('province') || questionLower.includes('territory') ||
+                 questionLower.includes('capital') || questionLower.includes('city') ||
+                 questionLower.includes('geography') || questionLower.includes('region') ||
+                 questionLower.includes('ocean') || questionLower.includes('lake') ||
+                 questionLower.includes('river') || questionLower.includes('mountain')) {
+        category = 'geography'
+      } else if (questionLower.includes('right') || questionLower.includes('freedom') ||
+                 questionLower.includes('charter') || questionLower.includes('responsibility') ||
+                 questionLower.includes('citizen') || questionLower.includes('vote') ||
+                 questionLower.includes('equality') || questionLower.includes('law')) {
+        category = 'rights'
       } else {
-        // Provincial questions
-        category = 'provincial'
+        category = 'general'
       }
       
       currentQuestion = {
@@ -96,9 +90,28 @@ function parseQuestions(content) {
 
 async function importQuestions() {
   try {
-    console.log('Importing questions from province-specific files...')
+    console.log('Importing questions from AlbertaQuestions.txt...')
     
-    // Read the main questions file (use Alberta as the base since it contains all questions)
+    // Get database path
+    const dbPath = path.join(process.cwd(), 'data', 'citizenship-test.db')
+    
+    // Ensure data directory exists
+    const dataDir = path.dirname(dbPath)
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true })
+    }
+    
+    // Open database
+    const db = await open({
+      filename: dbPath,
+      driver: sqlite3.Database
+    })
+    
+    // Clear existing questions
+    console.log('Clearing existing questions...')
+    await db.exec('DELETE FROM questions')
+    
+    // Read only the Alberta questions file
     const questionsPath = path.join(process.cwd(), 'Questions&Answers', 'AlbertaQuestions.txt')
     
     if (!fs.existsSync(questionsPath)) {
@@ -106,62 +119,49 @@ async function importQuestions() {
       process.exit(1)
     }
     
-    const questionsContent = fs.readFileSync(questionsPath, 'utf8')
+    const content = fs.readFileSync(questionsPath, 'utf8')
+    const questions = parseQuestions(content)
+    console.log(`Found ${questions.length} questions in AlbertaQuestions.txt`)
     
-    // Parse questions from the file
-    const parsedQuestions = parseQuestions(questionsContent)
-    console.log(`Parsed ${parsedQuestions.length} questions`)
+    let totalQuestions = 0
     
-    // Connect to database
-    const dbPath = path.join(process.cwd(), 'data', 'citizenship-test.db')
-    const db = await open({
-      filename: dbPath,
-      driver: sqlite3.Database
-    })
-    
-    // Clear existing questions
-    await db.run('DELETE FROM questions')
-    console.log('Cleared existing questions')
-    
-    // Insert new questions - one set for all provinces
-    let insertedCount = 0
-    for (const q of parsedQuestions) {
-      if (q.options.length === 4 && q.correct_answer >= 0) {
-        // Insert each question once with 'all' province (available to all provinces)
+    // Insert questions into database
+    for (const question of questions) {
+      if (question.options.length === 4 && question.correct_answer >= 0) {
         await db.run(`
-          INSERT INTO questions (category, question, options, correct_answer, explanation, difficulty, province)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO questions (category, question, options, correct_answer, explanation, province)
+          VALUES (?, ?, ?, ?, ?, ?)
         `, [
-          q.category,
-          q.question,
-          JSON.stringify(q.options),
-          q.correct_answer,
-          q.explanation || '',
-          'medium',
-          'all'
+          question.category,
+          question.question,
+          JSON.stringify(question.options),
+          question.correct_answer,
+          question.explanation || '',
+          'all' // Use 'all' for all provinces since questions are comprehensive
         ])
-        insertedCount++
+        totalQuestions++
       } else {
-        console.log(`Skipping question ${q.id}: Invalid format`)
+        console.log(`Skipping question ${question.id}: Invalid format`)
       }
     }
     
-    console.log(`Successfully imported ${insertedCount} questions`)
+    console.log(`✅ Successfully imported ${totalQuestions} questions`)
     
-    // Show summary by category
-    const categories = await db.all('SELECT category, COUNT(*) as count FROM questions GROUP BY category')
-    console.log('\nQuestions by category:')
-    categories.forEach(cat => {
-      console.log(`  ${cat.category}: ${cat.count} questions`)
-    })
+    // Verify the import
+    const count = await db.get('SELECT COUNT(*) as count FROM questions')
+    console.log(`Database now contains ${count.count} questions`)
     
     await db.close()
-    console.log('Import completed successfully!')
     
   } catch (error) {
-    console.error('Error importing questions:', error)
+    console.error('❌ Error importing questions:', error)
     process.exit(1)
   }
 }
 
-importQuestions()
+// Run if called directly
+if (require.main === module) {
+  importQuestions()
+}
+
+module.exports = { importQuestions }

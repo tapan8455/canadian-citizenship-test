@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { QuestionMarkCircleIcon, BookOpenIcon } from '@heroicons/react/24/outline'
+import { QuestionMarkCircleIcon, BookOpenIcon, ChartBarIcon } from '@heroicons/react/24/outline'
 import { InContentAd } from '@/components/AdSense'
 
 export const metadata = {
@@ -127,7 +127,7 @@ export default function FAQPage() {
           <p className="text-gray-600 mb-6">
             Explore our comprehensive resources to help you prepare for the citizenship test
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link 
               href="/practice"
               className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 inline-flex items-center justify-center"
@@ -140,6 +140,13 @@ export default function FAQPage() {
               className="bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 inline-flex items-center justify-center"
             >
               View Study Guide
+            </Link>
+            <Link 
+              href="/progress"
+              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 inline-flex items-center justify-center"
+            >
+              <ChartBarIcon className="h-5 w-5 mr-2" />
+              Go to Dashboard
             </Link>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BookOpenIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, ClockIcon, ChartBarIcon } from '@heroicons/react/24/outline'
 
 export const metadata = {
   title: 'Canadian Citizenship Test Blog - Study Tips & Resources',
@@ -140,13 +140,22 @@ export default function BlogPage() {
           <p className="text-blue-100 mb-6">
             Take our free practice tests to see how well you know the material
           </p>
-          <Link 
-            href="/practice"
-            className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg inline-flex items-center"
-          >
-            <BookOpenIcon className="h-5 w-5 mr-2" />
-            Start Practice Test
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/practice"
+              className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center"
+            >
+              <BookOpenIcon className="h-5 w-5 mr-2" />
+              Start Practice Test
+            </Link>
+            <Link 
+              href="/progress"
+              className="bg-blue-700 text-white hover:bg-blue-800 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center"
+            >
+              <ChartBarIcon className="h-5 w-5 mr-2" />
+              Go to Dashboard
+            </Link>
+          </div>
         </div>
       </div>
     </div>
