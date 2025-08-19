@@ -42,14 +42,15 @@ export async function GET(request: NextRequest) {
     let questionLimit: number
     
     try {
-      const validatedParams = validateSearchParams(searchParams)
-      category = validatedParams.category
-      province = validatedParams.province || 'all'
-      questionLimit = validatedParams.limit || 20
+      // Simple parameter extraction with defaults
+      category = searchParams.get('category') || undefined
+      province = searchParams.get('province') || 'all'
+      const limitParam = searchParams.get('limit')
+      questionLimit = limitParam ? parseInt(limitParam) : 20
       
-      console.log('Validated params:', { category, province, questionLimit })
+      console.log('Raw params:', { category, province, questionLimit })
 
-      // Additional validation for category and province
+      // Validate category if provided
       if (category && !categorySchema.safeParse(category).success) {
         return NextResponse.json(
           { success: false, error: 'Invalid category' },
@@ -57,6 +58,7 @@ export async function GET(request: NextRequest) {
         )
       }
 
+      // Validate province
       if (!provinceSchema.safeParse(province).success) {
         return NextResponse.json(
           { success: false, error: 'Invalid province' },
@@ -64,7 +66,16 @@ export async function GET(request: NextRequest) {
         )
       }
 
+      // Validate limit
+      if (questionLimit < 1 || questionLimit > 50) {
+        return NextResponse.json(
+          { success: false, error: 'Limit must be between 1 and 50' },
+          { status: 400 }
+        )
+      }
+
     } catch (validationError) {
+      console.error('Validation error:', validationError)
       return NextResponse.json(
         { success: false, error: validationError instanceof Error ? validationError.message : 'Invalid input' },
         { status: 400 }
