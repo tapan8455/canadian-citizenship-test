@@ -63,7 +63,7 @@ export async function closeDatabase() {
 export async function query(text: string, params?: unknown[]) {
   const client = await getDatabase()
   try {
-    const result = await client.query(text, params)
+    const result = await client.all(text, params)
     return result
   } catch (error) {
     console.error('Database query error:', error)
