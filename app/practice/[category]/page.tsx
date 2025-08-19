@@ -10,7 +10,7 @@ import AdZone from '@/components/AdZone'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useSession } from 'next-auth/react'
 
-const categories = {
+const categories: Record<string, { name: string; description: string; color: string }> = {
   general: {
     name: 'General Knowledge',
     description: 'Basic facts about Canada, its people, and culture',
