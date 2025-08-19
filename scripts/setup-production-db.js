@@ -19,6 +19,14 @@ async function setupProductionDatabase() {
 
     console.log('✅ Connected to PostgreSQL database')
 
+    // Drop existing tables first (in correct order due to foreign keys)
+    console.log('🗑️  Dropping existing tables...')
+    await pool.query('DROP TABLE IF EXISTS user_progress CASCADE')
+    await pool.query('DROP TABLE IF EXISTS test_results CASCADE')
+    await pool.query('DROP TABLE IF EXISTS questions CASCADE')
+    await pool.query('DROP TABLE IF EXISTS users CASCADE')
+    console.log('✅ Existing tables dropped')
+
     // Read and execute schema
     console.log('📋 Creating database schema...')
     const schemaPath = path.join(process.cwd(), 'scripts', 'postgresql-schema.sql')
