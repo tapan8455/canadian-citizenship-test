@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
           const user = await db.get(
             'SELECT * FROM users WHERE email = ?',
             [credentials.email]
-          )
+          ) as { id: number; email: string; password_hash: string; name: string } | undefined
 
           if (!user) {
             return null
