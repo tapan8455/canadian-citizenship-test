@@ -19,9 +19,9 @@ export default function AdSense({
 }: AdSenseProps) {
   useEffect(() => {
     try {
-      // @ts-ignore - Google AdSense types
+      // @ts-expect-error - Google AdSense types
       if (window.adsbygoogle) {
-        // @ts-ignore
+        // @ts-expect-error - Google AdSense push method
         window.adsbygoogle.push({})
       }
     } catch (error) {
