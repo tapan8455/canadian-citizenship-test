@@ -12,6 +12,7 @@
     "db:setup": "node scripts/setup-database.js",
     "db:import": "node scripts/import-questions.js",
     "db:export": "node scripts/export-data.js",
+    "db:setup-prod": "node scripts/setup-production-db.js",
     "test:progress": "node scripts/test-progress.js"
   },
   "dependencies": {
