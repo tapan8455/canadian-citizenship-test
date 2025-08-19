@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BookOpenIcon, ClockIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, ClockIcon } from '@heroicons/react/24/outline'
 
 export const metadata = {
   title: 'Canadian Citizenship Test Blog - Study Tips & Resources',
