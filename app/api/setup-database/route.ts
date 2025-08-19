@@ -34,12 +34,23 @@ async function handleSetup(request: NextRequest) {
       )
     }
 
+    // Check if DATABASE_URL is set
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        { success: false, error: 'DATABASE_URL environment variable is not set' },
+        { status: 500 }
+      )
+    }
+
     console.log('🚀 Setting up production database...')
+    console.log('Database URL:', process.env.DATABASE_URL ? 'Set' : 'Not set')
 
     // Initialize database schema
+    console.log('Creating database schema...')
     await initializeDatabase()
     
     // Import questions data
+    console.log('Importing questions data...')
     await setupProductionDatabase()
 
     console.log('✅ Production database setup complete!')
@@ -52,7 +63,11 @@ async function handleSetup(request: NextRequest) {
   } catch (error) {
     console.error('❌ Error setting up database:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to setup database' },
+      { 
+        success: false, 
+        error: 'Failed to setup database',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }
