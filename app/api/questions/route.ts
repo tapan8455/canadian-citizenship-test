@@ -33,6 +33,9 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     
+    // Debug logging
+    console.log('Search params:', Object.fromEntries(searchParams.entries()))
+    
     // Validate and sanitize input parameters
     let category: string | undefined
     let province: string
@@ -43,6 +46,8 @@ export async function GET(request: NextRequest) {
       category = validatedParams.category
       province = validatedParams.province || 'all'
       questionLimit = validatedParams.limit || 20
+      
+      console.log('Validated params:', { category, province, questionLimit })
 
       // Additional validation for category and province
       if (category && !categorySchema.safeParse(category).success) {

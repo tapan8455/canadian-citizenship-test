@@ -2,8 +2,8 @@ import { z } from 'zod'
 
 // Question API validation
 export const questionQuerySchema = z.object({
-  category: z.string().optional(),
-  province: z.string().optional(),
+  category: z.string().optional().or(z.literal('')),
+  province: z.string().optional().or(z.literal('')),
   limit: z.string().transform(val => parseInt(val)).pipe(
     z.number().min(1).max(50).default(20)
   ).optional()
