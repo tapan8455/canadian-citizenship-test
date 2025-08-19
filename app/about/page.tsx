@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { InContentAd } from '@/components/AdSense'
