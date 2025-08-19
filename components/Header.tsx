@@ -14,6 +14,7 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'Practice Tests', href: '/practice' },
     { name: 'Study Guide', href: '/study-guide' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Progress', href: '/progress' },
     { name: 'About', href: '/about' },
   ]

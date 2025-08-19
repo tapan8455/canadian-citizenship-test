@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://canadian-citizenship-test.vercel.app'),
+  metadataBase: new URL('https://canadian-citizenship-test-jcpt.vercel.app'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
     description: 'Master the Canadian Citizenship Test with our free online practice platform. 3,100+ questions, official format, detailed explanations.',
-    url: 'https://canadian-citizenship-test.vercel.app',
+    url: 'https://canadian-citizenship-test-jcpt.vercel.app',
     siteName: 'Canadian Citizenship Test Practice',
     images: [
       {
