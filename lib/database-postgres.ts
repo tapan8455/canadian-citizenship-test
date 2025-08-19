@@ -16,24 +16,36 @@ class PostgresDatabase implements DatabaseInterface {
   }
 
   async all(sql: string, params?: unknown[]): Promise<unknown[]> {
-    const result = await this.client.query(sql, params)
+    // Convert SQLite-style ? placeholders to PostgreSQL $1, $2, etc.
+    const convertedSql = this.convertPlaceholders(sql)
+    const result = await this.client.query(convertedSql, params)
     return result.rows
   }
 
   async get(sql: string, params?: unknown[]): Promise<unknown> {
-    const result = await this.client.query(sql, params)
+    // Convert SQLite-style ? placeholders to PostgreSQL $1, $2, etc.
+    const convertedSql = this.convertPlaceholders(sql)
+    const result = await this.client.query(convertedSql, params)
     return result.rows[0]
   }
 
   async run(sql: string, params?: unknown[]): Promise<{ lastID: number }> {
+    // Convert SQLite-style ? placeholders to PostgreSQL $1, $2, etc.
+    const convertedSql = this.convertPlaceholders(sql)
+    
     // For INSERT statements, we need to return the inserted ID
-    if (sql.trim().toUpperCase().startsWith('INSERT')) {
-      const result = await this.client.query(sql + ' RETURNING id', params)
+    if (convertedSql.trim().toUpperCase().startsWith('INSERT')) {
+      const result = await this.client.query(convertedSql + ' RETURNING id', params)
       return { lastID: result.rows[0]?.id || 0 }
     } else {
-      const result = await this.client.query(sql, params)
+      const result = await this.client.query(convertedSql, params)
       return { lastID: result.rows[0]?.id || 0 }
     }
+  }
+
+  private convertPlaceholders(sql: string): string {
+    let paramIndex = 1
+    return sql.replace(/\?/g, () => `$${paramIndex++}`)
   }
 
   async close(): Promise<void> {
