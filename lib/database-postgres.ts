@@ -14,12 +14,12 @@ class PostgresDatabase {
     await this.client.query(sql)
   }
 
-  async all(sql: string, params?: unknown[]): Promise<any[]> {
+  async all(sql: string, params?: unknown[]): Promise<unknown[]> {
     const result = await this.client.query(sql, params)
     return result.rows
   }
 
-  async get(sql: string, params?: unknown[]): Promise<any> {
+  async get(sql: string, params?: unknown[]): Promise<unknown> {
     const result = await this.client.query(sql, params)
     return result.rows[0]
   }
