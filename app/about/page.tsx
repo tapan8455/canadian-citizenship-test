@@ -119,7 +119,7 @@ export default function AboutPage() {
                 <li>• 20 multiple-choice or true/false questions</li>
                 <li>• 45 minutes to complete the test</li>
                 <li>• Need 15 correct answers (75%) to pass</li>
-                <li>• Questions based on "Discover Canada" study guide</li>
+                                 <li>• Questions based on &ldquo;Discover Canada&rdquo; study guide</li>
                 <li>• Computer-based test with immediate results</li>
               </ul>
             </div>
