@@ -2,12 +2,16 @@ import Link from 'next/link'
 import { ArrowRightIcon, CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { HeaderAd, InContentAd, FooterAd } from '@/components/AdSense'
 import AdZone from '@/components/AdZone'
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <Header />
+      
+      {/* Header Ad */}
+      <HeaderAd />
       
       {/* Hero Section */}
       <section className="relative overflow-hidden">
@@ -146,6 +150,9 @@ export default function HomePage() {
 
       {/* Ad Zone 2 */}
       <AdZone position="features-bottom" />
+      
+      {/* In-Content Ad */}
+      <InContentAd />
 
       {/* CTA Section */}
       <section className="py-20 bg-primary-600">
@@ -163,6 +170,9 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* Footer Ad */}
+      <FooterAd />
 
       <Footer />
     </div>
