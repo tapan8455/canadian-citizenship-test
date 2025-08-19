@@ -105,11 +105,20 @@ export async function GET(request: NextRequest) {
     // Parse the options JSON for each question
     const formattedQuestions = questions.map((q: unknown) => {
       const question = q as { options: string; [key: string]: unknown }
-      return {
-        ...question,
-        options: JSON.parse(question.options)
+      try {
+        return {
+          ...question,
+          options: JSON.parse(question.options)
+        }
+      } catch (parseError) {
+        console.error('Error parsing options for question:', question.id, parseError)
+        // Return question with empty options array as fallback
+        return {
+          ...question,
+          options: []
+        }
       }
-    })
+    }).filter(q => q.options.length > 0) // Filter out questions with no valid options
     
     return NextResponse.json({
       success: true,
