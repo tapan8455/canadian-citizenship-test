@@ -5,7 +5,15 @@ import { setupProductionDatabase } from '@/scripts/setup-production-db'
 // Force dynamic rendering for this API route
 export const dynamic = 'force-dynamic'
 
+export async function GET(request: NextRequest) {
+  return await handleSetup(request)
+}
+
 export async function POST(request: NextRequest) {
+  return await handleSetup(request)
+}
+
+async function handleSetup(request: NextRequest) {
   try {
     // Check if it's production environment
     if (process.env.NODE_ENV !== 'production') {
