@@ -33,8 +33,7 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     
-    // Debug logging
-    console.log('Search params:', Object.fromEntries(searchParams.entries()))
+
     
     // Validate and sanitize input parameters
     let category: string | undefined
@@ -48,7 +47,7 @@ export async function GET(request: NextRequest) {
       const limitParam = searchParams.get('limit')
       questionLimit = limitParam ? parseInt(limitParam) : 20
       
-      console.log('Raw params:', { category, province, questionLimit })
+
 
       // Validate category if provided
       if (category && !categorySchema.safeParse(category).success) {
@@ -75,7 +74,7 @@ export async function GET(request: NextRequest) {
       }
 
     } catch (validationError) {
-      console.error('Validation error:', validationError)
+
       return NextResponse.json(
         { success: false, error: validationError instanceof Error ? validationError.message : 'Invalid input' },
         { status: 400 }
