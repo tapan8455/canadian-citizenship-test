@@ -44,9 +44,9 @@ export default function PracticeTestPage() {
   const { data: session } = useSession()
   const category = params.category as string
   
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState<any[]>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [userAnswers, setUserAnswers] = useState({})
+  const [userAnswers, setUserAnswers] = useState<Record<number, number>>({})
   const [timeLeft, setTimeLeft] = useState(45 * 60) // 45 minutes in seconds
   const [isTestComplete, setIsTestComplete] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
