@@ -85,10 +85,13 @@ export async function GET(request: NextRequest) {
     const questions = await db.all(query, params)
     
     // Parse the options JSON for each question
-    const formattedQuestions = questions.map(q => ({
-      ...q,
-      options: JSON.parse(q.options)
-    }))
+    const formattedQuestions = questions.map((q: unknown) => {
+      const question = q as { options: string; [key: string]: unknown }
+      return {
+        ...question,
+        options: JSON.parse(question.options)
+      }
+    })
     
     return NextResponse.json({
       success: true,
