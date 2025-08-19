@@ -63,18 +63,18 @@ export default function AboutPage() {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             About Canadian Citizenship Test
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Your trusted partner in preparing for the Canadian citizenship test. We're dedicated to helping thousands of candidates achieve their dream of becoming Canadian citizens.
-          </p>
+                       <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+               Your trusted partner in preparing for the Canadian citizenship test. We&apos;re dedicated to helping thousands of candidates achieve their dream of becoming Canadian citizens.
+             </p>
         </div>
 
         {/* Mission Statement */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-12">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
-              We believe that every person who wants to become a Canadian citizen deserves access to high-quality, comprehensive study materials. Our platform is designed to make the citizenship test preparation process accessible, effective, and stress-free. We're committed to helping you understand not just the facts, but the values and principles that make Canada the great country it is.
-            </p>
+                         <p className="text-lg text-gray-600 leading-relaxed max-w-4xl mx-auto">
+               We believe that every person who wants to become a Canadian citizen deserves access to high-quality, comprehensive study materials. Our platform is designed to make the citizenship test preparation process accessible, effective, and stress-free. We&apos;re committed to helping you understand not just the facts, but the values and principles that make Canada the great country it is.
+             </p>
           </div>
         </div>
 
@@ -141,15 +141,15 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Success Stories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="border-l-4 border-green-500 pl-6">
-              <p className="text-gray-600 italic mb-3">
-                "This platform made studying for the citizenship test so much easier. The practice questions were exactly like the real test, and I passed with flying colors!"
-              </p>
+                             <p className="text-gray-600 italic mb-3">
+                 &ldquo;This platform made studying for the citizenship test so much easier. The practice questions were exactly like the real test, and I passed with flying colors!&rdquo;
+               </p>
               <p className="text-sm text-gray-500">- Maria S., New Canadian Citizen</p>
             </div>
             <div className="border-l-4 border-green-500 pl-6">
-              <p className="text-gray-600 italic mb-3">
-                "The detailed explanations helped me understand not just the answers, but the reasoning behind them. Highly recommended for anyone preparing for the test."
-              </p>
+                             <p className="text-gray-600 italic mb-3">
+                 &ldquo;The detailed explanations helped me understand not just the answers, but the reasoning behind them. Highly recommended for anyone preparing for the test.&rdquo;
+               </p>
               <p className="text-sm text-gray-500">- Ahmed K., Citizenship Test Graduate</p>
             </div>
           </div>

@@ -127,20 +127,20 @@ export default function PracticeTestPage() {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
   }
 
-  const calculateScore = () => {
-    let correct = 0
-    questions.forEach((question, index) => {
-      const userAnswer = userAnswers[question.id]
-      if (userAnswer === question.correct_answer) {
-        correct++
-      }
-    })
-    return {
-      correct,
-      total: questions.length,
-      percentage: Math.round((correct / questions.length) * 100)
-    }
-  }
+     const calculateScore = () => {
+     let correct = 0
+     questions.forEach((question) => {
+       const userAnswer = userAnswers[question.id]
+       if (userAnswer === question.correct_answer) {
+         correct++
+       }
+     })
+     return {
+       correct,
+       total: questions.length,
+       percentage: Math.round((correct / questions.length) * 100)
+     }
+   }
 
   if (!categories[category]) {
     return (
