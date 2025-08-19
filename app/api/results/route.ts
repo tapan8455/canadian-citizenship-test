@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const db = await getDatabase()
     
     // Get user ID
-    const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email])
+    const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email]) as { id: number } | undefined
     
     if (!user) {
       return NextResponse.json(
@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
     const db = await getDatabase()
     
     // Get user ID
-    const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email])
+    const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email]) as { id: number } | undefined
     
     if (!user) {
       return NextResponse.json(
