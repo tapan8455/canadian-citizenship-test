@@ -44,7 +44,13 @@ export default function PracticeTestPage() {
   const { data: session } = useSession()
   const category = params.category as string
   
-  const [questions, setQuestions] = useState<any[]>([])
+  const [questions, setQuestions] = useState<Array<{
+    id: number;
+    question: string;
+    options: string[];
+    correct_answer: number;
+    explanation: string;
+  }>>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [userAnswers, setUserAnswers] = useState<Record<number, number>>({})
   const [timeLeft, setTimeLeft] = useState(45 * 60) // 45 minutes in seconds
@@ -127,20 +133,7 @@ export default function PracticeTestPage() {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
   }
 
-     const calculateScore = () => {
-     let correct = 0
-     questions.forEach((question) => {
-       const userAnswer = userAnswers[question.id]
-       if (userAnswer === question.correct_answer) {
-         correct++
-       }
-     })
-     return {
-       correct,
-       total: questions.length,
-       percentage: Math.round((correct / questions.length) * 100)
-     }
-   }
+     
 
   if (!categories[category]) {
     return (
@@ -194,17 +187,26 @@ export default function PracticeTestPage() {
   }
 
   if (isTestComplete) {
-    const score = calculateScore()
+    // Convert userAnswers object to answers array
+    const answers = questions.map(question => userAnswers[question.id] ?? -1)
+    
+    // Map questions to match TestResults component interface
+    const mappedQuestions = questions.map(q => ({
+      id: q.id,
+      question: q.question,
+      options: q.options,
+      correctAnswer: q.correct_answer,
+      explanation: q.explanation
+    }))
+    
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="max-w-4xl mx-auto px-4 py-12">
           <TestResults
-            score={score.percentage}
-            correctAnswers={score.correct}
-            totalQuestions={score.total}
-            questions={questions}
-            userAnswers={userAnswers}
+            questions={mappedQuestions}
+            answers={answers}
+            category={categories[category].name}
             timeTaken={45 * 60 - timeLeft}
           />
         </div>
@@ -311,21 +313,42 @@ export default function PracticeTestPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        {currentQuestion && (
-          <TestQuestion
-            question={currentQuestion}
-            questionNumber={currentQuestionIndex + 1}
-            totalQuestions={questions.length}
-            userAnswer={userAnswers[currentQuestion.id]}
-            onAnswerSelect={(answerIndex) => handleAnswerSelect(currentQuestion.id, answerIndex)}
-            onNext={handleNextQuestion}
-            onPrevious={handlePreviousQuestion}
-            isLastQuestion={currentQuestionIndex === questions.length - 1}
-            isFirstQuestion={currentQuestionIndex === 0}
-          />
-        )}
-      </div>
+             <div className="max-w-4xl mx-auto px-4 py-8">
+         {currentQuestion && (
+           <>
+             <TestQuestion
+               question={{
+                 id: currentQuestion.id,
+                 question: currentQuestion.question,
+                 options: currentQuestion.options,
+                 correctAnswer: currentQuestion.correct_answer,
+                 explanation: currentQuestion.explanation
+               }}
+               questionNumber={currentQuestionIndex + 1}
+               totalQuestions={questions.length}
+               selectedAnswer={userAnswers[currentQuestion.id]}
+               onAnswerSelect={(answerIndex) => handleAnswerSelect(currentQuestion.id, answerIndex)}
+             />
+             
+             {/* Navigation Buttons */}
+             <div className="flex justify-between mt-8">
+               <button
+                 onClick={handlePreviousQuestion}
+                 disabled={currentQuestionIndex === 0}
+                 className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+               >
+                 Previous
+               </button>
+               <button
+                 onClick={handleNextQuestion}
+                 className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
+               >
+                 {currentQuestionIndex === questions.length - 1 ? 'Finish Test' : 'Next'}
+               </button>
+             </div>
+           </>
+         )}
+       </div>
 
       {/* Ad Zone */}
       <AdZone position="practice-bottom" />
