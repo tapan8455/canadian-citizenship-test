@@ -49,7 +49,7 @@ export function HeaderAd() {
     <div className="w-full bg-gray-50 py-4">
       <div className="max-w-7xl mx-auto px-4">
         <AdSense 
-          adSlot="YOUR_HEADER_AD_SLOT"
+          adSlot="9798354925"
           className="text-center"
         />
       </div>
@@ -73,7 +73,7 @@ export function FooterAd() {
     <div className="w-full bg-gray-50 py-4">
       <div className="max-w-7xl mx-auto px-4">
         <AdSense 
-          adSlot="YOUR_FOOTER_AD_SLOT"
+          adSlot="5117723947"
           className="text-center"
         />
       </div>
@@ -84,10 +84,10 @@ export function FooterAd() {
 export function InContentAd() {
   return (
     <div className="my-8">
-      <AdSense 
-        adSlot="YOUR_IN_CONTENT_AD_SLOT"
-        className="text-center"
-      />
+              <AdSense 
+          adSlot="9274227850"
+          className="text-center"
+        />
     </div>
   )
 }
