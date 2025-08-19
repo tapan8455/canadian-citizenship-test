@@ -26,8 +26,14 @@ class PostgresDatabase implements DatabaseInterface {
   }
 
   async run(sql: string, params?: unknown[]): Promise<{ lastID: number }> {
-    const result = await this.client.query(sql, params)
-    return { lastID: result.rows[0]?.id || 0 }
+    // For INSERT statements, we need to return the inserted ID
+    if (sql.trim().toUpperCase().startsWith('INSERT')) {
+      const result = await this.client.query(sql + ' RETURNING id', params)
+      return { lastID: result.rows[0]?.id || 0 }
+    } else {
+      const result = await this.client.query(sql, params)
+      return { lastID: result.rows[0]?.id || 0 }
+    }
   }
 
   async close(): Promise<void> {
