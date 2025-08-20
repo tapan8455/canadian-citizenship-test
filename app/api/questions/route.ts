@@ -104,9 +104,15 @@ export async function GET(request: NextRequest) {
     
     // Add debug information
     console.log('Debug: Raw questions from database:', questions.length)
+    console.log('Debug: Query:', query)
+    console.log('Debug: Params:', params)
     if (questions.length > 0) {
       console.log('Debug: First question sample:', questions[0])
     }
+    
+    // Also check what categories exist in the database
+    const categoriesResult = await db.all("SELECT DISTINCT category FROM questions")
+    console.log('Debug: Available categories:', categoriesResult)
     
     // Parse the options JSON for each question
     const formattedQuestions = questions.map((q: unknown) => {
