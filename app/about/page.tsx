@@ -196,7 +196,7 @@ export default function AboutPage() {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Get in Touch</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-600">
             <div>
-              <p><strong>Email:</strong> info@citizentest.ca</p>
+              <p><strong>Email:</strong> info@citizentestcanada.com</p>
               <p><strong>Location:</strong> Toronto, Ontario, Canada</p>
             </div>
             <div>

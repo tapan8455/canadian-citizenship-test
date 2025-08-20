@@ -14,7 +14,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">C</span>
               </div>
-              <span className="text-xl font-bold">CitizenTest</span>
+              <span className="text-xl font-bold">CitizenTest Canada</span>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
               The most comprehensive Canadian Citizenship Test practice platform. 
@@ -116,8 +116,8 @@ export default function Footer() {
             </div>
             <div className="flex items-center space-x-3">
               <EnvelopeIcon className="h-5 w-5 text-primary-400" />
-              <a href="mailto:info@citizentest.ca" className="text-gray-300 hover:text-white transition-colors">
-                info@citizentest.ca
+              <a href="mailto:info@citizentestcanada.com" className="text-gray-300 hover:text-white transition-colors">
+                info@citizentestcanada.com
               </a>
             </div>
             <div className="flex items-center space-x-3">
@@ -132,7 +132,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © {currentYear} CitizenTest. All rights reserved.
+            © {currentYear} CitizenTest Canada. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">

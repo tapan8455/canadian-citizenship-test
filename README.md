@@ -288,8 +288,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📞 Contact
 
 For questions or support:
-- Email: info@citizentest.ca
-- Website: https://citizentest.ca
+- Email: info@citizentestcanada.com
+- Website: https://citizentestcanada.com
 
 ---
 
