@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     try {
       // Try to get questions count
       const countResult = await db.get("SELECT COUNT(*) as count FROM questions")
-      questionsCount = countResult?.count || 0
+      questionsCount = (countResult as { count: number })?.count || 0
       
       // Try to get sample questions
       sampleQuestions = await db.all("SELECT id, category, question, options FROM questions LIMIT 3")
