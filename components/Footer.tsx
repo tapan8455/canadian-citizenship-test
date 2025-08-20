@@ -66,11 +66,7 @@ export default function Footer() {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
+
             </ul>
           </div>
 
@@ -89,19 +85,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/tips" className="text-gray-300 hover:text-white transition-colors">
-                  Study Tips
-                </Link>
-              </li>
-              <li>
-                <Link href="/official-resources" className="text-gray-300 hover:text-white transition-colors">
+                <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-citizenship/become-canadian-citizen/citizenship-test.html" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="text-gray-300 hover:text-white transition-colors">
                   Official Resources
-                </Link>
-              </li>
-              <li>
-                <Link href="/success-stories" className="text-gray-300 hover:text-white transition-colors">
-                  Success Stories
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -135,15 +124,15 @@ export default function Footer() {
             © {currentYear} CitizenTest Canada. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <span className="text-gray-400 text-sm">
               Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">
+            </span>
+            <span className="text-gray-400 text-sm">
               Terms of Service
-            </Link>
-            <Link href="/cookies" className="text-gray-400 hover:text-white text-sm transition-colors">
+            </span>
+            <span className="text-gray-400 text-sm">
               Cookie Policy
-            </Link>
+            </span>
           </div>
         </div>
       </div>

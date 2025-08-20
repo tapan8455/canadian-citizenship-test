@@ -140,24 +140,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Success Stories */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Success Stories</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="border-l-4 border-green-500 pl-6">
-                             <p className="text-gray-600 italic mb-3">
-                 &ldquo;This platform made studying for the citizenship test so much easier. The practice questions were exactly like the real test, and I passed with flying colors!&rdquo;
-               </p>
-              <p className="text-sm text-gray-500">- Maria S., New Canadian Citizen</p>
-            </div>
-            <div className="border-l-4 border-green-500 pl-6">
-                             <p className="text-gray-600 italic mb-3">
-                 &ldquo;The detailed explanations helped me understand not just the answers, but the reasoning behind them. Highly recommended for anyone preparing for the test.&rdquo;
-               </p>
-              <p className="text-sm text-gray-500">- Ahmed K., Citizenship Test Graduate</p>
-            </div>
-          </div>
-        </div>
+
 
         {/* CTA Section */}
         <div className="bg-blue-600 rounded-lg p-8 text-center">
