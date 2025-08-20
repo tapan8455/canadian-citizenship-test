@@ -118,16 +118,33 @@ export async function GET(request: NextRequest) {
     const formattedQuestions = questions.map((q: unknown) => {
       const question = q as { options: string; [key: string]: unknown }
       try {
+        // First try to parse as JSON
         return {
           ...question,
           options: JSON.parse(question.options)
         }
       } catch (parseError) {
-        console.error('Error parsing options for question:', question.id, parseError)
-        // Return question with empty options array as fallback
+        // If JSON parsing fails, check if it's already an array
+        if (Array.isArray(question.options)) {
+          return {
+            ...question,
+            options: question.options
+          }
+        }
+        
+        // If it's a string, try to split it into options (fallback)
+        console.log('Falling back to string parsing for question:', question.id)
+        const optionsString = question.options as string
+        // Split by common delimiters and clean up
+        const options = optionsString
+          .split(/[•\n\r]/)
+          .map(opt => opt.trim())
+          .filter(opt => opt.length > 0)
+          .slice(0, 4) // Take first 4 options
+        
         return {
           ...question,
-          options: []
+          options: options.length > 0 ? options : []
         }
       }
     }).filter(q => q.options.length > 0) // Filter out questions with no valid options
