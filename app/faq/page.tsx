@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { QuestionMarkCircleIcon, BookOpenIcon, ChartBarIcon } from '@heroicons/react/24/outline'
-import { InContentAd } from '@/components/AdSense'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import AdZone from '@/components/AdZone'
 
 export const metadata = {
   title: 'Canadian Citizenship Test FAQ - Frequently Asked Questions',
@@ -84,6 +86,8 @@ const faqs = [
 export default function FAQPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
+      
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
@@ -116,8 +120,8 @@ export default function FAQPage() {
           </div>
         </div>
 
-        {/* In-Content Ad */}
-        <InContentAd className="my-12" />
+        {/* Ad Zone */}
+        <AdZone position="faq-content" />
 
         {/* Additional Resources */}
         <div className="bg-blue-50 rounded-lg p-8 mt-12">
@@ -163,6 +167,11 @@ export default function FAQPage() {
           </div>
         </div>
       </div>
+
+      {/* Ad Zone */}
+      <AdZone position="faq-bottom" />
+
+      <Footer />
     </div>
   )
 }

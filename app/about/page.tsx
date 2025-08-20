@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, UserGroupIcon } from '@heroicons/react/24/outline'
-import { InContentAd } from '@/components/AdSense'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import AdZone from '@/components/AdZone'
 
 export const metadata = {
   title: 'About Canadian Citizenship Test - Your Trusted Study Partner',
@@ -57,6 +59,8 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-16">
@@ -106,8 +110,8 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* In-Content Ad */}
-        <InContentAd className="my-12" />
+        {/* Ad Zone */}
+        <AdZone position="about-content" />
 
         {/* Test Format Information */}
         <div className="bg-blue-50 rounded-lg p-8 mb-12">
@@ -209,6 +213,11 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      {/* Ad Zone */}
+      <AdZone position="about-bottom" />
+
+      <Footer />
     </div>
   )
 }
