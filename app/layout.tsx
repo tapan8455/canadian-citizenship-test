@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
     template: '%s | Canadian Citizenship Test Practice'
   },
-  description: 'Master the Canadian Citizenship Test with our free online practice platform. 3,100+ questions, official format (20 questions, 45 minutes), detailed explanations, and progress tracking.',
+  description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format (20 questions, 45 minutes), detailed explanations, and progress tracking.',
   keywords: [
     'Canadian citizenship test',
     'citizenship practice test',
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     'free citizenship test',
     'Canadian citizenship exam practice'
   ],
-  authors: [{ name: 'Canadian Citizenship Test Practice' }],
-  creator: 'Canadian Citizenship Test Practice',
-  publisher: 'Canadian Citizenship Test Practice',
+  authors: [{ name: 'CitizenTest Canada' }],
+  creator: 'CitizenTest Canada',
+  publisher: 'CitizenTest Canada',
   formatDetection: {
     email: false,
     address: false,
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
-    description: 'Master the Canadian Citizenship Test with our free online practice platform. 3,100+ questions, official format, detailed explanations.',
+    description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations.',
     url: 'https://citizentestcanada.com',
-    siteName: 'Canadian Citizenship Test Practice',
+    siteName: 'CitizenTest Canada',
     images: [
       {
         url: '/og-image.jpg',
@@ -87,6 +87,18 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-adsense-account" content="ca-pub-8085911050404684" />
+        <meta name="description" content="Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations. Prepare for your citizenship exam with confidence." />
+        <meta name="keywords" content="Canadian citizenship test, citizenship practice test, Canada citizenship exam, citizenship test questions, Canadian citizenship study guide" />
+        <meta name="author" content="CitizenTest Canada" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Canadian Citizenship Test Practice - Free Online Practice Tests" />
+        <meta property="og:description" content="Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations." />
+        <meta property="og:url" content="https://citizentestcanada.com" />
+        <meta property="og:site_name" content="CitizenTest Canada" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Canadian Citizenship Test Practice - Free Online Practice Tests" />
+        <meta name="twitter:description" content="Master the Canadian Citizenship Test with our free online practice platform." />
       </head>
       <body className={inter.className}>
         {process.env.GA_MEASUREMENT_ID && (

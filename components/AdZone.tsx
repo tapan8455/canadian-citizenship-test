@@ -1,87 +1,75 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface AdZoneProps {
   position: string
   size?: 'banner' | 'sidebar' | 'content' | 'leaderboard'
+  adSlot?: string
 }
 
-export default function AdZone({ position, size = 'banner' }: AdZoneProps) {
-  const [isAdLoaded, setIsAdLoaded] = useState(false)
-  const [adError] = useState(false)
+export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProps) {
+  const adRef = useRef<HTMLModElement>(null)
 
   useEffect(() => {
-    // Simulate ad loading
-    const timer = setTimeout(() => {
-      setIsAdLoaded(true)
-    }, 1000)
-
-    return () => clearTimeout(timer)
+    // Only load ads in production and when AdSense is available
+    if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
+      try {
+        // Push the ad to AdSense
+        const adsbygoogle = (window as { adsbygoogle?: unknown[] }).adsbygoogle || []
+        adsbygoogle.push({})
+      } catch (error) {
+        console.error('Error loading AdSense ad:', error)
+      }
+    }
   }, [])
 
   const getAdStyles = () => {
     switch (size) {
       case 'banner':
-        return 'w-full h-90 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center'
+        return 'w-full h-90'
       case 'sidebar':
-        return 'w-full h-250 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center'
+        return 'w-full h-250'
       case 'content':
-        return 'w-full h-60 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center'
+        return 'w-full h-60'
       case 'leaderboard':
-        return 'w-full h-90 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center'
+        return 'w-full h-90'
       default:
-        return 'w-full h-90 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center'
+        return 'w-full h-90'
     }
   }
 
-  const getAdContent = () => {
-    if (adError) {
-      return (
-        <div className="text-center">
-          <p className="text-gray-500 text-sm">Ad temporarily unavailable</p>
-        </div>
-      )
-    }
-
-    if (!isAdLoaded) {
-      return (
-        <div className="text-center">
-          <div className="loading-spinner mx-auto mb-2"></div>
-          <p className="text-gray-500 text-sm">Loading advertisement...</p>
-        </div>
-      )
-    }
-
-    return (
-      <div className="text-center">
-        <p className="text-gray-500 text-sm mb-2">Advertisement</p>
-        <div className="bg-white rounded p-4 shadow-sm">
-          <p className="text-gray-700 font-medium">Premium Study Materials</p>
-          <p className="text-gray-500 text-xs mt-1">Get exclusive access to advanced practice tests</p>
-          <button className="mt-2 bg-primary-600 text-white px-4 py-1 rounded text-xs hover:bg-primary-700 transition-colors">
-            Learn More
-          </button>
-        </div>
-      </div>
-    )
+  const getAdSlotId = () => {
+    // Generate unique ad slot IDs based on position and size
+    const baseSlot = adSlot || `ad-${position}-${size}`
+    return baseSlot.replace(/[^a-zA-Z0-9-]/g, '-')
   }
 
-  // Don't render ad zones in development
+  // Don't render ads in development to avoid policy violations
   if (process.env.NODE_ENV === 'development') {
     return (
-      <div className={`${getAdStyles()} my-4`}>
+      <div className={`${getAdStyles()} my-4 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center`}>
         <div className="text-center">
           <p className="text-gray-500 text-sm font-medium">Ad Zone: {position}</p>
           <p className="text-gray-400 text-xs">Size: {size}</p>
+          <p className="text-gray-400 text-xs">Slot: {getAdSlotId()}</p>
         </div>
       </div>
     )
   }
 
+  // Production: Render actual AdSense ads
   return (
     <div className={`${getAdStyles()} my-4`}>
-      {getAdContent()}
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-8085911050404684"
+        data-ad-slot={getAdSlotId()}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
     </div>
   )
 }

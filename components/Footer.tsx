@@ -124,9 +124,9 @@ export default function Footer() {
             © {currentYear} CitizenTest Canada. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <span className="text-gray-400 text-sm">
+            <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
               Privacy Policy
-            </span>
+            </Link>
             <span className="text-gray-400 text-sm">
               Terms of Service
             </span>
