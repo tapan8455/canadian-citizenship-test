@@ -88,17 +88,17 @@ export default function PracticeTestPage() {
   useEffect(() => {
     if (!testStarted || isTestComplete) return
 
-    const timer = setInterval(() => {
+      const timer = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev <= 1) {
-          setIsTestComplete(true)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
+          if (prev <= 1) {
+            setIsTestComplete(true)
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
 
-    return () => clearInterval(timer)
+      return () => clearInterval(timer)
   }, [testStarted, isTestComplete])
 
   const startTest = () => {
@@ -203,9 +203,9 @@ export default function PracticeTestPage() {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="max-w-4xl mx-auto px-4 py-12">
-          <TestResults
+        <TestResults 
             questions={mappedQuestions}
-            answers={answers}
+          answers={answers}
             category={categories[category].name}
             timeTaken={45 * 60 - timeLeft}
           />
@@ -316,7 +316,7 @@ export default function PracticeTestPage() {
              <div className="max-w-4xl mx-auto px-4 py-8">
          {currentQuestion && (
            <>
-             <TestQuestion
+          <TestQuestion
                question={{
                  id: currentQuestion.id,
                  question: currentQuestion.question,
@@ -325,30 +325,30 @@ export default function PracticeTestPage() {
                  explanation: currentQuestion.explanation
                }}
                questionNumber={currentQuestionIndex + 1}
-               totalQuestions={questions.length}
+            totalQuestions={questions.length}
                selectedAnswer={userAnswers[currentQuestion.id]}
                onAnswerSelect={(answerIndex) => handleAnswerSelect(currentQuestion.id, answerIndex)}
-             />
-             
+          />
+          
              {/* Navigation Buttons */}
              <div className="flex justify-between mt-8">
-               <button
+            <button
                  onClick={handlePreviousQuestion}
                  disabled={currentQuestionIndex === 0}
                  className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
-               >
-                 Previous
-               </button>
+            >
+              Previous
+            </button>
                <button
                  onClick={handleNextQuestion}
                  className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                >
                  {currentQuestionIndex === questions.length - 1 ? 'Finish Test' : 'Next'}
                </button>
-             </div>
+                </div>
            </>
          )}
-       </div>
+      </div>
 
       {/* Ad Zone */}
       <AdZone position="practice-bottom" />

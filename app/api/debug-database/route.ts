@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     const tableInfo = await db.all("SELECT name FROM sqlite_master WHERE type='table'")
     
     let questionsCount = 0
-    let sampleQuestions = []
+    let sampleQuestions: any[] = []
     
     try {
       // Try to get questions count
