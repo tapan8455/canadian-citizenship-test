@@ -6,7 +6,7 @@ import { ClockIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/24/outlin
 import Header from '@/components/Header'
 import TestQuestion from '@/components/TestQuestion'
 import TestResults from '@/components/TestResults'
-import AdZone from '@/components/AdZone'
+// import AdZone from '@/components/AdZone'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useSession } from 'next-auth/react'
 
