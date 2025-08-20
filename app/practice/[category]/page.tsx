@@ -102,6 +102,8 @@ export default function PracticeTestPage() {
   }, [testStarted, isTestComplete])
 
   const startTest = () => {
+    console.log('Starting test with questions:', questions.length)
+    console.log('First question:', questions[0])
     setTestStarted(true)
     setTimeLeft(45 * 60) // Reset timer
   }
@@ -280,6 +282,10 @@ export default function PracticeTestPage() {
   }
 
   const currentQuestion = questions[currentQuestionIndex]
+  
+  console.log('Current question index:', currentQuestionIndex)
+  console.log('Current question:', currentQuestion)
+  console.log('Questions array length:', questions.length)
 
   return (
     <div className="min-h-screen bg-gray-50">
