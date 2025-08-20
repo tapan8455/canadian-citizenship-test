@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       questionsCount = (countResult as { count: number })?.count || 0
       
       // Try to get sample questions
-      sampleQuestions = await db.all("SELECT id, category, question, options FROM questions LIMIT 3")
+      sampleQuestions = await db.all("SELECT id, category, question, options FROM questions LIMIT 3") as Array<{ id: number; category: string; question: string; options: string }>
     } catch (error) {
       console.error('Error querying questions table:', error)
     }
