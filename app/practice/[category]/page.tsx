@@ -269,11 +269,18 @@ export default function PracticeTestPage() {
 
             <div className="text-center">
               <button
-                onClick={startTest}
+                onClick={() => {
+                  console.log('Button clicked!')
+                  console.log('Questions length:', questions.length)
+                  console.log('Test started before:', testStarted)
+                  startTest()
+                  console.log('Test started after:', testStarted)
+                }}
                 className="btn-primary text-lg px-8 py-3"
               >
                 Start Practice Test
               </button>
+              <p className="text-sm text-gray-500 mt-2">Debug: Questions loaded: {questions.length}</p>
             </div>
           </div>
         </div>
