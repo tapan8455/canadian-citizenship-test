@@ -102,6 +102,12 @@ export async function GET(request: NextRequest) {
     
     const questions = await db.all(query, params)
     
+    // Add debug information
+    console.log('Debug: Raw questions from database:', questions.length)
+    if (questions.length > 0) {
+      console.log('Debug: First question sample:', questions[0])
+    }
+    
     // Parse the options JSON for each question
     const formattedQuestions = questions.map((q: unknown) => {
       const question = q as { options: string; [key: string]: unknown }
