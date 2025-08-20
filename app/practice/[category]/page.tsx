@@ -270,6 +270,7 @@ export default function PracticeTestPage() {
             <div className="text-center">
               <button
                 onClick={() => {
+                  alert('Button clicked! Questions: ' + questions.length)
                   console.log('Button clicked!')
                   console.log('Questions length:', questions.length)
                   console.log('Test started before:', testStarted)
