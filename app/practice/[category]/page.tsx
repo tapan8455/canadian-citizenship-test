@@ -269,7 +269,10 @@ export default function PracticeTestPage() {
 
             <div className="text-center">
               <button
-                onClick={() => {
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
                   alert('Button clicked! Questions: ' + questions.length)
                   console.log('Button clicked!')
                   console.log('Questions length:', questions.length)
@@ -278,6 +281,7 @@ export default function PracticeTestPage() {
                   console.log('Test started after:', testStarted)
                 }}
                 className="btn-primary text-lg px-8 py-3"
+                style={{ zIndex: 1000, position: 'relative' }}
               >
                 Start Practice Test
               </button>
@@ -364,8 +368,8 @@ export default function PracticeTestPage() {
          )}
       </div>
 
-      {/* Ad Zone */}
-      <AdZone position="practice-bottom" />
+      {/* Ad Zone - Temporarily disabled for debugging */}
+      {/* <AdZone position="practice-bottom" /> */}
     </div>
   )
 }
