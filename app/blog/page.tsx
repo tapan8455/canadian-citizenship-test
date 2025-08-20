@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { BookOpenIcon, ClockIcon, ChartBarIcon } from '@heroicons/react/24/outline'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import AdZone from '@/components/AdZone'
 
 export const metadata = {
   title: 'Canadian Citizenship Test Blog - Study Tips & Resources',
@@ -68,6 +71,8 @@ const blogPosts = [
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Header />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
@@ -158,6 +163,11 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
+
+      {/* Ad Zone */}
+      <AdZone position="blog-bottom" />
+
+      <Footer />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://canadian-citizenship-test-jcpt.vercel.app'
+  const baseUrl = 'https://citizentestcanada.com'
   
   return [
     {

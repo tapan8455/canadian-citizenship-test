@@ -34,14 +34,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://canadian-citizenship-test-jcpt.vercel.app'),
+  metadataBase: new URL('https://citizentestcanada.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
     description: 'Master the Canadian Citizenship Test with our free online practice platform. 3,100+ questions, official format, detailed explanations.',
-    url: 'https://canadian-citizenship-test-jcpt.vercel.app',
+    url: 'https://citizentestcanada.com',
     siteName: 'Canadian Citizenship Test Practice',
     images: [
       {
@@ -89,18 +89,22 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-8085911050404684" />
       </head>
       <body className={inter.className}>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'GA_MEASUREMENT_ID');
-          `}
-        </Script>
+        {process.env.GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
         
         {/* Google AdSense */}
         <Script

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://canadian-citizenship-test-jcpt.vercel.app/sitemap.xml',
+    sitemap: 'https://citizentestcanada.com/sitemap.xml',
   }
 }
