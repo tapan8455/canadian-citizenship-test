@@ -35,6 +35,11 @@ const categories: Record<string, { name: string; description: string; color: str
     name: 'Rights & Responsibilities',
     description: 'Canadian Charter of Rights and Freedoms, citizenship responsibilities',
     color: 'bg-red-500'
+  },
+  full: {
+    name: 'Official Practice Test',
+    description: 'Exact simulation of the actual citizenship test - 20 questions, 45 minutes',
+    color: 'bg-indigo-500'
   }
 }
 
