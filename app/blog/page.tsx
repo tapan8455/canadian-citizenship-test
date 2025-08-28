@@ -32,7 +32,7 @@ const blogPosts = [
     excerpt: 'Discover the most frequently asked questions on the Canadian citizenship test and learn how to answer them correctly.',
     readTime: '6 min read',
     category: 'Test Questions',
-    slug: 'top-10-common-citizenship-test-questions'
+    slug: 'canadian-citizenship-test-questions'
   },
   {
     id: 3,

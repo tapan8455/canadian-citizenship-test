@@ -10,10 +10,10 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
+    default: 'Canadian Citizenship Test Practice - Free Online Practice Tests | Pass Your Exam',
     template: '%s | Canadian Citizenship Test Practice'
   },
-  description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format (20 questions, 45 minutes), detailed explanations, and progress tracking.',
+  description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ official format questions, detailed explanations, progress tracking. Pass your citizenship exam with confidence!',
   keywords: [
     'Canadian citizenship test',
     'citizenship practice test',
@@ -24,7 +24,27 @@ export const metadata: Metadata = {
     'Canada immigration test',
     'citizenship practice questions',
     'free citizenship test',
-    'Canadian citizenship exam practice'
+    'Canadian citizenship exam practice',
+    'citizenship test online',
+    'Canada citizenship practice',
+    'citizenship test study guide',
+    'Canadian citizenship questions',
+    'citizenship exam preparation',
+    'Canada citizenship test questions',
+    'citizenship test practice online',
+    'Canadian citizenship exam questions',
+    'citizenship test study materials',
+    'Canada citizenship exam practice',
+    'citizenship test free',
+    'Canadian citizenship test preparation',
+    'citizenship test questions and answers',
+    'Canada citizenship test study guide',
+    'citizenship test practice questions',
+    'Canadian citizenship test online',
+    'citizenship exam questions',
+    'Canada citizenship test preparation',
+    'citizenship test study materials',
+    'Canadian citizenship test guide'
   ],
   authors: [{ name: 'CitizenTest Canada' }],
   creator: 'CitizenTest Canada',
@@ -124,6 +144,76 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        
+        {/* Structured Data Schema */}
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Canadian Citizenship Test Practice",
+              "url": "https://citizentestcanada.com",
+              "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://citizentestcanada.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "CitizenTest Canada",
+                "url": "https://citizentestcanada.com"
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "CAD",
+                "description": "Free access to Canadian Citizenship Test practice questions"
+              }
+            })
+          }}
+        />
+
+        {/* FAQ Schema */}
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What is the Canadian Citizenship Test?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Canadian Citizenship Test is a mandatory exam for permanent residents applying for Canadian citizenship. It consists of 20 multiple-choice questions based on the Discover Canada study guide, with a 45-minute time limit. You need to answer 15 questions correctly (75%) to pass."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How many questions are in the citizenship test?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The official Canadian Citizenship Test contains exactly 20 questions. Our practice tests follow the same format to give you the most realistic preparation experience possible."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is this practice test free?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! All our practice tests, study materials, and resources are completely free. We believe everyone should have access to quality citizenship test preparation materials."
+                  }
+                }
+              ]
+            })
+          }}
+        />
+        
         <ErrorBoundary>
           <AuthProvider>
             {children}
