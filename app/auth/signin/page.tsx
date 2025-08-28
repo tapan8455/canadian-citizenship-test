@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import Head from 'next/head'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
@@ -56,8 +57,15 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <>
+      <Head>
+        <title>Sign In - Canadian Citizenship Test Practice</title>
+        <meta name="description" content="Sign in to your account to access Canadian Citizenship Test practice questions and track your progress." />
+        <meta name="robots" content="noindex, nofollow, nocache" />
+        <link rel="canonical" href="https://citizentestcanada.com/auth/signin" />
+      </Head>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
       
       <div className="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
@@ -177,6 +185,7 @@ export default function SignInPage() {
       </div>
 
       <Footer />
-    </div>
+      </div>
+    </>
   )
 }

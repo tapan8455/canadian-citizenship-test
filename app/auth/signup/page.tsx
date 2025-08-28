@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import Head from 'next/head'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
@@ -70,8 +71,15 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">
-      <Header />
+    <>
+      <Head>
+        <title>Sign Up - Create Account | Canadian Citizenship Test Practice</title>
+        <meta name="description" content="Create your free account to access Canadian Citizenship Test practice questions, track your progress, and prepare for your citizenship exam." />
+        <meta name="robots" content="noindex, nofollow, nocache" />
+        <link rel="canonical" href="https://citizentestcanada.com/auth/signup" />
+      </Head>
+      <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">
+        <Header />
       
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-md mx-auto">
@@ -201,6 +209,7 @@ export default function SignupPage() {
 
       <AdZone position="bottom" />
       <Footer />
-    </div>
+      </div>
+    </>
   )
 }

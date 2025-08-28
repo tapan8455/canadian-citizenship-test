@@ -35,9 +35,6 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://citizentestcanada.com'),
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
     description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations.',
@@ -85,7 +82,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://citizentestcanada.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
         <meta name="google-adsense-account" content="ca-pub-8085911050404684" />
         <meta name="description" content="Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations. Prepare for your citizenship exam with confidence." />
         <meta name="keywords" content="Canadian citizenship test, citizenship practice test, Canada citizenship exam, citizenship test questions, Canadian citizenship study guide" />

@@ -1,9 +1,24 @@
-'use client'
-
+import { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Study Guide - Canadian Citizenship Test Preparation',
+  description: 'Comprehensive study guide for the Canadian Citizenship Test. Learn about Canadian history, government, geography, and rights with detailed explanations and practice resources.',
+  alternates: {
+    canonical: 'https://citizentestcanada.com/study-guide',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+}
 
 export default function StudyGuidePage() {
   return (
