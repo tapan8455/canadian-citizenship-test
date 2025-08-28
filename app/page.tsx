@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRightIcon, CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, StarIcon, UserGroupIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon, CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, StarIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
@@ -176,7 +176,7 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4">
-                "This practice test helped me pass the Canadian Citizenship Test on my first try. The questions are very similar to the real exam!"
+                &ldquo;This practice test helped me pass the Canadian Citizenship Test on my first try. The questions are very similar to the real exam!&rdquo;
               </p>
               <div className="flex items-center">
                 <UserGroupIcon className="h-8 w-8 text-primary-600 mr-3" />
@@ -196,7 +196,7 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4">
-                "The study guide is comprehensive and the practice tests are excellent. I felt confident going into the citizenship exam."
+                &ldquo;The study guide is comprehensive and the practice tests are excellent. I felt confident going into the citizenship exam.&rdquo;
               </p>
               <div className="flex items-center">
                 <UserGroupIcon className="h-8 w-8 text-primary-600 mr-3" />
@@ -216,7 +216,7 @@ export default function HomePage() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4">
-                "Free access to quality practice questions made all the difference. The progress tracking helped me focus on weak areas."
+                &ldquo;Free access to quality practice questions made all the difference. The progress tracking helped me focus on weak areas.&rdquo;
               </p>
               <div className="flex items-center">
                 <UserGroupIcon className="h-8 w-8 text-primary-600 mr-3" />
@@ -309,7 +309,7 @@ export default function HomePage() {
                 What happens if I fail the citizenship test?
               </h3>
               <p className="text-gray-600">
-                If you don't pass the test, you'll be given another opportunity to retake it after 4-8 weeks. You may also be 
+                If you don&apos;t pass the test, you&apos;ll be given another opportunity to retake it after 4-8 weeks. You may also be 
                 asked to attend an interview with a citizenship officer to discuss your application.
               </p>
             </div>

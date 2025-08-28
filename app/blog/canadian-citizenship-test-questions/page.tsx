@@ -63,7 +63,7 @@ export default function CitizenshipTestQuestionsPage() {
               <p className="text-gray-700 mb-4">
                 The Canadian Citizenship Test consists of 20 multiple-choice or true/false questions. You have 45 minutes 
                 to complete the test, and you need to answer at least 15 questions correctly (75%) to pass. All questions 
-                are based on the official study guide "Discover Canada: The Rights and Responsibilities of Citizenship."
+                are based on the official study guide &ldquo;Discover Canada: The Rights and Responsibilities of Citizenship.&rdquo;
               </p>
 
               <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
@@ -115,7 +115,7 @@ export default function CitizenshipTestQuestionsPage() {
                 <strong>Answer:</strong> Federal, Provincial/Territorial, and Municipal
               </p>
               <p className="text-gray-600 mb-6">
-                Understanding Canada's federal system is essential for citizenship. Each level has different 
+                Understanding Canada&apos;s federal system is essential for citizenship. Each level has different 
                 responsibilities and powers. The federal government handles national issues, provinces manage 
                 regional matters, and municipalities handle local services.
               </p>
@@ -152,7 +152,7 @@ export default function CitizenshipTestQuestionsPage() {
               </p>
               <p className="text-gray-600 mb-6">
                 This is a crucial date in Canadian history when the British North America Act created the Dominion 
-                of Canada. It's celebrated as Canada Day and marks the beginning of Canada as a self-governing nation.
+                of Canada. It&apos;s celebrated as Canada Day and marks the beginning of Canada as a self-governing nation.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
@@ -173,7 +173,7 @@ export default function CitizenshipTestQuestionsPage() {
                 <strong>Answer:</strong> The representative of the Queen in Canada
               </p>
               <p className="text-gray-600 mb-6">
-                The Governor General is the Queen's representative in Canada and performs ceremonial duties. 
+                The Governor General is the Queen&apos;s representative in Canada and performs ceremonial duties. 
                 They also have constitutional responsibilities such as giving royal assent to bills.
               </p>
 
