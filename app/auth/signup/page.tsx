@@ -75,7 +75,7 @@ export default function SignupPage() {
       <Head>
         <title>Sign Up - Create Account | Canadian Citizenship Test Practice</title>
         <meta name="description" content="Create your free account to access Canadian Citizenship Test practice questions, track your progress, and prepare for your citizenship exam." />
-        <meta name="robots" content="noindex, nofollow, nocache" />
+        <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://citizentestcanada.com/auth/signup" />
       </Head>
       <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">

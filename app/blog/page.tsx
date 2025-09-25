@@ -3,6 +3,7 @@ import { BookOpenIcon, ClockIcon, ChartBarIcon } from '@heroicons/react/24/outli
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'Canadian Citizenship Test Blog - Study Tips & Resources',
@@ -14,7 +15,18 @@ export const metadata = {
     'citizenship test questions and answers',
     'Canadian citizenship test blog',
     'citizenship test resources'
-  ]
+  ],
+  alternates: {
+    canonical: 'https://citizentestcanada.com/blog',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 }
 
 const blogPosts = [
@@ -71,6 +83,35 @@ const blogPosts = [
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Script
+        id="blog-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "Canadian Citizenship Test Blog",
+            "description": "Expert tips, study guides, and resources to help you pass the Canadian citizenship test.",
+            "url": "https://citizentestcanada.com/blog",
+            "publisher": {
+              "@type": "Organization",
+              "name": "CitizenTest Canada",
+              "url": "https://citizentestcanada.com"
+            },
+            "blogPost": blogPosts.map(post => ({
+              "@type": "BlogPosting",
+              "headline": post.title,
+              "description": post.excerpt,
+              "url": `https://citizentestcanada.com/blog/${post.slug}`,
+              "datePublished": "2024-01-01",
+              "author": {
+                "@type": "Organization",
+                "name": "CitizenTest Canada"
+              }
+            }))
+          })
+        }}
+      />
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

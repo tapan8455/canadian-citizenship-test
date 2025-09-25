@@ -3,6 +3,7 @@ import { CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, Use
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'About Canadian Citizenship Test - Your Trusted Study Partner',
@@ -13,7 +14,18 @@ export const metadata = {
     'Canada citizenship exam help',
     'citizenship test study resources',
     'Canadian citizenship test mission'
-  ]
+  ],
+  alternates: {
+    canonical: 'https://citizentestcanada.com/about',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 }
 
 const features = [
@@ -59,6 +71,33 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Script
+        id="about-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Canadian Citizenship Test Practice",
+            "url": "https://citizentestcanada.com",
+            "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Toronto",
+              "addressRegion": "Ontario",
+              "addressCountry": "CA"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "info@citizentestcanada.com",
+              "contactType": "customer service"
+            },
+            "sameAs": [
+              "https://citizentestcanada.com"
+            ]
+          })
+        }}
+      />
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

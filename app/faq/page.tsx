@@ -3,6 +3,7 @@ import { QuestionMarkCircleIcon, BookOpenIcon, ChartBarIcon } from '@heroicons/r
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
+import Script from 'next/script'
 
 export const metadata = {
   title: 'Canadian Citizenship Test FAQ - Frequently Asked Questions',
@@ -13,7 +14,18 @@ export const metadata = {
     'Canada citizenship exam FAQ',
     'citizenship test preparation',
     'Canadian citizenship requirements'
-  ]
+  ],
+  alternates: {
+    canonical: 'https://citizentestcanada.com/faq',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 }
 
 const faqs = [
@@ -86,6 +98,24 @@ const faqs = [
 export default function FAQPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <Script
+        id="faq-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          })
+        }}
+      />
       <Header />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

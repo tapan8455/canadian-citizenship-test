@@ -6,11 +6,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/auth/'],
+        disallow: ['/api/', '/admin/'],
       },
       {
         userAgent: 'Googlebot',
-        disallow: ['/auth/'],
+        allow: '/',
+        disallow: ['/api/', '/admin/'],
       },
     ],
     sitemap: 'https://citizentestcanada.com/sitemap.xml',
