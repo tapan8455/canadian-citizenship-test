@@ -18,6 +18,12 @@ export const metadata = {
   alternates: {
     canonical: 'https://citizentestcanada.com/about',
   },
+  openGraph: {
+    title: 'About Canadian Citizenship Test - Your Trusted Study Partner',
+    description: 'Learn about our mission to help thousands of Canadians prepare for and pass the citizenship test with confidence. Discover our comprehensive study platform.',
+    url: 'https://citizentestcanada.com/about',
+    type: 'website',
+  },
   robots: {
     index: true,
     follow: true,

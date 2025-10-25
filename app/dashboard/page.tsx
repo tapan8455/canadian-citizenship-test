@@ -1,3 +1,14 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Track Your Citizenship Test Progress | CitizenTest Canada',
+  description: 'Monitor your Canadian citizenship test preparation progress with detailed analytics, test results, and performance tracking.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+}
+
 'use client'
 
 import { useState, useEffect } from 'react'

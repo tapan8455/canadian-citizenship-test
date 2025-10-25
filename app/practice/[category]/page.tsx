@@ -1,3 +1,43 @@
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+  const categoryNames: { [key: string]: string } = {
+    general: 'General Knowledge',
+    history: 'Canadian History',
+    government: 'Government & Politics',
+    geography: 'Geography & Symbols',
+    rights: 'Rights & Responsibilities',
+    full: 'Official Practice Test'
+  }
+
+  const categoryName = categoryNames[params.category] || params.category
+
+  return {
+    title: `${categoryName} Practice Test - Canadian Citizenship Test | CitizenTest Canada`,
+    description: `Take a free ${categoryName.toLowerCase()} practice test for the Canadian citizenship exam. 20 questions, 45 minutes, official format. Pass your citizenship test with confidence!`,
+    keywords: [
+      `Canadian citizenship ${params.category} test`,
+      `${params.category} citizenship practice`,
+      'Canada citizenship exam',
+      'citizenship test questions',
+      'Canadian citizenship study'
+    ],
+    alternates: {
+      canonical: `https://citizentestcanada.com/practice/${params.category}`,
+    },
+    openGraph: {
+      title: `${categoryName} Practice Test - Canadian Citizenship`,
+      description: `Take a free ${categoryName.toLowerCase()} practice test for the Canadian citizenship exam.`,
+      url: `https://citizentestcanada.com/practice/${params.category}`,
+      type: 'website',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  }
+}
+
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -9,6 +49,7 @@ import TestResults from '@/components/TestResults'
 // import AdZone from '@/components/AdZone'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useSession } from 'next-auth/react'
+import Script from 'next/script'
 
 const categories: Record<string, { name: string; description: string; color: string }> = {
   general: {
@@ -306,6 +347,29 @@ export default function PracticeTestPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Script
+        id="practice-test-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EducationalOccupationalProgram",
+            "name": `${categories[category]?.name || category} Practice Test`,
+            "description": `Free ${categories[category]?.name || category} practice test for Canadian citizenship exam preparation`,
+            "provider": {
+              "@type": "Organization",
+              "name": "CitizenTest Canada",
+              "url": "https://citizentestcanada.com"
+            },
+            "educationalLevel": "Adult",
+            "timeRequired": "PT45M",
+            "courseMode": "online",
+            "isAccessibleForFree": true,
+            "teaches": "Canadian citizenship knowledge",
+            "about": "Canadian citizenship test preparation"
+          })
+        }}
+      />
       <Header />
       
       {/* Progress Bar */}

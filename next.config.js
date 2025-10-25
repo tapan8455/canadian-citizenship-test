@@ -32,6 +32,23 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      // Redirect common variations to main domain
+      {
+        source: '/index.html',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/index.php',
+        destination: '/',
+        permanent: true,
+      },
+      // Redirect trailing slash variations
+      {
+        source: '/blog/canadian-citizenship-test-questions/',
+        destination: '/blog/canadian-citizenship-test-questions',
+        permanent: true,
+      },
     ]
   },
 }

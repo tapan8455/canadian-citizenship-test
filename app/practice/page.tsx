@@ -1,5 +1,4 @@
-'use client'
-
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { useState } from 'react'
 import { BookOpenIcon, ClockIcon, ChartBarIcon, StarIcon } from '@heroicons/react/24/outline'
@@ -7,6 +6,33 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
 import ProvinceSelector from '@/components/ProvinceSelector'
+
+export const metadata: Metadata = {
+  title: 'Free Canadian Citizenship Practice Tests - 223+ Questions | CitizenTest Canada',
+  description: 'Take free Canadian citizenship practice tests with 223+ official format questions. Practice by category: history, government, geography, rights. Pass your citizenship exam with confidence!',
+  keywords: [
+    'Canadian citizenship practice test',
+    'citizenship test practice online',
+    'Canada citizenship exam practice',
+    'citizenship test questions',
+    'Canadian citizenship study',
+    'citizenship test preparation',
+    'free citizenship practice'
+  ],
+  alternates: {
+    canonical: 'https://citizentestcanada.com/practice',
+  },
+  openGraph: {
+    title: 'Free Canadian Citizenship Practice Tests - 223+ Questions',
+    description: 'Take free Canadian citizenship practice tests with 223+ official format questions. Practice by category and pass your exam!',
+    url: 'https://citizentestcanada.com/practice',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 
 const testCategories = [
   {

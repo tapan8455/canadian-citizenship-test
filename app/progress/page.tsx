@@ -1,3 +1,14 @@
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Progress Tracking - Canadian Citizenship Test Analytics | CitizenTest Canada',
+  description: 'Track your Canadian citizenship test progress with detailed analytics, performance metrics, and study recommendations.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+}
+
 'use client'
 
 import { useState, useEffect } from 'react'

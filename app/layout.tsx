@@ -55,6 +55,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://citizentestcanada.com'),
+  alternates: {
+    canonical: 'https://citizentestcanada.com',
+  },
   openGraph: {
     title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
     description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations.',
