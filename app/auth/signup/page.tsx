@@ -1,16 +1,5 @@
 'use client'
 
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Sign Up - Canadian Citizenship Test Practice | CitizenTest Canada',
-  description: 'Create your free account to access Canadian citizenship test practice questions and track your progress.',
-  robots: {
-    index: false,
-    follow: true,
-  },
-}
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'

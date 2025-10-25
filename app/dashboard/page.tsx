@@ -1,16 +1,5 @@
 'use client'
 
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Dashboard - Track Your Citizenship Test Progress | CitizenTest Canada',
-  description: 'Monitor your Canadian citizenship test preparation progress with detailed analytics, test results, and performance tracking.',
-  robots: {
-    index: false,
-    follow: true,
-  },
-}
-
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'

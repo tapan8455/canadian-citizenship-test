@@ -1,16 +1,5 @@
 'use client'
 
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Sign In - Canadian Citizenship Test Practice | CitizenTest Canada',
-  description: 'Sign in to your Canadian citizenship test practice account to track your progress and save your results.',
-  robots: {
-    index: false,
-    follow: true,
-  },
-}
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
