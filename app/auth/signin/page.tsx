@@ -1,3 +1,5 @@
+'use client'
+
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,8 +10,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 }
-
-'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'

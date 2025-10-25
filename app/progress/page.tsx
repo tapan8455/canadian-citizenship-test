@@ -1,3 +1,5 @@
+'use client'
+
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,8 +10,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 }
-
-'use client'
 
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'

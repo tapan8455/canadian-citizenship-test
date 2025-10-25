@@ -1,3 +1,5 @@
+'use client'
+
 import { Metadata } from 'next'
 
 export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
@@ -37,8 +39,6 @@ export async function generateMetadata({ params }: { params: { category: string 
     },
   }
 }
-
-'use client'
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
