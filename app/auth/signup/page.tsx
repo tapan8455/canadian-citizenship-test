@@ -6,22 +6,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
-
-export const metadata: Metadata = {
-  title: 'Sign Up - Create Account | Canadian Citizenship Test Practice',
-  description: 'Create your free account to access Canadian Citizenship Test practice questions, track your progress, and prepare for your citizenship exam.',
-  alternates: {
-    canonical: 'https://citizentestcanada.com/auth/signup',
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
-}
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
