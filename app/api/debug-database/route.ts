@@ -19,8 +19,19 @@ export async function GET(request: NextRequest) {
 
     const db = await getDatabase()
     
-    // Check if questions table exists and has data (PostgreSQL syntax)
-    const tableInfo = await db.all("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+    // Check if questions table exists and has data (support both PostgreSQL and SQLite)
+    let tableInfo: unknown[] = []
+    try {
+      // PostgreSQL
+      tableInfo = await db.all("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+    } catch {
+      try {
+        // SQLite fallback
+        tableInfo = await db.all("SELECT name as table_name FROM sqlite_master WHERE type='table'")
+      } catch (e) {
+        console.error('Error listing tables:', e)
+      }
+    }
     
     let questionsCount = 0
     let sampleQuestions: Array<{ id: number; category: string; question: string; options: string }> = []

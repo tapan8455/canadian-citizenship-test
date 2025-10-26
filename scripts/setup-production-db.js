@@ -118,7 +118,12 @@ async function setupProductionDatabase() {
 
   } catch (error) {
     console.error('❌ Error setting up database:', error)
-    process.exit(1)
+    // If executed directly via Node, exit with failure; otherwise, throw for callers (e.g., API route)
+    if (require.main === module) {
+      process.exit(1)
+    } else {
+      throw error
+    }
   }
 }
 

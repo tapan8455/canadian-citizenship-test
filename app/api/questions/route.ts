@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
 
     // Filter by province if specified
     if (province && province !== 'all') {
-      query += ' AND (province = ? OR province = "all")'
+      query += " AND (province = ? OR province = 'all')"
       params.push(province)
     }
     

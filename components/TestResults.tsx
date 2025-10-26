@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { XCircleIcon, TrophyIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
@@ -23,7 +23,6 @@ interface TestResultsProps {
 export default function TestResults({ questions, answers, category, timeTaken = 0 }: TestResultsProps) {
   const [showReview, setShowReview] = useState(false)
   const [currentReviewQuestion, setCurrentReviewQuestion] = useState(0)
-  const [resultsSaved, setResultsSaved] = useState(false)
 
   // Calculate results
   const totalQuestions = questions.length
@@ -32,57 +31,13 @@ export default function TestResults({ questions, answers, category, timeTaken = 
   const score = Math.round((correctAnswers / totalQuestions) * 100)
   const passed = score >= 75 // 75% is typically the passing score
 
-    // Save results to database
-  useEffect(() => {
-    const saveResults = async () => {
-      if (!resultsSaved) {
-        try {
-          // Get the category key from the display name
-          const categoryMap: { [key: string]: string } = {
-            'General Knowledge': 'general',
-            'Canadian History': 'history',
-            'Government & Politics': 'government',
-            'Geography & Symbols': 'geography',
-            'Rights & Responsibilities': 'rights',
-            'Full Practice Test': 'full'
-          }
-          
-          const categoryKey = categoryMap[category] || 'general'
-          
-          const response = await fetch('/api/results', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              category: categoryKey,
-              score: score,
-              totalQuestions: totalQuestions,
-              correctAnswers: correctAnswers,
-              timeTaken: timeTaken
-            }),
-          })
-
-          if (response.ok) {
-            setResultsSaved(true)
-            console.log('Test results saved successfully!')
-          }
-        } catch (error) {
-          console.error('Error saving test results:', error)
-        }
-      }
-    }
-
-    saveResults()
-  }, [resultsSaved, category, score, totalQuestions, correctAnswers, timeTaken])
-
   // Prepare data for charts
-
-  // Prepare data for charts
+  const incorrectAnswers = Math.max(0, answeredQuestions - correctAnswers)
+  const unanswered = Math.max(0, totalQuestions - answeredQuestions)
   const pieData = [
     { name: 'Correct', value: correctAnswers, color: '#10B981' },
-    { name: 'Incorrect', value: totalQuestions - correctAnswers, color: '#EF4444' },
-    { name: 'Unanswered', value: totalQuestions - answeredQuestions, color: '#6B7280' }
+    { name: 'Incorrect', value: incorrectAnswers, color: '#EF4444' },
+    { name: 'Unanswered', value: unanswered, color: '#6B7280' }
   ]
 
   const barData = questions.map((question, index) => ({
@@ -103,6 +58,12 @@ export default function TestResults({ questions, answers, category, timeTaken = 
     if (score >= 75) return 'Good job! You passed the test with a solid score.'
     if (score >= 60) return 'You\'re on the right track, but need more practice.'
     return 'Keep studying! Focus on the areas where you struggled.'
+  }
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${minutes}:${secs.toString().padStart(2, '0')}`
   }
 
   return (
@@ -149,6 +110,9 @@ export default function TestResults({ questions, answers, category, timeTaken = 
                   )}
                 </div>
                 <p className="text-gray-600 mb-6">{getScoreMessage(score)}</p>
+                {timeTaken > 0 && (
+                  <p className="text-sm text-gray-500">Time Taken: {formatTime(timeTaken)}</p>
+                )}
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                   <div className="text-center">

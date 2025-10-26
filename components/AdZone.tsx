@@ -27,15 +27,15 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
   const getAdStyles = () => {
     switch (size) {
       case 'banner':
-        return 'w-full h-90'
+        return 'w-full h-[90px]'
       case 'sidebar':
-        return 'w-full h-250'
+        return 'w-full h-[250px]'
       case 'content':
-        return 'w-full h-60'
+        return 'w-full h-[60px]'
       case 'leaderboard':
-        return 'w-full h-90'
+        return 'w-full h-[90px]'
       default:
-        return 'w-full h-90'
+        return 'w-full h-[90px]'
     }
   }
 
@@ -58,6 +58,11 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
     )
   }
 
+  // In production, ensure a valid numeric adSlot is provided; otherwise, don't render
+  if (!adSlot) {
+    return null
+  }
+
   // Production: Render actual AdSense ads
   return (
     <div className={`${getAdStyles()} my-4`}>
@@ -66,7 +71,7 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-8085911050404684"
-        data-ad-slot={getAdSlotId()}
+        data-ad-slot={adSlot}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />

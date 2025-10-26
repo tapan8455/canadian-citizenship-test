@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { ClockIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/24/outline'
 import Header from '@/components/Header'
 import TestQuestion from '@/components/TestQuestion'
@@ -47,16 +47,17 @@ const categories: Record<string, { name: string; description: string; color: str
 export default function PracticeCategoryClient() {
   const params = useParams()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { data: session } = useSession()
   const [questions, setQuestions] = useState<Array<{
     id: number;
     question: string;
     options: string[];
-    correct_answer: string;
+    correct_answer: number;
     explanation: string;
   }>>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [answers, setAnswers] = useState<Record<number, number>>({})
   const [timeLeft, setTimeLeft] = useState(45 * 60) // 45 minutes in seconds
   const [isTestStarted, setIsTestStarted] = useState(false)
   const [isTestCompleted, setIsTestCompleted] = useState(false)
@@ -73,10 +74,10 @@ export default function PracticeCategoryClient() {
         id: number;
         question: string;
         options: string[];
-        correct_answer: string;
+        correct_answer: number;
         explanation: string;
       };
-      userAnswer: string;
+      userAnswer: number;
       isCorrect: boolean;
     }>;
   } | null>(null)
@@ -123,11 +124,9 @@ export default function PracticeCategoryClient() {
           body: JSON.stringify({
             category,
             score,
-            passed,
             correctAnswers,
             totalQuestions: questions.length,
-            timeSpent: 45 * 60 - timeLeft,
-            answers: results.answers
+            timeTaken: 45 * 60 - timeLeft
           }),
         })
       } catch (error) {
@@ -140,11 +139,12 @@ export default function PracticeCategoryClient() {
     const fetchQuestions = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/questions?category=${category}&limit=20`)
+        const province = searchParams.get('province') || 'all'
+        const response = await fetch(`/api/questions?category=${category}&province=${province}&limit=20`)
         const data = await response.json()
         
         if (data.success) {
-          setQuestions(data.questions)
+          setQuestions(data.data)
         } else {
           console.error('Failed to fetch questions:', data.error)
         }
@@ -156,7 +156,7 @@ export default function PracticeCategoryClient() {
     }
 
     fetchQuestions()
-  }, [category])
+  }, [category, searchParams])
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null
@@ -183,10 +183,10 @@ export default function PracticeCategoryClient() {
     setTimeLeft(45 * 60) // Reset timer
   }
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = (answerIndex: number) => {
     setAnswers(prev => ({
       ...prev,
-      [currentQuestionIndex]: answer
+      [currentQuestionIndex]: answerIndex
     }))
   }
 
@@ -246,14 +246,9 @@ export default function PracticeCategoryClient() {
         <TestResults 
           questions={questions.map(q => ({
             ...q,
-            correctAnswer: q.options.indexOf(q.correct_answer)
+            correctAnswer: q.correct_answer
           }))}
-          answers={Object.keys(answers).map(index => {
-            const questionIndex = parseInt(index)
-            const userAnswer = answers[questionIndex]
-            const question = questions[questionIndex]
-            return question.options.indexOf(userAnswer)
-          })}
+          answers={Object.keys(answers).map(index => answers[parseInt(index)])}
           category={category}
           timeTaken={45 * 60 - timeLeft}
         />
@@ -353,12 +348,12 @@ export default function PracticeCategoryClient() {
         <TestQuestion
           question={{
             ...currentQuestion,
-            correctAnswer: currentQuestion.options.indexOf(currentQuestion.correct_answer)
+            correctAnswer: currentQuestion.correct_answer
           }}
           questionNumber={currentQuestionIndex + 1}
           totalQuestions={questions.length}
-          selectedAnswer={currentQuestion.options.indexOf(answers[currentQuestionIndex] || '')}
-          onAnswerSelect={(answerIndex) => handleAnswerSelect(currentQuestion.options[answerIndex])}
+          selectedAnswer={answers[currentQuestionIndex]}
+          onAnswerSelect={(answerIndex) => handleAnswerSelect(answerIndex)}
         />
         
         {/* Navigation buttons */}

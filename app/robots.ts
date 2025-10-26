@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://citizentestcanada.com').replace(/\/$/, '')
   return {
     rules: [
       {
@@ -30,7 +31,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://citizentestcanada.com/sitemap.xml',
-    host: 'https://citizentestcanada.com',
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   }
 }

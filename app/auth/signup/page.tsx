@@ -6,10 +6,22 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
-import Head from 'next/head'
+import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
+
+export const metadata: Metadata = {
+  title: 'Sign Up - Create Account | Canadian Citizenship Test Practice',
+  description: 'Create your free account to access Canadian Citizenship Test practice questions, track your progress, and prepare for your citizenship exam.',
+  alternates: {
+    canonical: 'https://citizentestcanada.com/auth/signup',
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -71,16 +83,8 @@ export default function SignupPage() {
   }
 
   return (
-    <>
-      <Head>
-        <title>Sign Up - Create Account | Canadian Citizenship Test Practice</title>
-        <meta name="description" content="Create your free account to access Canadian Citizenship Test practice questions, track your progress, and prepare for your citizenship exam." />
-        <meta name="robots" content="noindex, nofollow" />
-        <link rel="canonical" href="https://citizentestcanada.com/auth/signup" />
-      </Head>
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">
-        <Header />
-      
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">
+      <Header />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-md mx-auto">
           <div className="bg-white rounded-lg shadow-lg p-8">
@@ -206,10 +210,8 @@ export default function SignupPage() {
           </div>
         </div>
       </main>
-
       <AdZone position="bottom" />
       <Footer />
-      </div>
-    </>
+    </div>
   )
 }

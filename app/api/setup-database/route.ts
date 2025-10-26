@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { initializeDatabase } from '@/lib/database'
-import { setupProductionDatabase } from '@/scripts/setup-production-db'
+// Use dynamic import for CJS interop
 
 // Force dynamic rendering for this API route
 export const dynamic = 'force-dynamic'
@@ -51,7 +51,15 @@ async function handleSetup(request: NextRequest) {
     
     // Import questions data
     console.log('Importing questions data...')
-    await setupProductionDatabase()
+    const mod = (await import('@/scripts/setup-production-db')) as unknown as {
+      setupProductionDatabase?: () => Promise<void>
+      default?: { setupProductionDatabase?: () => Promise<void> }
+    }
+    const setupFn = mod.setupProductionDatabase ?? mod.default?.setupProductionDatabase
+    if (!setupFn) {
+      throw new Error('setupProductionDatabase function not found in scripts/setup-production-db')
+    }
+    await setupFn()
 
     console.log('✅ Production database setup complete!')
 
