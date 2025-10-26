@@ -11,10 +11,13 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(redirectUrl, 301)
     }
 
-    // Handle www redirect - redirect www to non-www for consistency
-    if (request.nextUrl.hostname.startsWith('www.')) {
+    // Canonical host redirect (avoid loops by making this env-driven)
+    const canonicalHost = process.env.CANONICAL_HOST
+      || (process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : null)
+
+    if (canonicalHost && request.nextUrl.hostname !== canonicalHost) {
       const redirectUrl = new URL(request.url)
-      redirectUrl.hostname = redirectUrl.hostname.replace('www.', '')
+      redirectUrl.hostname = canonicalHost
       return NextResponse.redirect(redirectUrl, 301)
     }
   }
