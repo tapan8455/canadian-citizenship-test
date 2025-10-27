@@ -11,6 +11,36 @@ interface AdZoneProps {
 export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProps) {
   const adRef = useRef<HTMLModElement>(null)
 
+  // Known positions mapped to NEXT_PUBLIC env var names for slot IDs
+  const SLOT_ENV_MAP: Record<string, string> = {
+    'header': 'NEXT_PUBLIC_ADSENSE_SLOT_HEADER',
+    'hero-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_HERO_BOTTOM',
+    'features-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_FEATURES_BOTTOM',
+    'home-content': 'NEXT_PUBLIC_ADSENSE_SLOT_HOME_CONTENT',
+    'footer': 'NEXT_PUBLIC_ADSENSE_SLOT_FOOTER',
+    'practice-hero': 'NEXT_PUBLIC_ADSENSE_SLOT_PRACTICE_HERO',
+    'practice-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_PRACTICE_BOTTOM',
+    'results-header': 'NEXT_PUBLIC_ADSENSE_SLOT_RESULTS_HEADER',
+    'results-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_RESULTS_BOTTOM',
+    'blog-content': 'NEXT_PUBLIC_ADSENSE_SLOT_BLOG_CONTENT',
+    'blog-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_BLOG_BOTTOM',
+    'faq-content': 'NEXT_PUBLIC_ADSENSE_SLOT_FAQ_CONTENT',
+    'faq-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_FAQ_BOTTOM',
+    'about-content': 'NEXT_PUBLIC_ADSENSE_SLOT_ABOUT_CONTENT',
+    'about-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_ABOUT_BOTTOM',
+    'privacy-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_PRIVACY_BOTTOM',
+    'study-guide': 'NEXT_PUBLIC_ADSENSE_SLOT_STUDY_GUIDE',
+    'bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_BOTTOM',
+  }
+
+  const getEnvSlot = (pos: string): string | undefined => {
+    const key = SLOT_ENV_MAP[pos]
+    if (!key) return undefined
+    return (process.env as Record<string, string | undefined>)[key]
+  }
+
+  const resolvedSlot = adSlot || getEnvSlot(position) || process.env.NEXT_PUBLIC_ADSENSE_DEFAULT_SLOT
+
   useEffect(() => {
     // Only load ads in production and when AdSense is available
     if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
@@ -52,14 +82,14 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
         <div className="text-center">
           <p className="text-gray-500 text-sm font-medium">Ad Zone: {position}</p>
           <p className="text-gray-400 text-xs">Size: {size}</p>
-          <p className="text-gray-400 text-xs">Slot: {getAdSlotId()}</p>
+          <p className="text-gray-400 text-xs">Slot: {resolvedSlot || getAdSlotId()}</p>
         </div>
       </div>
     )
   }
 
   // In production, ensure a valid numeric adSlot is provided; otherwise, don't render
-  if (!adSlot) {
+  if (!resolvedSlot) {
     return null
   }
 
@@ -71,7 +101,7 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-8085911050404684"
-        data-ad-slot={adSlot}
+        data-ad-slot={resolvedSlot}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
