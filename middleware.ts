@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   // Only enforce redirects in production
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.VERCEL_ENV === 'production') {
     const proto = request.headers.get('x-forwarded-proto') || request.nextUrl.protocol.replace(':', '')
     if (proto === 'http') {
       const redirectUrl = new URL(request.url)
