@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface AdZoneProps {
   position: string
@@ -10,6 +10,7 @@ interface AdZoneProps {
 
 export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProps) {
   const adRef = useRef<HTMLModElement>(null)
+  const [inView, setInView] = useState(false)
 
   // Known positions mapped to NEXT_PUBLIC env var names for slot IDs
   const SLOT_ENV_MAP: Record<string, string> = {
@@ -41,18 +42,40 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
 
   const resolvedSlot = adSlot || getEnvSlot(position) || process.env.NEXT_PUBLIC_ADSENSE_DEFAULT_SLOT
 
+  // Observe visibility to delay ad rendering until near viewport
   useEffect(() => {
-    // Only load ads in production and when AdSense is available
+    const el = adRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { root: null, rootMargin: '200px', threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    // Only load ads in production when slot is near viewport
+    if (!inView) return
     if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
       try {
-        // Push the ad to AdSense
-        const adsbygoogle = (window as { adsbygoogle?: unknown[] }).adsbygoogle || []
-        adsbygoogle.push({})
+        // Avoid double push if already filled
+        const status = adRef.current?.getAttribute('data-ad-status')
+        if (status !== 'done') {
+          const adsbygoogle = (window as { adsbygoogle?: unknown[] }).adsbygoogle || []
+          adsbygoogle.push({})
+        }
       } catch (error) {
         console.error('Error loading AdSense ad:', error)
       }
     }
-  }, [])
+  }, [inView])
 
   const getAdStyles = () => {
     switch (size) {

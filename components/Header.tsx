@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
-import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -38,6 +37,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
+                prefetch={false}
                 className="text-gray-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
               >
                 {item.name}
@@ -49,7 +49,7 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-4">
             {session ? (
               <div className="flex items-center space-x-4">
-                <Link href="/dashboard" className="text-gray-600 hover:text-primary-600 text-sm font-medium">
+                <Link href="/dashboard" prefetch={false} className="text-gray-600 hover:text-primary-600 text-sm font-medium">
                   Dashboard
                 </Link>
                 <button
@@ -64,10 +64,10 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link href="/auth/signin" className="text-gray-600 hover:text-primary-600 text-sm font-medium">
+                <Link href="/auth/signin" prefetch={false} className="text-gray-600 hover:text-primary-600 text-sm font-medium">
                   Sign In
                 </Link>
-                <Link href="/auth/signup" className="btn-primary text-sm">
+                <Link href="/auth/signup" prefetch={false} className="btn-primary text-sm">
                   Sign Up
                 </Link>
               </div>
@@ -79,6 +79,9 @@ export default function Header() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-600 hover:text-primary-600 p-2"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
@@ -90,69 +93,66 @@ export default function Header() {
         </div>
 
         {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-gray-200"
-            >
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                
-                <div className="border-t border-gray-200 pt-4 mt-4">
-                  {session ? (
-                    <div className="space-y-2">
-                      <Link
-                        href="/dashboard"
-                        className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Dashboard
-                      </Link>
-                      <button
-                        onClick={() => {
-                          signOut()
-                          setIsMenuOpen(false)
-                        }}
-                        className="text-gray-600 hover:text-primary-600 block w-full text-left px-3 py-2 text-base font-medium"
-                      >
-                        Sign Out
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <Link
-                        href="/auth/signin"
-                        className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Sign In
-                      </Link>
-                      <Link
-                        href="/auth/signup"
-                        className="btn-primary block text-center"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Sign Up
-                      </Link>
-                    </div>
-                  )}
-                </div>
+        {isMenuOpen && (
+          <div id="mobile-menu" className="md:hidden border-t border-gray-200">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  prefetch={false}
+                  className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              <div className="border-t border-gray-200 pt-4 mt-4">
+                {session ? (
+                  <div className="space-y-2">
+                    <Link
+                      href="/dashboard"
+                      prefetch={false}
+                      className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        signOut()
+                        setIsMenuOpen(false)
+                      }}
+                      className="text-gray-600 hover:text-primary-600 block w-full text-left px-3 py-2 text-base font-medium"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <Link
+                      href="/auth/signin"
+                      prefetch={false}
+                      className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      prefetch={false}
+                      className="btn-primary block text-center"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
+                )}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   )

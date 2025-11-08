@@ -49,22 +49,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/practice" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/practice" prefetch={false} className="text-gray-300 hover:text-white transition-colors">
                   Practice Tests
                 </Link>
               </li>
               <li>
-                <Link href="/study-guide" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/study-guide" prefetch={false} className="text-gray-300 hover:text-white transition-colors">
                   Study Guide
                 </Link>
               </li>
               <li>
-                <Link href="/progress" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/progress" prefetch={false} className="text-gray-300 hover:text-white transition-colors">
                   Progress Tracking
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/about" prefetch={false} className="text-gray-300 hover:text-white transition-colors">
                   About Us
                 </Link>
               </li>
@@ -77,12 +77,12 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/faq" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/faq" prefetch={false} className="text-gray-300 hover:text-white transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/blog" prefetch={false} className="text-gray-300 hover:text-white transition-colors">
                   Blog
                 </Link>
               </li>
@@ -126,7 +126,7 @@ export default function Footer() {
             © {currentYear} CitizenTest Canada. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
+            <Link href="/privacy" prefetch={false} className="text-gray-400 hover:text-white text-sm transition-colors">
               Privacy Policy
             </Link>
             <span className="text-gray-400 text-sm">
