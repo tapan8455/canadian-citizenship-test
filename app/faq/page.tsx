@@ -16,7 +16,7 @@ export const metadata = {
     'Canadian citizenship requirements'
   ],
   alternates: {
-    canonical: 'https://citizentestcanada.com/faq',
+    canonical: 'https://www.citizentestcanada.com/faq',
   },
   robots: {
     index: true,

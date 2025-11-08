@@ -7,7 +7,7 @@ import AdZone from '@/components/AdZone'
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://citizentestcanada.com',
+    canonical: 'https://www.citizentestcanada.com',
   },
   robots: {
     index: true,

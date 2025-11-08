@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Study Guide - Canadian Citizenship Test Preparation',
   description: 'Comprehensive study guide for the Canadian Citizenship Test. Learn about Canadian history, government, geography, and rights with detailed explanations and practice resources.',
   alternates: {
-    canonical: 'https://citizentestcanada.com/study-guide',
+    canonical: 'https://www.citizentestcanada.com/study-guide',
   },
   robots: {
     index: true,

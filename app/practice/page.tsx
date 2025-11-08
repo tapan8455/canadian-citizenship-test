@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     'free citizenship practice'
   ],
   alternates: {
-    canonical: 'https://citizentestcanada.com/practice',
+    canonical: 'https://www.citizentestcanada.com/practice',
   },
   openGraph: {
     title: 'Free Canadian Citizenship Practice Tests - 223+ Questions',
     description: 'Take free Canadian citizenship practice tests with 223+ official format questions. Practice by category and pass your exam!',
-    url: 'https://citizentestcanada.com/practice',
+    url: 'https://www.citizentestcanada.com/practice',
     type: 'website',
   },
   robots: {

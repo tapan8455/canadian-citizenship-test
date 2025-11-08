@@ -653,12 +653,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       'citizenship test study guide'
     ],
     alternates: {
-      canonical: `https://citizentestcanada.com/blog/${params.slug}`,
+      canonical: `https://www.citizentestcanada.com/blog/${params.slug}`,
     },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://citizentestcanada.com/blog/${params.slug}`,
+      url: `https://www.citizentestcanada.com/blog/${params.slug}`,
       type: 'article',
     },
     robots: {

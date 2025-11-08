@@ -6,7 +6,7 @@ export const metadata = {
   title: 'Privacy Policy - CitizenTest Canada',
   description: 'Privacy policy for CitizenTest Canada. Learn how we collect, use, and protect your information.',
   alternates: {
-    canonical: 'https://citizentestcanada.com/privacy',
+    canonical: 'https://www.citizentestcanada.com/privacy',
   },
   robots: {
     index: true,

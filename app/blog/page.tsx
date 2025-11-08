@@ -17,7 +17,7 @@ export const metadata = {
     'citizenship test resources'
   ],
   alternates: {
-    canonical: 'https://citizentestcanada.com/blog',
+    canonical: 'https://www.citizentestcanada.com/blog',
   },
   robots: {
     index: true,
@@ -52,17 +52,17 @@ export default function BlogPage() {
             "@type": "Blog",
             "name": "Canadian Citizenship Test Blog",
             "description": "Expert tips, study guides, and resources to help you pass the Canadian citizenship test.",
-            "url": "https://citizentestcanada.com/blog",
+            "url": "https://www.citizentestcanada.com/blog",
             "publisher": {
               "@type": "Organization",
               "name": "CitizenTest Canada",
-              "url": "https://citizentestcanada.com"
+              "url": "https://www.citizentestcanada.com"
             },
             "blogPost": blogPosts.map(post => ({
               "@type": "BlogPosting",
               "headline": post.title,
               "description": post.excerpt,
-              "url": `https://citizentestcanada.com/blog/${post.slug}`,
+              "url": `https://www.citizentestcanada.com/blog/${post.slug}`,
               "datePublished": "2024-01-01",
               "author": {
                 "@type": "Organization",

@@ -24,12 +24,12 @@ export async function generateMetadata({ params }: { params: { category: string 
       'Canadian citizenship study'
     ],
     alternates: {
-      canonical: `https://citizentestcanada.com/practice/${params.category}`,
+      canonical: `https://www.citizentestcanada.com/practice/${params.category}`,
     },
     openGraph: {
       title: `${categoryName} Practice Test - Canadian Citizenship`,
       description: `Take a free ${categoryName.toLowerCase()} practice test for the Canadian citizenship exam.`,
-      url: `https://citizentestcanada.com/practice/${params.category}`,
+      url: `https://www.citizentestcanada.com/practice/${params.category}`,
       type: 'website',
     },
     robots: {

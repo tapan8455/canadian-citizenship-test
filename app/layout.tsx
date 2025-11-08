@@ -54,11 +54,11 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://citizentestcanada.com'),
+  metadataBase: new URL('https://www.citizentestcanada.com'),
   openGraph: {
     title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
     description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations.',
-    url: 'https://citizentestcanada.com',
+    url: 'https://www.citizentestcanada.com',
     siteName: 'CitizenTest Canada',
     images: [
       {
@@ -140,17 +140,17 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Canadian Citizenship Test Practice",
-              "url": "https://citizentestcanada.com",
+              "url": "https://www.citizentestcanada.com",
               "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations.",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://citizentestcanada.com/search?q={search_term_string}",
+                "target": "https://www.citizentestcanada.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "CitizenTest Canada",
-                "url": "https://citizentestcanada.com"
+                "url": "https://www.citizentestcanada.com"
               },
               "offers": {
                 "@type": "Offer",

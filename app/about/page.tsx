@@ -16,12 +16,12 @@ export const metadata = {
     'Canadian citizenship test mission'
   ],
   alternates: {
-    canonical: 'https://citizentestcanada.com/about',
+    canonical: 'https://www.citizentestcanada.com/about',
   },
   openGraph: {
     title: 'About Canadian Citizenship Test - Your Trusted Study Partner',
     description: 'Learn about our mission to help thousands of Canadians prepare for and pass the citizenship test with confidence. Discover our comprehensive study platform.',
-    url: 'https://citizentestcanada.com/about',
+    url: 'https://www.citizentestcanada.com/about',
     type: 'website',
   },
   robots: {
@@ -85,7 +85,7 @@ export default function AboutPage() {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Canadian Citizenship Test Practice",
-            "url": "https://citizentestcanada.com",
+            "url": "https://www.citizentestcanada.com",
             "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations.",
             "address": {
               "@type": "PostalAddress",
@@ -99,7 +99,7 @@ export default function AboutPage() {
               "contactType": "customer service"
             },
             "sameAs": [
-              "https://citizentestcanada.com"
+              "https://www.citizentestcanada.com"
             ]
           })
         }}
