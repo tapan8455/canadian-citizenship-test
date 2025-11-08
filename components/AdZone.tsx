@@ -69,15 +69,16 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
         if (!fired) {
           fired = true
           setReady(true)
-          window.removeEventListener('scroll', onScroll as any)
+          window.removeEventListener('scroll', onScroll)
         }
       }
-      const onScroll = () => onReady()
-      window.addEventListener('scroll', onScroll, { passive: true } as any)
+      const onScroll: (this: Window, ev: Event) => void = () => onReady()
+      const opts: AddEventListenerOptions = { passive: true }
+      window.addEventListener('scroll', onScroll, opts)
       const t = window.setTimeout(onReady, 2000)
       return () => {
         window.clearTimeout(t)
-        window.removeEventListener('scroll', onScroll as any)
+        window.removeEventListener('scroll', onScroll)
       }
     }
 
