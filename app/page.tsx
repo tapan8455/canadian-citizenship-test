@@ -400,7 +400,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Start Your Journey?
           </h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
             Join thousands of successful candidates who have used our platform to 
             prepare for and pass the Canadian Citizenship Test.
           </p>
