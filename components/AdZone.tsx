@@ -2,6 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[]
+    __adsScriptAppended?: boolean
+  }
+}
+
 interface AdZoneProps {
   position: string
   size?: 'banner' | 'sidebar' | 'content' | 'leaderboard'
@@ -11,7 +18,7 @@ interface AdZoneProps {
 export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProps) {
   const adRef = useRef<HTMLModElement>(null)
   const [inView, setInView] = useState(false)
-  const [ready, setReady] = useState(position !== 'header')
+  const [ready, setReady] = useState(false)
 
   // Known positions mapped to NEXT_PUBLIC env var names for slot IDs
   const SLOT_ENV_MAP: Record<string, string> = {
@@ -55,48 +62,56 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
           observer.disconnect()
         }
       },
-      { root: null, rootMargin: '200px', threshold: 0 }
+      { root: null, rootMargin: '0px', threshold: 0.25 }
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
+  // Set readiness after first user interaction
   useEffect(() => {
-    // For above-the-fold header slot, wait for first scroll or small timeout
-    if (typeof window !== 'undefined' && position === 'header' && !ready) {
-      let fired = false
-      const onReady = () => {
-        if (!fired) {
-          fired = true
-          setReady(true)
-          window.removeEventListener('scroll', onScroll)
-        }
+    if (typeof window === 'undefined' || ready) return
+    let fired = false
+    const onReady = () => {
+      if (!fired) {
+        fired = true
+        setReady(true)
+        window.removeEventListener('pointerdown', onReady)
+        window.removeEventListener('keydown', onReady)
       }
-      const onScroll: (this: Window, ev: Event) => void = () => onReady()
-      const opts: AddEventListenerOptions = { passive: true }
-      window.addEventListener('scroll', onScroll, opts)
-      const t = window.setTimeout(onReady, 2000)
-      return () => {
-        window.clearTimeout(t)
-        window.removeEventListener('scroll', onScroll)
-      }
+    }
+    const opts: AddEventListenerOptions = { passive: true }
+    window.addEventListener('pointerdown', onReady, opts)
+    window.addEventListener('keydown', onReady)
+    return () => {
+      window.removeEventListener('pointerdown', onReady)
+      window.removeEventListener('keydown', onReady)
+    }
+  }, [ready])
+
+  // Inject AdSense script and push when in view and ready
+  useEffect(() => {
+    if (!inView || !ready) return
+    if (process.env.NODE_ENV !== 'production' || typeof window === 'undefined' || typeof document === 'undefined') return
+
+    const ensureAdSenseScript = () => {
+      if (window.__adsScriptAppended) return
+      const s = document.createElement('script')
+      s.async = true
+      s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8085911050404684'
+      s.crossOrigin = 'anonymous'
+      document.head.appendChild(s)
+      window.__adsScriptAppended = true
     }
 
-    // Only load ads in production when slot is near viewport and ready
-    if (!inView || !ready) return
-    if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
-      try {
-        // Avoid double push if already filled
-        const status = adRef.current?.getAttribute('data-ad-status')
-        if (status !== 'done') {
-          const adsbygoogle = (window as { adsbygoogle?: unknown[] }).adsbygoogle || []
-          adsbygoogle.push({})
-        }
-      } catch (error) {
-        console.error('Error loading AdSense ad:', error)
-      }
+    try {
+      ensureAdSenseScript()
+      window.adsbygoogle = window.adsbygoogle || []
+      window.adsbygoogle.push({})
+    } catch (error) {
+      console.error('Error loading AdSense ad:', error)
     }
-  }, [inView, ready, position])
+  }, [inView, ready])
 
   const getAdStyles = () => {
     switch (size) {
