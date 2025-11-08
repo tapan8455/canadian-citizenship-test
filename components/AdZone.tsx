@@ -11,6 +11,7 @@ interface AdZoneProps {
 export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProps) {
   const adRef = useRef<HTMLModElement>(null)
   const [inView, setInView] = useState(false)
+  const [ready, setReady] = useState(position !== 'header')
 
   // Known positions mapped to NEXT_PUBLIC env var names for slot IDs
   const SLOT_ENV_MAP: Record<string, string> = {
@@ -61,8 +62,27 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
   }, [])
 
   useEffect(() => {
-    // Only load ads in production when slot is near viewport
-    if (!inView) return
+    // For above-the-fold header slot, wait for first scroll or small timeout
+    if (typeof window !== 'undefined' && position === 'header' && !ready) {
+      let fired = false
+      const onReady = () => {
+        if (!fired) {
+          fired = true
+          setReady(true)
+          window.removeEventListener('scroll', onScroll as any)
+        }
+      }
+      const onScroll = () => onReady()
+      window.addEventListener('scroll', onScroll, { passive: true } as any)
+      const t = window.setTimeout(onReady, 2000)
+      return () => {
+        window.clearTimeout(t)
+        window.removeEventListener('scroll', onScroll as any)
+      }
+    }
+
+    // Only load ads in production when slot is near viewport and ready
+    if (!inView || !ready) return
     if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
       try {
         // Avoid double push if already filled
@@ -75,7 +95,7 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
         console.error('Error loading AdSense ad:', error)
       }
     }
-  }, [inView])
+  }, [inView, ready, position])
 
   const getAdStyles = () => {
     switch (size) {
