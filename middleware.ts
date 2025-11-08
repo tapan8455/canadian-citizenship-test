@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
 
     // Canonical host redirect (avoid loops by making this env-driven)
     const canonicalHost = process.env.CANONICAL_HOST
-      || (process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : 'citizentestcanada.com')
+      || (process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : null)
 
     if (canonicalHost && request.nextUrl.hostname !== canonicalHost) {
       const redirectUrl = new URL(request.url)
