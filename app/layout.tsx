@@ -6,7 +6,7 @@ import { AuthProvider } from '@/components/providers/AuthProvider'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 export const metadata: Metadata = {
   title: {
@@ -104,6 +104,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-adsense-account" content="ca-pub-8085911050404684" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossOrigin="anonymous" />
       </head>
       <body className={inter.className}>
         {process.env.GA_MEASUREMENT_ID && (
@@ -128,7 +132,7 @@ export default function RootLayout({
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8085911050404684"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         
         {/* Structured Data Schema */}
@@ -202,7 +206,9 @@ export default function RootLayout({
         
         <ErrorBoundary>
           <AuthProvider>
-            {children}
+            <main role="main">
+              {children}
+            </main>
             <Toaster 
               position="top-right"
               toastOptions={{
