@@ -3,7 +3,8 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   // Only enforce redirects in production
-  if (process.env.VERCEL_ENV === 'production') {
+  const isProd = process.env.VERCEL === '1' ? process.env.VERCEL_ENV === 'production' : process.env.NODE_ENV === 'production'
+  if (isProd) {
     const proto = request.headers.get('x-forwarded-proto') || request.nextUrl.protocol.replace(':', '')
     if (proto === 'http') {
       const redirectUrl = new URL(request.url)
@@ -13,7 +14,7 @@ export function middleware(request: NextRequest) {
 
     // Canonical host redirect (avoid loops by making this env-driven)
     const canonicalHost = process.env.CANONICAL_HOST
-      || (process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : null)
+      || (process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname : 'citizentestcanada.com')
 
     if (canonicalHost && request.nextUrl.hostname !== canonicalHost) {
       const redirectUrl = new URL(request.url)

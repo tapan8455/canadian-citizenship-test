@@ -651,7 +651,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       'Canada citizenship exam',
       post.category.toLowerCase(),
       'citizenship test study guide'
-    ]
+    ],
+    alternates: {
+      canonical: `https://citizentestcanada.com/blog/${params.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://citizentestcanada.com/blog/${params.slug}`,
+      type: 'article',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   }
 }
 

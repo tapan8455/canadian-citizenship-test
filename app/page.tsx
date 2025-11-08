@@ -1,8 +1,19 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRightIcon, CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, StarIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://citizentestcanada.com',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 
 export default function HomePage() {
   return (
