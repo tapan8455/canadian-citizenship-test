@@ -25,20 +25,22 @@ export default function TestQuestion({
   totalQuestions,
   showCorrectAnswer = false
 }: TestQuestionProps) {
-  const isCorrect = selectedAnswer === question.correctAnswer
-  const hasAnswered = selectedAnswer !== undefined
-  const showResult = showCorrectAnswer && hasAnswered
+  const isCorrect = selectedAnswer === question.correctAnswer;
+  const hasAnswered = selectedAnswer !== undefined;
+  const showResult = showCorrectAnswer && hasAnswered;
 
   return (
-    <div className="space-y-6">
-      {/* Question Header */}
+    <fieldset className="space-y-6">
+      {/* Question Header & Screen-Reader Legend */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <legend className="flex items-center space-x-2">
           <span className="text-sm font-medium text-gray-500">Question {questionNumber}</span>
           <span className="text-sm text-gray-400">of {totalQuestions}</span>
-        </div>
+        </legend>
+        
+        {/* Status Indicator */}
         {hasAnswered && showCorrectAnswer && (
-          <div className="flex items-center space-x-2">
+          <div aria-live="polite" className="flex items-center space-x-2">
             {isCorrect ? (
               <div className="flex items-center space-x-1 text-green-600">
                 <CheckCircleIcon className="h-4 w-4" />
@@ -56,58 +58,55 @@ export default function TestQuestion({
 
       {/* Question Text */}
       <div>
-        <h2 
-          className="text-lg font-medium text-gray-900 leading-relaxed"
-          id={`question-${questionNumber}`}
-          aria-label={`Question ${questionNumber} of ${totalQuestions}`}
-        >
+        <h2 className="text-lg font-medium text-gray-900 leading-relaxed">
           {question.question}
         </h2>
       </div>
 
-      {/* Answer Options */}
-      <div className="space-y-3">
+      {/* Answer Options as Native Radios */}
+      <div className="space-y-3" role="radiogroup" aria-labelledby={`question-${questionNumber}`}>
         {question.options.map((option, index) => {
-          const isSelected = selectedAnswer === index
-          const isCorrectOption = index === question.correctAnswer
+          const isSelected = selectedAnswer === index;
+          const isCorrectOption = index === question.correctAnswer;
+          const optionId = `question-${question.id}-option-${index}`;
 
-          let optionClasses = "w-full p-4 border rounded-lg cursor-pointer transition-all duration-200 text-left"
+          // Styling logic remains identical
+          let optionClasses = "w-full p-4 border rounded-lg cursor-pointer transition-all duration-200 text-left relative focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2";
           
           if (showResult) {
             if (isCorrectOption) {
-              optionClasses += " bg-green-50 border-green-300 text-green-900"
+              optionClasses += " bg-green-50 border-green-300 text-green-900";
             } else if (isSelected && !isCorrect) {
-              optionClasses += " bg-red-50 border-red-300 text-red-900"
+              optionClasses += " bg-red-50 border-red-300 text-red-900";
             } else {
-              optionClasses += " bg-gray-50 border-gray-200 text-gray-600"
+              optionClasses += " bg-gray-50 border-gray-200 text-gray-600 opacity-75";
             }
           } else {
             if (isSelected) {
-              optionClasses += " bg-primary-50 border-primary-300 text-primary-900"
+              optionClasses += " bg-primary-50 border-primary-300 text-primary-900";
             } else {
-              optionClasses += " bg-white border-gray-300 hover:border-primary-300 hover:bg-primary-50"
+              optionClasses += " bg-white border-gray-300 hover:border-primary-300 hover:bg-primary-50";
             }
           }
 
           return (
-            <div
-              key={index}
-              className={optionClasses}
-              onClick={() => !showResult && onAnswerSelect(index)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  if (!showResult) onAnswerSelect(index)
-                }
-              }}
-              role="button"
-              tabIndex={showResult ? -1 : 0}
-              aria-label={`Option ${String.fromCharCode(65 + index)}: ${option}`}
-              aria-pressed={isSelected}
-            >
+            <label key={index} htmlFor={optionId} className={optionClasses}>
+              {/* Visually hidden native radio button for absolute accessibility */}
+              <input
+                type="radio"
+                id={optionId}
+                name={`question-${question.id}`}
+                value={index}
+                checked={isSelected}
+                onChange={() => !showResult && onAnswerSelect(index)}
+                disabled={showResult}
+                className="sr-only" // Hides it visually but keeps it accessible to screen readers
+                aria-describedby={showResult && isCorrectOption ? `${optionId}-status` : undefined}
+              />
+              
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                  <div className={`w-6 h-6 rounded-full border-2 flex flex-shrink-0 items-center justify-center ${
                     showResult
                       ? isCorrectOption
                         ? "border-green-500 bg-green-500"
@@ -128,31 +127,32 @@ export default function TestQuestion({
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     ) : null}
                   </div>
-                  <span className="font-medium">{String.fromCharCode(65 + index)}.</span>
+                  <span className="font-medium flex-shrink-0">{String.fromCharCode(65 + index)}.</span>
                   <span>{option}</span>
                 </div>
                 
+                {/* Visual success/fail markers for the end of the row */}
                 {showResult && isCorrectOption && (
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                  <CheckCircleIcon id={`${optionId}-status`} className="h-5 w-5 text-green-500 flex-shrink-0" />
                 )}
                 {showResult && isSelected && !isCorrect && (
-                  <XCircleIcon className="h-5 w-5 text-red-500" />
+                  <XCircleIcon className="h-5 w-5 text-red-500 flex-shrink-0" />
                 )}
               </div>
-            </div>
+            </label>
           )
         })}
       </div>
 
-      {/* Explanation */}
-      {showResult && hasAnswered && (
-        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      {/* Explanation Box */}
+      {showResult && hasAnswered && question.explanation && (
+        <div aria-live="polite" className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <h3 className="text-sm font-medium text-blue-900 mb-2">Explanation:</h3>
           <p className="text-sm text-blue-800 leading-relaxed">
             {question.explanation}
           </p>
         </div>
       )}
-    </div>
+    </fieldset>
   )
 }
