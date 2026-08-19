@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  trailingSlash: false,
   images: {
-    domains: ['localhost'],
     formats: ['image/webp', 'image/avif'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+    ],
   },
   async headers() {
     return [
@@ -32,7 +38,6 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
-      // Redirect common variations to main domain
       {
         source: '/index.html',
         destination: '/',
@@ -42,13 +47,7 @@ const nextConfig = {
         source: '/index.php',
         destination: '/',
         permanent: true,
-      },
-      // Redirect trailing slash variations
-      {
-        source: '/blog/canadian-citizenship-test-questions/',
-        destination: '/blog/canadian-citizenship-test-questions',
-        permanent: true,
-      },
+      }
     ]
   },
 }
