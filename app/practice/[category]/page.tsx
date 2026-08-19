@@ -1,44 +1,31 @@
-import { Metadata } from 'next'
-import PracticeCategoryClient from './PracticeCategoryClient'
+import { Metadata } from 'next';
+import PracticeTestRunner from '@/components/TestQuestion'; // Update path if your client component name differs
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const categoryNames: { [key: string]: string } = {
-    general: 'General Knowledge',
-    history: 'Canadian History',
-    government: 'Government & Politics',
-    geography: 'Geography & Symbols',
-    rights: 'Rights & Responsibilities',
-    full: 'Official Practice Test'
-  }
+interface Props {
+  params: {
+    category: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
-  const categoryName = categoryNames[params.category] || params.category
+// 1. Generate Canonical Metadata for Search Engines
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const categoryName = params.category.charAt(0).toUpperCase() + params.category.slice(1);
 
   return {
-    title: `${categoryName} Practice Test - Canadian Citizenship Test | CitizenTest Canada`,
-    description: `Take a free ${categoryName.toLowerCase()} practice test for the Canadian citizenship exam. 20 questions, 45 minutes, official format. Pass your citizenship test with confidence!`,
-    keywords: [
-      `Canadian citizenship ${params.category} test`,
-      `${params.category} citizenship practice`,
-      'Canada citizenship exam',
-      'citizenship test questions',
-      'Canadian citizenship study'
-    ],
+    title: `Canadian Citizenship Practice Test - ${categoryName} Section`,
+    description: `Free practice test questions for the ${categoryName} topic of the official Canadian citizenship exam. Test your knowledge now.`,
     alternates: {
       canonical: `https://www.citizentestcanada.com/practice/${params.category}`,
     },
-    openGraph: {
-      title: `${categoryName} Practice Test - Canadian Citizenship`,
-      description: `Take a free ${categoryName.toLowerCase()} practice test for the Canadian citizenship exam.`,
-      url: `https://www.citizentestcanada.com/practice/${params.category}`,
-      type: 'website',
-    },
-    robots: {
-      index: true,
-      follow: true,
-    },
-  }
+  };
 }
 
-export default function PracticeTestPage() {
-  return <PracticeCategoryClient />
+// 2. Server-Rendered Page Component
+export default function PracticeCategoryPage({ params }: Props) {
+  const categoryName = params.category.charAt(0).toUpperCase() + params.category.slice(1);
+
+  return {
+    /* Main wrapper with server-rendered SEO content */
+  }
 }
