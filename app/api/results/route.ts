@@ -97,11 +97,26 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
     const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 10
 
+
     const db = await getDatabase()
+    try {
+      const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email]) as { id: number } | undefined
+      
+      return NextResponse.json({ success: true, data: { id: result.lastID } })
+    } finally {
+      await db.close()
+    }
+
+
+    const db = await getDatabase()
+    try {
+      const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email]) as { id: number } | undefined
     
-    // Get user ID
-    const user = await db.get('SELECT id FROM users WHERE email = ?', [session.user.email]) as { id: number } | undefined
-    
+      return NextResponse.json({ success: true, data: results })
+    } finally {
+      await db.close()
+    }
+        
     if (!user) {
       return NextResponse.json(
         { success: false, error: 'User not found' },
