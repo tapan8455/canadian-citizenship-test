@@ -70,8 +70,8 @@ export default function TestQuestion({
           const isCorrectOption = index === question.correctAnswer;
           const optionId = `question-${question.id}-option-${index}`;
 
-          // Styling logic remains identical
-          let optionClasses = "w-full p-4 border rounded-lg cursor-pointer transition-all duration-200 text-left relative focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2";
+          // ADDED 'block' to force correct label layout rendering
+          let optionClasses = "block w-full p-4 border rounded-lg cursor-pointer transition-all duration-200 text-left relative focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2";
           
           if (showResult) {
             if (isCorrectOption) {
@@ -91,7 +91,7 @@ export default function TestQuestion({
 
           return (
             <label key={index} htmlFor={optionId} className={optionClasses}>
-              {/* Visually hidden native radio button for absolute accessibility */}
+              {/* FIXED: Hides native input without causing visual clipping artifacts */}
               <input
                 type="radio"
                 id={optionId}
@@ -100,7 +100,7 @@ export default function TestQuestion({
                 checked={isSelected}
                 onChange={() => !showResult && onAnswerSelect(index)}
                 disabled={showResult}
-                className="sr-only" // Hides it visually but keeps it accessible to screen readers
+                className="absolute opacity-0 w-0 h-0 appearance-none -z-10" 
                 aria-describedby={showResult && isCorrectOption ? `${optionId}-status` : undefined}
               />
               
@@ -128,7 +128,7 @@ export default function TestQuestion({
                     ) : null}
                   </div>
                   <span className="font-medium flex-shrink-0">{String.fromCharCode(65 + index)}.</span>
-                  <span>{option}</span>
+                  <span className="leading-snug">{option}</span>
                 </div>
                 
                 {/* Visual success/fail markers for the end of the row */}
