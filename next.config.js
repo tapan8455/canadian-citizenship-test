@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'localhost',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.citizentestcanada.com',
+      }
     ],
   },
   async headers() {
