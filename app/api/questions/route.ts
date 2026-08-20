@@ -83,6 +83,24 @@ export async function GET(request: NextRequest) {
 
     const db = await getDatabase()
     
+    try {
+      let query = 'SELECT * FROM questions WHERE 1=1'
+      const params: (string | number)[] = []
+
+      // ... existing parameter logic ...
+      
+      const questions = await db.all(query, params)
+      // ... existing JSON mapping logic ...
+      
+      return NextResponse.json({
+        success: true,
+        data: formattedQuestions
+      })
+    } finally {
+      // CRITICAL: Release the connection back to the pool
+      await db.close()
+    }
+    
     let query = 'SELECT * FROM questions WHERE 1=1'
     const params: (string | number)[] = []
 
