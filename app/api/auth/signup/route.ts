@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
     const db = await getDatabase()
     console.log('✅ Database connection established')
     
+    try {
     // Check if user already exists
     console.log('🔍 Checking if user exists...')
     const existingUser = await db.get('SELECT id FROM users WHERE email = ?', [email])
@@ -49,6 +50,9 @@ export async function POST(request: NextRequest) {
       success: true,
       data: { id: result.lastID }
     })
+      finally {
+      await db.close()
+    }
     
   } catch (error) {
     console.error('❌ Error creating user:', error)
