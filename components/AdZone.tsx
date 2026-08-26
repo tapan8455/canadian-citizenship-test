@@ -20,7 +20,6 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
   const [inView, setInView] = useState(false)
   const [ready, setReady] = useState(false)
 
-  // Known positions mapped to NEXT_PUBLIC env var names for slot IDs
   const SLOT_ENV_MAP: Record<string, string> = {
     'header': 'NEXT_PUBLIC_ADSENSE_SLOT_HEADER',
     'hero-bottom': 'NEXT_PUBLIC_ADSENSE_SLOT_HERO_BOTTOM',
@@ -50,14 +49,12 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
 
   const resolvedSlot = adSlot || getEnvSlot(position) || process.env.NEXT_PUBLIC_ADSENSE_DEFAULT_SLOT
 
-  // Observe visibility to delay ad rendering until near viewport
   useEffect(() => {
     const el = adRef.current
     if (!el) return
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0]
-        if (entry.isIntersecting) {
+        if (entries[0].isIntersecting) {
           setInView(true)
           observer.disconnect()
         }
@@ -68,7 +65,6 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
     return () => observer.disconnect()
   }, [])
 
-  // Set readiness after first user interaction
   useEffect(() => {
     if (typeof window === 'undefined' || ready) return
     let fired = false
@@ -89,7 +85,6 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
     }
   }, [ready])
 
-  // Inject AdSense script and push when in view and ready
   useEffect(() => {
     if (!inView || !ready) return
     if (process.env.NODE_ENV !== 'production' || typeof window === 'undefined' || typeof document === 'undefined') return
@@ -116,54 +111,53 @@ export default function AdZone({ position, size = 'banner', adSlot }: AdZoneProp
   const getAdStyles = () => {
     switch (size) {
       case 'banner':
-        return 'w-full h-[90px]'
+        return 'w-full min-h-[90px]'
       case 'sidebar':
-        return 'w-full h-[250px]'
+        return 'w-full min-h-[250px]'
       case 'content':
-        return 'w-full h-[60px]'
+        return 'w-full min-h-[60px]'
       case 'leaderboard':
-        return 'w-full h-[90px]'
+        return 'w-full min-h-[90px]'
       default:
-        return 'w-full h-[90px]'
+        return 'w-full min-h-[90px]'
     }
   }
 
   const getAdSlotId = () => {
-    // Generate unique ad slot IDs based on position and size
     const baseSlot = adSlot || `ad-${position}-${size}`
     return baseSlot.replace(/[^a-zA-Z0-9-]/g, '-')
   }
 
-  // Don't render ads in development to avoid policy violations
   if (process.env.NODE_ENV === 'development') {
     return (
-      <div className={`${getAdStyles()} my-4 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center`}>
-        <div className="text-center">
-          <p className="text-gray-500 text-sm font-medium">Ad Zone: {position}</p>
-          <p className="text-gray-400 text-xs">Size: {size}</p>
-          <p className="text-gray-400 text-xs">Slot: {resolvedSlot || getAdSlotId()}</p>
+      <div className="w-full px-4 my-8">
+        <div className={`max-w-7xl mx-auto bg-slate-100/50 border-2 border-dashed border-slate-300 rounded-3xl flex items-center justify-center p-6 ${getAdStyles()}`}>
+          <div className="text-center">
+            <span className="inline-block px-3 py-1 bg-slate-200 text-slate-500 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Advertisement</span>
+            <p className="text-slate-600 font-extrabold text-sm">{position}</p>
+            <p className="text-slate-400 font-medium text-xs mt-1">Slot: {resolvedSlot || getAdSlotId()}</p>
+          </div>
         </div>
       </div>
     )
   }
 
-  // In production, ensure a valid numeric adSlot is provided; otherwise, don't render
-  if (!resolvedSlot) {
-    return null
-  }
+  if (!resolvedSlot) return null
 
-  // Production: Render actual AdSense ads
+  // Production Render
   return (
-    <div className={`${getAdStyles()} my-4`}>
-      <ins
-        ref={adRef}
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client="ca-pub-8085911050404684"
-        data-ad-slot={resolvedSlot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
+    <div className="w-full px-4 my-8 flex justify-center overflow-hidden">
+      <div className={`bg-white rounded-3xl shadow-soft border-2 border-slate-100 p-2 overflow-hidden ${getAdStyles()}`}>
+        <ins
+          ref={adRef}
+          className="adsbygoogle"
+          style={{ display: 'block', width: '100%', height: '100%' }}
+          data-ad-client="ca-pub-8085911050404684"
+          data-ad-slot={resolvedSlot}
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />
+      </div>
     </div>
   )
 }
