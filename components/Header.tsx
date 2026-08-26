@@ -78,7 +78,7 @@ export default function Header() {
           
           {/* Mobile Donate Button */}
           <a 
-            href="YOUR_DONATION_LINK_HERE" 
+            href="https://buymeacoffee.com/citizentestcanada" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="p-4 bg-rose-50 rounded-xl font-bold text-rose-600 flex items-center justify-center gap-2"

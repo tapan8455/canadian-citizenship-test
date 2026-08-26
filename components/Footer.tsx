@@ -31,7 +31,7 @@ export default function Footer() {
               </a>
               <a href="tel:+1-519-639-5744" className="flex items-center gap-3 hover:text-teal-400 transition-colors">
                 <PhoneIcon className="w-5 h-5 text-slate-500" />
-                (555) 123-4567 {/* <-- Replace with your actual phone number */}
+                (519) 639-5744 {/* <-- Replace with your actual phone number */}
               </a>
               <div className="flex items-center gap-3">
                 <MapPinIcon className="w-5 h-5 text-slate-500" />
@@ -67,7 +67,7 @@ export default function Footer() {
             <div className="bg-slate-700/50 p-6 rounded-3xl border-2 border-slate-600 flex flex-col h-full justify-center text-center">
               <p className="text-sm font-bold text-white mb-4">Found this site helpful?</p>
               <a 
-                href="YOUR_DONATION_LINK_HERE" 
+                href="https://buymeacoffee.com/citizentestcanada" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-extrabold text-white bg-rose-500 border-2 border-rose-600 border-b-[4px] hover:bg-rose-400 active:border-b-0 active:translate-y-[4px] transition-all w-full"
