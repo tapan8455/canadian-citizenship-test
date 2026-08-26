@@ -30,10 +30,6 @@ module.exports = {
         display: ['Cal Sans', 'Inter', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-        'glow': '0 0 20px rgba(20, 184, 166, 0.3)',
-      },
-      boxShadow: {
         '3d': '0 4px 0 0 #e2e8f0', // Gray default bottom lip
         '3d-hover': '0 6px 0 0 #cbd5e1',
         '3d-active': '0 0px 0 0 #cbd5e1', // Flattens on click
