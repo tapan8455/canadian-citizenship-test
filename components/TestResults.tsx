@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowPathIcon, ForwardIcon, ChartBarIcon, ArrowLeftIcon, ListBulletIcon } from '@heroicons/react/24/solid'
+import { ArrowPathIcon, ChartBarIcon, ArrowLeftIcon, ListBulletIcon } from '@heroicons/react/24/solid'
 import TestQuestion from './TestQuestion'
 import AdZone from './AdZone'
 
@@ -15,11 +15,11 @@ interface TestResultsProps {
     explanation: string;
   }>
   answers: number[]
-  category: string
+  category?: string
   timeTaken?: number
 }
 
-export default function TestResults({ questions, answers, category, timeTaken = 0 }: TestResultsProps) {
+export default function TestResults({ questions, answers, timeTaken = 0 }: TestResultsProps) {
   const [showReview, setShowReview] = useState(false)
   const [currentReviewQuestion, setCurrentReviewQuestion] = useState(0)
 
