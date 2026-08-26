@@ -1,159 +1,80 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
-import { Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { data: session } = useSession()
-
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Practice Tests', href: '/practice' },
-    { name: 'Study Guide', href: '/study-guide' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'FAQ', href: '/faq' },
-    { name: 'Progress', href: '/progress' },
-    { name: 'About', href: '/about' },
-  ]
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">CitizenTest Canada</span>
-          </Link>
+    <header className="sticky top-4 z-50 px-4 max-w-7xl mx-auto w-full">
+      {/* Floating Pill Container */}
+      <div className="bg-white/90 backdrop-blur-md border-2 border-slate-200 shadow-soft rounded-2xl px-6 py-4 flex items-center justify-between transition-all duration-300">
+        
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="bg-teal-500 text-white w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-3d-primary group-active:translate-y-1 group-active:shadow-none transition-all">
+            C
+          </div>
+          <span className="font-extrabold tracking-tight text-xl text-slate-800">
+            Citizen<span className="text-teal-600">Test</span>
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                prefetch={false}
-                className="text-gray-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8 font-bold text-slate-500">
+          <Link href="/practice" className="hover:text-teal-500 transition-colors">Practice</Link>
+          <Link href="/study-guide" className="hover:text-teal-500 transition-colors">Study Guide</Link>
+          
+          {session ? (
+            <div className="flex items-center gap-4 border-l-2 border-slate-100 pl-8">
+              <Link href="/dashboard" className="text-slate-800 hover:text-teal-500 transition-colors">Dashboard</Link>
+              <button 
+                onClick={() => signOut()}
+                className="px-5 py-2 rounded-xl font-bold text-rose-500 bg-rose-50 border-2 border-rose-100 hover:bg-rose-100 hover:border-rose-200 transition-all active:scale-95"
               >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Desktop Auth */}
-          <div className="hidden md:flex items-center space-x-4">
-            {session ? (
-              <div className="flex items-center space-x-4">
-                <Link href="/dashboard" prefetch={false} className="text-gray-600 hover:text-primary-600 text-sm font-medium">
-                  Dashboard
-                </Link>
-                <button
-                  onClick={() => signOut()}
-                  className="text-gray-600 hover:text-primary-600 text-sm font-medium"
-                >
-                  Sign Out
-                </button>
-                <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                  <UserIcon className="h-4 w-4 text-primary-600" />
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-4">
-                <Link href="/auth/signin" prefetch={false} className="text-gray-600 hover:text-primary-600 text-sm font-medium">
-                  Sign In
-                </Link>
-                <Link href="/auth/signup" prefetch={false} className="btn-primary text-sm">
-                  Sign Up
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-600 hover:text-primary-600 p-2"
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
-            >
-              {isMenuOpen ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div id="mobile-menu" className="md:hidden border-t border-gray-200">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  prefetch={false}
-                  className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              <div className="border-t border-gray-200 pt-4 mt-4">
-                {session ? (
-                  <div className="space-y-2">
-                    <Link
-                      href="/dashboard"
-                      prefetch={false}
-                      className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
-                    <button
-                      onClick={() => {
-                        signOut()
-                        setIsMenuOpen(false)
-                      }}
-                      className="text-gray-600 hover:text-primary-600 block w-full text-left px-3 py-2 text-base font-medium"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <Link
-                      href="/auth/signin"
-                      prefetch={false}
-                      className="text-gray-600 hover:text-primary-600 block px-3 py-2 text-base font-medium"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      href="/auth/signup"
-                      prefetch={false}
-                      className="btn-primary block text-center"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Sign Up
-                    </Link>
-                  </div>
-                )}
-              </div>
+                Log Out
+              </button>
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="flex items-center gap-4 border-l-2 border-slate-100 pl-8">
+              <Link href="/auth/signin" className="hover:text-teal-500 transition-colors">Log In</Link>
+              <Link href="/auth/signup" className="px-6 py-2.5 rounded-xl font-bold text-white bg-teal-500 border-2 border-teal-600 border-b-4 hover:bg-teal-400 active:border-b-2 active:translate-y-[2px] transition-all">
+                Sign Up Free
+              </Link>
+            </div>
+          )}
+        </nav>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          className="md:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-lg"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+        </button>
       </div>
+
+      {/* Mobile Nav Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-24 left-4 right-4 bg-white border-2 border-slate-200 rounded-2xl shadow-xl p-4 flex flex-col gap-4 md:hidden animate-slide-up">
+          <Link href="/practice" className="p-4 bg-slate-50 rounded-xl font-bold text-slate-700 text-center">Practice Tests</Link>
+          <Link href="/study-guide" className="p-4 bg-slate-50 rounded-xl font-bold text-slate-700 text-center">Study Guide</Link>
+          {session ? (
+            <>
+              <Link href="/dashboard" className="p-4 bg-teal-50 rounded-xl font-bold text-teal-700 text-center">Dashboard</Link>
+              <button onClick={() => signOut()} className="p-4 bg-rose-50 rounded-xl font-bold text-rose-600 text-center">Log Out</button>
+            </>
+          ) : (
+            <Link href="/auth/signup" className="p-4 bg-teal-500 text-white rounded-xl font-bold text-center border-b-4 border-teal-700 active:border-b-0 active:translate-y-1">
+              Create Free Account
+            </Link>
+          )}
+        </div>
+      )}
     </header>
   )
 }
