@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { BookOpenIcon, ClockIcon, ChartBarIcon, StarIcon, TrophyIcon, ShieldCheckIcon, GlobeAmericasIcon, BuildingLibraryIcon } from '@heroicons/react/24/solid'
+import { BookOpenIcon, ClockIcon, StarIcon, TrophyIcon, ShieldCheckIcon, GlobeAmericasIcon, BuildingLibraryIcon } from '@heroicons/react/24/solid'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
@@ -130,7 +130,7 @@ export default function PracticePageClient() {
                     </div>
                   </div>
                   
-                  <h3 className="text-2xl font-extrabold text-slate-800 mb-3">{category.title}</h3>
+                  <h3 className="text-xl md:text-2xl font-extrabold text-slate-800 mb-3">{category.title}</h3>
                   <p className="text-slate-500 font-medium mb-6 line-clamp-2 min-h-[3rem]">{category.description}</p>
                   
                   <div className="flex items-center justify-between text-sm font-bold text-slate-400 bg-slate-50 p-4 rounded-xl">
