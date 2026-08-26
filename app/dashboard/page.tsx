@@ -192,7 +192,7 @@ export default function DashboardPage() {
             {testResults.length === 0 ? (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🌱</div>
-                <p className="text-xl font-bold text-slate-600 mb-6">You haven't taken any tests yet!</p>
+                <p className="text-xl font-bold text-slate-600 mb-6">You haven&apos;t taken any tests yet!</p>
                 <a href="/practice" className="btn-primary inline-flex">Start Your First Test</a>
               </div>
             ) : (
