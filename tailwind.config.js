@@ -33,6 +33,14 @@ module.exports = {
         'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
         'glow': '0 0 20px rgba(20, 184, 166, 0.3)',
       },
+      boxShadow: {
+        '3d': '0 4px 0 0 #e2e8f0', // Gray default bottom lip
+        '3d-hover': '0 6px 0 0 #cbd5e1',
+        '3d-active': '0 0px 0 0 #cbd5e1', // Flattens on click
+        '3d-primary': '0 4px 0 0 #0d9488', // Teal bottom lip
+        '3d-success': '0 4px 0 0 #059669', // Green bottom lip
+        '3d-error': '0 4px 0 0 #e11d48', // Red bottom lip
+      },
       animation: {
         'fade-in': 'fadeIn 0.4s ease-out forwards',
         'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
