@@ -70,130 +70,136 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-white">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <Header />
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-lg shadow-lg p-8">
+      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-enter relative">
+        {/* Decorative elements */}
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+
+        <div className="max-w-xl w-full relative z-10">
+          <div className="bg-white rounded-[2rem] shadow-soft border-2 border-slate-100 p-8 md:p-10">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-              <p className="text-gray-600">Join thousands of Canadians preparing for their citizenship test</p>
+              <h1 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight mb-2">Create Account</h1>
+              <p className="text-slate-500 font-medium">Join thousands preparing for their citizenship test</p>
             </div>
 
             {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-red-600 text-sm">{error}</p>
+              <div className="mb-6 p-4 bg-rose-50 border-2 border-rose-200 rounded-xl animate-fade-in">
+                <p className="text-rose-600 text-sm font-bold text-center">{error}</p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
                   Full Name
                 </label>
                 <input
                   {...register('name')}
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium"
                   placeholder="Enter your full name"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+                  <p className="mt-2 text-sm font-bold text-rose-500">{errors.name.message}</p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
                   Email Address
                 </label>
                 <input
                   {...register('email')}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium"
                   placeholder="Enter your email address"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                  <p className="mt-2 text-sm font-bold text-rose-500">{errors.email.message}</p>
                 )}
               </div>
 
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    {...register('password')}
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent pr-12"
-                    placeholder="Create a password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  >
-                    {showPassword ? (
-                      <EyeSlashIcon className="h-5 w-5 text-gray-400" />
-                    ) : (
-                      <EyeIcon className="h-5 w-5 text-gray-400" />
-                    )}
-                  </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label htmlFor="password" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      {...register('password')}
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium pr-12"
+                      placeholder="Create password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center"
+                    >
+                      {showPassword ? (
+                        <EyeSlashIcon className="h-6 w-6 text-slate-400 hover:text-teal-600 transition-colors" />
+                      ) : (
+                        <EyeIcon className="h-6 w-6 text-slate-400 hover:text-teal-600 transition-colors" />
+                      )}
+                    </button>
+                  </div>
+                  {errors.password && (
+                    <p className="mt-2 text-sm font-bold text-rose-500">{errors.password.message}</p>
+                  )}
                 </div>
-                {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-                )}
-              </div>
 
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <input
-                    {...register('confirmPassword')}
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    id="confirmPassword"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent pr-12"
-                    placeholder="Confirm your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeSlashIcon className="h-5 w-5 text-gray-400" />
-                    ) : (
-                      <EyeIcon className="h-5 w-5 text-gray-400" />
-                    )}
-                  </button>
+                <div>
+                  <label htmlFor="confirmPassword" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                    Confirm 
+                  </label>
+                  <div className="relative">
+                    <input
+                      {...register('confirmPassword')}
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      id="confirmPassword"
+                      className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium pr-12"
+                      placeholder="Confirm password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeSlashIcon className="h-6 w-6 text-slate-400 hover:text-teal-600 transition-colors" />
+                      ) : (
+                        <EyeIcon className="h-6 w-6 text-slate-400 hover:text-teal-600 transition-colors" />
+                      )}
+                    </button>
+                  </div>
+                  {errors.confirmPassword && (
+                    <p className="mt-2 text-sm font-bold text-rose-500">{errors.confirmPassword.message}</p>
+                  )}
                 </div>
-                {errors.confirmPassword && (
-                  <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
-                )}
               </div>
 
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-red-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                {isLoading ? 'Creating Account...' : 'Create Account'}
-              </button>
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-4 rounded-2xl font-extrabold text-white text-lg bg-teal-500 border-2 border-teal-600 border-b-[6px] hover:bg-teal-400 active:border-b-[2px] active:translate-y-[4px] disabled:opacity-70 disabled:cursor-not-allowed transition-all flex justify-center"
+                >
+                  {isLoading ? 'Creating Account...' : 'Create Account'}
+                </button>
+              </div>
             </form>
 
-            <div className="mt-6 text-center">
-              <p className="text-gray-600">
+            <div className="mt-8 pt-6 border-t-2 border-slate-100 text-center">
+              <p className="text-slate-500 font-medium">
                 Already have an account?{' '}
-                <a href="/auth/signin" className="text-red-600 hover:text-red-700 font-medium">
+                <Link href="/auth/signin" className="font-extrabold text-teal-600 hover:text-teal-500">
                   Sign in here
-                </a>
+                </Link>
               </p>
             </div>
           </div>
