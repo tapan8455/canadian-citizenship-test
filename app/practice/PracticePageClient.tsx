@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { BookOpenIcon, ClockIcon, ChartBarIcon, StarIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, ClockIcon, ChartBarIcon, StarIcon, TrophyIcon, ShieldCheckIcon, GlobeAmericasIcon, BuildingLibraryIcon } from '@heroicons/react/24/solid'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
@@ -18,56 +18,62 @@ const testCategories = [
     difficulty: 'Mixed',
     icon: BookOpenIcon,
     color: 'bg-blue-500',
+    borderColor: 'border-blue-600',
   },
   {
     id: 'history',
     title: 'Canadian History',
-    description: 'Focus on important historical events and figures in Canadian history',
+    description: 'Focus on important historical events and figures',
     questions: 20,
     timeLimit: 45,
     difficulty: 'Focused',
-    icon: BookOpenIcon,
-    color: 'bg-green-500',
+    icon: BuildingLibraryIcon,
+    color: 'bg-emerald-500',
+    borderColor: 'border-emerald-600',
   },
   {
     id: 'government',
     title: 'Government & Politics',
-    description: 'Learn about Canadian government structure, elections, and political system',
+    description: 'Elections, government structure, and political systems',
     questions: 20,
     timeLimit: 45,
     difficulty: 'Focused',
-    icon: BookOpenIcon,
+    icon: ShieldCheckIcon,
     color: 'bg-purple-500',
+    borderColor: 'border-purple-600',
   },
   {
     id: 'geography',
     title: 'Geography & Symbols',
-    description: 'Explore Canadian geography, provinces, territories, and national symbols',
+    description: 'Provinces, territories, and national symbols',
     questions: 20,
     timeLimit: 45,
     difficulty: 'Focused',
-    icon: BookOpenIcon,
-    color: 'bg-red-500',
+    icon: GlobeAmericasIcon,
+    color: 'bg-rose-500',
+    borderColor: 'border-rose-600',
   },
   {
     id: 'rights',
     title: 'Rights & Responsibilities',
-    description: 'Understand Canadian rights, freedoms, and civic responsibilities',
+    description: 'Charter of rights, freedoms, and civic duties',
     questions: 20,
     timeLimit: 45,
     difficulty: 'Focused',
-    icon: BookOpenIcon,
-    color: 'bg-yellow-500',
+    icon: StarIcon,
+    color: 'bg-amber-500',
+    borderColor: 'border-amber-600',
   },
   {
     id: 'full',
     title: 'Official Practice Test',
-    description: 'Exact simulation of the actual citizenship test - 20 questions, 45 minutes',
+    description: 'Exact simulation of the actual test - 20 questions, 45 mins',
     questions: 20,
     timeLimit: 45,
     difficulty: 'Official Format',
-    icon: BookOpenIcon,
-    color: 'bg-indigo-500',
+    icon: TrophyIcon,
+    color: 'bg-teal-500',
+    borderColor: 'border-teal-600',
   },
 ]
 
@@ -75,136 +81,77 @@ export default function PracticePageClient() {
   const [selectedProvince, setSelectedProvince] = useState('all')
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <Header />
       
-      {/* Hero Section */}
-      <section className="bg-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              Practice Tests
+      <main className="flex-grow">
+        {/* Header Section */}
+        <section className="pt-12 pb-8 px-4">
+          <div className="max-w-4xl mx-auto text-center animate-enter">
+            <h1 className="text-4xl md:text-5xl font-black text-slate-800 mb-6">
+              Select a <span className="text-teal-500">Practice Mode</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Choose from our comprehensive collection of practice tests designed to help you 
-              master every aspect of the Canadian Citizenship Test.
+            <p className="text-lg md:text-xl text-slate-500 font-medium">
+              Choose your focus area below. Want the real experience? Select the Official Practice Test.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Ad Zone */}
-      <AdZone position="practice-hero" />
+        {/* Ad Zone */}
+        <AdZone position="practice-hero" />
 
-      {/* Province Selection */}
-      <section className="bg-white py-8 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md mx-auto">
-            <ProvinceSelector
-              selectedProvince={selectedProvince}
-              onProvinceChange={setSelectedProvince}
-            />
-            <p className="text-sm text-gray-600 mt-2 text-center">
-              Select your province to customize your practice experience
-            </p>
+        {/* Province Selection */}
+        <section className="py-8 px-4 animate-enter" style={{ animationDelay: '0.1s' }}>
+          <div className="max-w-xl mx-auto bg-white p-6 rounded-[2rem] border-2 border-slate-200 shadow-soft">
+             <ProvinceSelector
+                selectedProvince={selectedProvince}
+                onProvinceChange={setSelectedProvince}
+              />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Test Categories */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testCategories.map((category) => (
-              <div key={category.id} className="card hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 ${category.color} rounded-lg flex items-center justify-center`}>
-                    <category.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <StarIcon className="h-4 w-4 text-yellow-400" />
-                    <span className="text-sm text-gray-600">{category.difficulty}</span>
-                  </div>
-                </div>
-                
-                <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
-                <p className="text-gray-600 mb-4">{category.description}</p>
-                
-                <div className="flex items-center justify-between mb-4 text-sm text-gray-500">
-                  <div className="flex items-center space-x-1">
-                    <BookOpenIcon className="h-4 w-4" />
-                    <span>{category.questions} questions</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <ClockIcon className="h-4 w-4" />
-                    <span>{category.timeLimit} min</span>
-                  </div>
-                </div>
-                
+        {/* Test Categories */}
+        <section className="py-12 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-enter" style={{ animationDelay: '0.2s' }}>
+              {testCategories.map((category) => (
                 <Link 
                   href={`/practice/${category.id}?province=${selectedProvince}`}
-                  className="btn-primary w-full text-center"
+                  key={category.id} 
+                  className={`block bg-white p-8 rounded-[2rem] border-2 border-slate-200 border-b-[8px] hover:bg-slate-50 active:border-b-[2px] active:translate-y-[6px] transition-all group`}
                 >
-                  Start Test
+                  <div className="flex items-start justify-between mb-6">
+                    <div className={`w-16 h-16 ${category.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                      <category.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="flex items-center space-x-1 bg-slate-100 px-3 py-1.5 rounded-full">
+                      <StarIcon className="h-4 w-4 text-amber-500" />
+                      <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">{category.difficulty}</span>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-extrabold text-slate-800 mb-3">{category.title}</h3>
+                  <p className="text-slate-500 font-medium mb-6 line-clamp-2 min-h-[3rem]">{category.description}</p>
+                  
+                  <div className="flex items-center justify-between text-sm font-bold text-slate-400 bg-slate-50 p-4 rounded-xl">
+                    <div className="flex items-center gap-2">
+                      <BookOpenIcon className="h-5 w-5 text-slate-500" />
+                      <span>{category.questions} Qs</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <ClockIcon className="h-5 w-5 text-slate-500" />
+                      <span>{category.timeLimit} Mins</span>
+                    </div>
+                  </div>
                 </Link>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Why Practice with Us?
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our practice tests are designed to mirror the actual citizenship test 
-              and help you build confidence for exam day.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ChartBarIcon className="h-8 w-8 text-primary-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Detailed Analytics</h3>
-              <p className="text-gray-600">
-                Track your progress with comprehensive analytics and identify areas 
-                that need improvement.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <BookOpenIcon className="h-8 w-8 text-primary-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Official Content</h3>
-              <p className="text-gray-600">
-                All questions are based on the official Discover Canada study guide 
-                and actual test content.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ClockIcon className="h-8 w-8 text-primary-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Timed Practice</h3>
-              <p className="text-gray-600">
-                Experience real test conditions with timed practice sessions that 
-                prepare you for the actual exam.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Ad Zone */}
-      <AdZone position="practice-bottom" />
+        {/* Ad Zone */}
+        <AdZone position="practice-bottom" />
+      </main>
 
       <Footer />
     </div>
