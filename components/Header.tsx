@@ -32,7 +32,7 @@ export default function Header() {
           
           {/* Header Donate Button */}
           <a 
-            href="YOUR_DONATION_LINK_HERE" 
+            href="https://buymeacoffee.com/citizentestcanada" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="flex items-center gap-2 px-4 py-2 bg-rose-50 text-rose-500 font-bold rounded-xl border-2 border-rose-100 hover:bg-rose-100 hover:border-rose-200 transition-all active:scale-95"
