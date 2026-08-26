@@ -43,7 +43,6 @@ const categories: Record<string, { name: string; description: string; color: str
   }
 }
 
-// Main logic wrapped inside a component so we can use Suspense later
 function PracticeCategoryContent() {
   const params = useParams()
   const router = useRouter()
@@ -356,7 +355,6 @@ function PracticeCategoryContent() {
   )
 }
 
-// Wrap export in Suspense to satisfy Next.js static build requirements
 export default function PracticeCategoryClient() {
   return (
     <Suspense fallback={
