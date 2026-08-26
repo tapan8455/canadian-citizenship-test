@@ -27,15 +27,15 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Cal Sans', 'Inter', 'sans-serif'],
       },
       boxShadow: {
-        '3d': '0 4px 0 0 #e2e8f0', // Gray default bottom lip
+        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+        '3d': '0 4px 0 0 #e2e8f0', 
         '3d-hover': '0 6px 0 0 #cbd5e1',
-        '3d-active': '0 0px 0 0 #cbd5e1', // Flattens on click
-        '3d-primary': '0 4px 0 0 #0d9488', // Teal bottom lip
-        '3d-success': '0 4px 0 0 #059669', // Green bottom lip
-        '3d-error': '0 4px 0 0 #e11d48', // Red bottom lip
+        '3d-active': '0 0px 0 0 #cbd5e1',
+        '3d-primary': '0 4px 0 0 #0d9488',
+        '3d-success': '0 4px 0 0 #059669', 
+        '3d-error': '0 4px 0 0 #e11d48',
       },
       animation: {
         'fade-in': 'fadeIn 0.4s ease-out forwards',
