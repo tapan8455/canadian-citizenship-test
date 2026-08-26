@@ -7,10 +7,9 @@ interface TestResultsProps {
   score: number
   totalQuestions: number
   onRetake: () => void
-  category?: string
 }
 
-export default function TestResults({ score, totalQuestions, onRetake, category = 'all' }: TestResultsProps) {
+export default function TestResults({ score, totalQuestions, onRetake }: TestResultsProps) {
   const percentage = Math.round((score / totalQuestions) * 100);
   const passed = percentage >= 75; // 15 out of 20 is exactly 75%
 
