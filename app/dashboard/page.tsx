@@ -10,7 +10,7 @@ import {
   XCircleIcon,
   BookOpenIcon,
   TrophyIcon
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/solid'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
@@ -69,18 +69,6 @@ export default function DashboardPage() {
     return names[category] || category
   }
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600'
-    if (score >= 60) return 'text-yellow-600'
-    return 'text-red-600'
-  }
-
-  const getScoreIcon = (score: number) => {
-    if (score >= 80) return <TrophyIcon className="h-5 w-5 text-green-600" />
-    if (score >= 60) return <CheckCircleIcon className="h-5 w-5 text-yellow-600" />
-    return <XCircleIcon className="h-5 w-5 text-red-600" />
-  }
-
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
@@ -91,203 +79,159 @@ export default function DashboardPage() {
     return new Date(dateString).toLocaleDateString('en-CA', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+      day: 'numeric'
     })
   }
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-slate-50 flex flex-col">
         <Header />
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex-grow flex items-center justify-center">
           <div className="loading-spinner"></div>
         </div>
       </div>
     )
   }
 
-  if (!session) {
-    return null
-  }
+  if (!session) return null
 
   const totalTests = testResults.length
   const averageScore = totalTests > 0 
-    ? Math.round(testResults.reduce((sum, result) => sum + result.score, 0) / totalTests)
+    ? Math.round(testResults.reduce((sum, result) => sum + (result.correct_answers / result.total_questions * 100), 0) / totalTests)
     : 0
   const totalQuestions = testResults.reduce((sum, result) => sum + result.total_questions, 0)
   const totalCorrect = testResults.reduce((sum, result) => sum + result.correct_answers, 0)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <Header />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="flex-grow max-w-7xl w-full mx-auto px-4 py-8 animate-enter">
         {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {session.user?.name || 'Student'}!
+        <div className="mb-10 text-center md:text-left bg-teal-500 rounded-3xl p-8 md:p-12 text-white shadow-3d-primary relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-teal-400 rounded-full mix-blend-screen opacity-50 blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+          <h1 className="text-4xl font-black mb-2 relative z-10">
+            Welcome back, {session.user?.name || 'Student'}! 👋
           </h1>
-          <p className="text-gray-600">
-            Track your progress and continue your Canadian citizenship test preparation
+          <p className="text-teal-50 text-lg font-medium relative z-10">
+            Keep your streak alive. Continue your citizenship test preparation below.
           </p>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <ChartBarIcon className="h-8 w-8 text-red-500" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Tests Completed</p>
-                <p className="text-2xl font-bold text-gray-900">{totalTests}</p>
-              </div>
+        {/* Gamified Stats Overview */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+          <div className="bg-white rounded-3xl p-6 shadow-soft border-2 border-slate-100 flex flex-col items-center text-center">
+            <div className="w-14 h-14 bg-rose-100 text-rose-500 rounded-2xl flex items-center justify-center mb-4">
+              <ChartBarIcon className="w-8 h-8" />
             </div>
+            <div className="text-3xl font-black text-slate-800">{totalTests}</div>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Tests Done</div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <TrophyIcon className="h-8 w-8 text-yellow-500" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Average Score</p>
-                <p className={`text-2xl font-bold ${getScoreColor(averageScore)}`}>
-                  {averageScore}%
-                </p>
-              </div>
+          <div className="bg-white rounded-3xl p-6 shadow-soft border-2 border-slate-100 flex flex-col items-center text-center">
+            <div className="w-14 h-14 bg-amber-100 text-amber-500 rounded-2xl flex items-center justify-center mb-4">
+              <TrophyIcon className="w-8 h-8" />
             </div>
+            <div className="text-3xl font-black text-amber-500">{averageScore}%</div>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Avg Score</div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <BookOpenIcon className="h-8 w-8 text-blue-500" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Questions Answered</p>
-                <p className="text-2xl font-bold text-gray-900">{totalQuestions}</p>
-              </div>
+          <div className="bg-white rounded-3xl p-6 shadow-soft border-2 border-slate-100 flex flex-col items-center text-center">
+            <div className="w-14 h-14 bg-blue-100 text-blue-500 rounded-2xl flex items-center justify-center mb-4">
+              <BookOpenIcon className="w-8 h-8" />
             </div>
+            <div className="text-3xl font-black text-slate-800">{totalQuestions}</div>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Answered</div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center">
-              <CheckCircleIcon className="h-8 w-8 text-green-500" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Correct Answers</p>
-                <p className="text-2xl font-bold text-gray-900">{totalCorrect}</p>
-              </div>
+          <div className="bg-white rounded-3xl p-6 shadow-soft border-2 border-slate-100 flex flex-col items-center text-center">
+            <div className="w-14 h-14 bg-emerald-100 text-emerald-500 rounded-2xl flex items-center justify-center mb-4">
+              <CheckCircleIcon className="w-8 h-8" />
             </div>
+            <div className="text-3xl font-black text-slate-800">{totalCorrect}</div>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mt-1">Correct</div>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white rounded-lg shadow mb-8">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Quick Actions</h2>
-          </div>
-          <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <a
-                href="/practice"
-                className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-red-300 hover:bg-red-50 transition-colors"
-              >
-                <BookOpenIcon className="h-6 w-6 text-red-500 mr-3" />
-                <div>
-                  <p className="font-medium text-gray-900">Take Practice Test</p>
-                  <p className="text-sm text-gray-600">Choose a category to practice</p>
-                </div>
-              </a>
-
-              <a
-                href="/practice/full"
-                className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-red-300 hover:bg-red-50 transition-colors"
-              >
-                <TrophyIcon className="h-6 w-6 text-yellow-500 mr-3" />
-                <div>
-                  <p className="font-medium text-gray-900">Full Practice Test</p>
-                  <p className="text-sm text-gray-600">Complete test simulation</p>
-                </div>
-              </a>
-
-              <a
-                href="/progress"
-                className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-red-300 hover:bg-red-50 transition-colors"
-              >
-                <ChartBarIcon className="h-6 w-6 text-blue-500 mr-3" />
-                <div>
-                  <p className="font-medium text-gray-900">View Progress</p>
-                  <p className="text-sm text-gray-600">Detailed analytics</p>
-                </div>
-              </a>
+        {/* Quick Actions (3D Buttons) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <a
+            href="/practice"
+            className="flex items-center p-6 bg-white border-2 border-slate-200 border-b-[8px] rounded-3xl hover:bg-slate-50 hover:border-b-[8px] active:border-b-[2px] active:translate-y-[6px] transition-all group"
+          >
+            <div className="w-16 h-16 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform">
+              <BookOpenIcon className="w-8 h-8" />
             </div>
-          </div>
+            <div>
+              <p className="text-xl font-extrabold text-slate-800">Practice By Topic</p>
+              <p className="text-slate-500 font-medium">Focus on specific chapters</p>
+            </div>
+          </a>
+
+          <a
+            href="/practice/full"
+            className="flex items-center p-6 bg-blue-500 text-white border-2 border-blue-600 border-b-[8px] rounded-3xl hover:bg-blue-400 hover:border-b-[8px] active:border-b-[2px] active:translate-y-[6px] transition-all group"
+          >
+            <div className="w-16 h-16 bg-blue-400 text-white rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform">
+              <TrophyIcon className="w-8 h-8" />
+            </div>
+            <div>
+              <p className="text-xl font-extrabold">Full Mock Exam</p>
+              <p className="text-blue-100 font-medium">20 Questions • 45 Mins</p>
+            </div>
+          </a>
         </div>
 
         {/* Recent Test Results */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Recent Test Results</h2>
+        <div className="bg-white rounded-3xl shadow-soft border-2 border-slate-100 overflow-hidden">
+          <div className="p-6 md:p-8 border-b-2 border-slate-100 bg-slate-50">
+            <h2 className="text-2xl font-extrabold text-slate-800">Recent Activity</h2>
           </div>
-          <div className="p-6">
+          <div className="p-6 md:p-8">
             {testResults.length === 0 ? (
-              <div className="text-center py-8">
-                <BookOpenIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-4">No test results yet</p>
-                <a
-                  href="/practice"
-                  className="btn-primary"
-                >
-                  Take Your First Test
-                </a>
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">🌱</div>
+                <p className="text-xl font-bold text-slate-600 mb-6">You haven't taken any tests yet!</p>
+                <a href="/practice" className="btn-primary inline-flex">Start Your First Test</a>
               </div>
             ) : (
               <div className="space-y-4">
-                {testResults.slice(0, 5).map((result) => (
-                  <div
-                    key={result.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex items-center">
-                      {getScoreIcon(result.score)}
-                      <div className="ml-4">
-                        <p className="font-medium text-gray-900">
-                          {getCategoryDisplayName(result.category)}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {formatDate(result.completed_at)}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center space-x-4">
-                      <div className="text-right">
-                        <p className={`font-semibold ${getScoreColor(result.score)}`}>
-                          {result.score}%
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {result.correct_answers}/{result.total_questions} correct
-                        </p>
+                {testResults.slice(0, 5).map((result) => {
+                  const scorePct = Math.round((result.correct_answers / result.total_questions) * 100);
+                  const passed = scorePct >= 75;
+                  
+                  return (
+                    <div key={result.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-5 border-2 border-slate-100 rounded-2xl hover:bg-slate-50 transition-colors gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${passed ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}>
+                          {passed ? <CheckCircleIcon className="w-7 h-7" /> : <XCircleIcon className="w-7 h-7" />}
+                        </div>
+                        <div>
+                          <p className="font-bold text-lg text-slate-800">{getCategoryDisplayName(result.category)}</p>
+                          <p className="text-sm font-medium text-slate-500">{formatDate(result.completed_at)}</p>
+                        </div>
                       </div>
                       
-                      {result.time_taken && (
-                        <div className="flex items-center text-sm text-gray-600">
-                          <ClockIcon className="h-4 w-4 mr-1" />
-                          {formatTime(result.time_taken)}
+                      <div className="flex items-center gap-6 sm:justify-end">
+                        {result.time_taken > 0 && (
+                          <div className="flex items-center text-slate-500 font-medium bg-slate-100 px-3 py-1 rounded-lg">
+                            <ClockIcon className="w-4 h-4 mr-1" />
+                            {formatTime(result.time_taken)}
+                          </div>
+                        )}
+                        <div className="text-right">
+                          <p className={`text-xl font-black ${passed ? 'text-emerald-500' : 'text-rose-500'}`}>
+                            {scorePct}%
+                          </p>
+                          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            {result.correct_answers}/{result.total_questions}
+                          </p>
                         </div>
-                      )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {testResults.length > 5 && (
-              <div className="mt-6 text-center">
-                <a
-                  href="/progress"
-                  className="text-red-600 hover:text-red-700 font-medium"
-                >
-                  View All Results →
-                </a>
+                  )
+                })}
               </div>
             )}
           </div>
