@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 
 interface TestQuestionProps {
   question: {
@@ -30,62 +30,49 @@ export default function TestQuestion({
   const showResult = showCorrectAnswer && hasAnswered;
 
   return (
-    <fieldset className="space-y-8 animate-enter">
-      {/* Top Header - Question Progress & Status */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-        <legend className="flex items-baseline space-x-2">
-          <span className="text-sm font-bold tracking-wide uppercase text-primary-600">Question {questionNumber}</span>
-          <span className="text-sm font-medium text-slate-400">/ {totalQuestions}</span>
-        </legend>
-        
-        {/* Status Indicator */}
-        {hasAnswered && showCorrectAnswer && (
-          <div aria-live="polite" className="flex items-center space-x-2 animate-fade-in">
-            {isCorrect ? (
-              <div className="flex items-center space-x-1.5 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">
-                <CheckCircleIcon className="h-5 w-5" />
-                <span className="text-sm font-bold tracking-wide">Correct</span>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-1.5 px-3 py-1 bg-rose-100 text-rose-700 rounded-full">
-                <XCircleIcon className="h-5 w-5" />
-                <span className="text-sm font-bold tracking-wide">Incorrect</span>
-              </div>
-            )}
-          </div>
-        )}
+    <div className="w-full max-w-3xl mx-auto space-y-8 animate-enter mt-8">
+      
+      {/* Playful Header */}
+      <div className="flex items-center justify-between">
+        <div className="bg-slate-200 text-slate-600 font-bold px-4 py-1.5 rounded-2xl uppercase tracking-widest text-sm">
+          Question {questionNumber} of {totalQuestions}
+        </div>
       </div>
 
-      {/* Question Text */}
+      {/* Massive, bold question text */}
       <div>
-        <h2 className="text-xl md:text-2xl font-bold text-slate-800 leading-snug">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 leading-tight">
           {question.question}
         </h2>
       </div>
 
-      {/* Answer Options */}
-      <div className="space-y-4" role="radiogroup" aria-labelledby={`question-${questionNumber}`}>
+      {/* Chunky, Gamified Options */}
+      <div className="grid grid-cols-1 gap-4" role="radiogroup">
         {question.options.map((option, index) => {
           const isSelected = selectedAnswer === index;
           const isCorrectOption = index === question.correctAnswer;
           const optionId = `question-${question.id}-option-${index}`;
 
-          // Base styles for the label: thicker border, rounded-xl, smooth transition
-          let optionClasses = "block w-full p-5 border-2 rounded-xl cursor-pointer transition-all duration-300 text-left relative focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2";
+          // Base classes for the 3D block look
+          let optionClasses = "block w-full p-5 rounded-2xl border-2 cursor-pointer transition-all duration-150 text-left relative outline-none select-none";
           
           if (showResult) {
+            // RESULT STATE
             if (isCorrectOption) {
-              optionClasses += " bg-emerald-50 border-emerald-400 text-emerald-900 shadow-sm";
+              optionClasses += " bg-emerald-100 border-emerald-500 text-emerald-900 shadow-3d-success translate-y-0";
             } else if (isSelected && !isCorrect) {
-              optionClasses += " bg-rose-50 border-rose-300 text-rose-900";
+              optionClasses += " bg-rose-100 border-rose-500 text-rose-900 shadow-3d-error translate-y-0";
             } else {
-              optionClasses += " bg-slate-50/50 border-slate-200 text-slate-500 opacity-60";
+              optionClasses += " bg-slate-50 border-slate-200 text-slate-400 opacity-60";
             }
           } else {
+            // INTERACTIVE STATE
             if (isSelected) {
-              optionClasses += " bg-primary-50 border-primary-500 text-primary-900 shadow-[0_0_15px_rgba(20,184,166,0.15)] -translate-y-0.5";
+              // The "Pressed" state - shadow goes to 0, box moves down
+              optionClasses += " bg-teal-50 border-teal-500 text-teal-900 translate-y-1";
             } else {
-              optionClasses += " bg-white border-slate-200 hover:border-primary-300 hover:bg-slate-50 hover:shadow-soft hover:-translate-y-0.5 text-slate-700";
+              // Default state - high shadow, moves down when actively clicked
+              optionClasses += " bg-white border-slate-300 text-slate-700 shadow-3d hover:bg-slate-50 hover:shadow-3d-hover hover:-translate-y-0.5 active:shadow-3d-active active:translate-y-1";
             }
           }
 
@@ -100,45 +87,28 @@ export default function TestQuestion({
                 onChange={() => !showResult && onAnswerSelect(index)}
                 disabled={showResult}
                 className="absolute opacity-0 w-0 h-0 appearance-none -z-10" 
-                aria-describedby={showResult && isCorrectOption ? `${optionId}-status` : undefined}
               />
               
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center space-x-4">
-                  {/* Custom Radio Circle */}
-                  <div className={`w-7 h-7 rounded-full border-2 flex flex-shrink-0 items-center justify-center transition-colors duration-300 ${
-                    showResult
-                      ? isCorrectOption
-                        ? "border-emerald-500 bg-emerald-500"
-                        : isSelected && !isCorrect
-                        ? "border-rose-500 bg-rose-500"
-                        : "border-slate-300"
-                      : isSelected
-                      ? "border-primary-500 bg-primary-500"
-                      : "border-slate-300 bg-white"
+                  {/* Option Letter Badge (A, B, C, D) */}
+                  <div className={`w-8 h-8 rounded-lg flex flex-shrink-0 items-center justify-center font-bold text-lg transition-colors duration-150 ${
+                     showResult 
+                      ? isCorrectOption ? "bg-emerald-500 text-white" : isSelected && !isCorrect ? "bg-rose-500 text-white" : "bg-slate-200 text-slate-400"
+                      : isSelected ? "bg-teal-500 text-white" : "bg-slate-100 text-slate-500"
                   }`}>
-                    {showResult ? (
-                      isCorrectOption ? (
-                        <CheckCircleIcon className="h-5 w-5 text-white" />
-                      ) : isSelected && !isCorrect ? (
-                        <XCircleIcon className="h-5 w-5 text-white" />
-                      ) : null
-                    ) : isSelected ? (
-                      <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-                    ) : null}
+                    {String.fromCharCode(65 + index)}
                   </div>
                   
-                  {/* Option Text */}
-                  <span className="font-semibold text-lg flex-shrink-0 opacity-50">{String.fromCharCode(65 + index)}.</span>
-                  <span className="text-base md:text-lg font-medium leading-snug pt-0.5">{option}</span>
+                  <span className="text-lg md:text-xl font-bold leading-snug">{option}</span>
                 </div>
                 
-                {/* Visual success/fail markers for the right side */}
+                {/* Result Icons */}
                 {showResult && isCorrectOption && (
-                  <CheckCircleIcon id={`${optionId}-status`} className="h-7 w-7 text-emerald-500 flex-shrink-0 animate-fade-in" />
+                  <CheckCircleIcon className="h-8 w-8 text-emerald-500 flex-shrink-0 animate-bounce" />
                 )}
                 {showResult && isSelected && !isCorrect && (
-                  <XCircleIcon className="h-7 w-7 text-rose-500 flex-shrink-0 animate-fade-in" />
+                  <XCircleIcon className="h-8 w-8 text-rose-500 flex-shrink-0" />
                 )}
               </div>
             </label>
@@ -146,15 +116,18 @@ export default function TestQuestion({
         })}
       </div>
 
-      {/* Modern Explanation Box */}
+      {/* Gamified Explanation Banner */}
       {showResult && hasAnswered && question.explanation && (
-        <div aria-live="polite" className="mt-8 p-6 bg-slate-100 border border-slate-200 rounded-2xl animate-slide-up">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 mb-3">Explanation</h3>
-          <p className="text-base text-slate-800 leading-relaxed font-medium">
+        <div aria-live="polite" className="mt-8 p-6 bg-amber-50 border-2 border-amber-200 rounded-2xl relative overflow-hidden animate-slide-up">
+          <div className="absolute top-0 left-0 w-2 h-full bg-amber-400"></div>
+          <h3 className="text-amber-800 font-extrabold flex items-center gap-2 mb-2 text-lg">
+            <span>💡</span> Did you know?
+          </h3>
+          <p className="text-amber-900 leading-relaxed font-semibold text-lg">
             {question.explanation}
           </p>
         </div>
       )}
-    </fieldset>
+    </div>
   )
 }
