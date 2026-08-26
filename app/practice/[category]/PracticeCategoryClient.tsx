@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { ClockIcon, CheckCircleIcon, UserIcon } from '@heroicons/react/24/solid'
 import Header from '@/components/Header'
@@ -43,7 +43,8 @@ const categories: Record<string, { name: string; description: string; color: str
   }
 }
 
-export default function PracticeCategoryClient() {
+// 1. We rename the main logic to a "Content" component
+function PracticeCategoryContent() {
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -352,5 +353,18 @@ export default function PracticeCategoryClient() {
         </div>
       </div>
     </div>
+  )
+}
+
+// 2. We wrap the export in Suspense to satisfy Next.js 14 build requirements
+export default function PracticeCategoryClient() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    }>
+      <PracticeCategoryContent />
+    </Suspense>
   )
 }
