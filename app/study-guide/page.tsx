@@ -66,7 +66,7 @@ export default function StudyGuidePage() {
               </div>
               <h2 className="text-2xl font-bold text-slate-800">Canadian History</h2>
             </div>
-            <p className="text-slate-600 font-medium mb-6">Learn about Canada's rich history from Indigenous peoples to modern times.</p>
+            <p className="text-slate-600 font-medium mb-6">Learn about Canada&apos;s rich history from Indigenous peoples to modern times.</p>
             <ul className="space-y-3 mb-8 font-medium text-slate-500">
               <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-400"></div> Indigenous peoples and early settlers</li>
               <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-400"></div> Confederation and nation building</li>
@@ -84,7 +84,7 @@ export default function StudyGuidePage() {
               </div>
               <h2 className="text-2xl font-bold text-slate-800">Government</h2>
             </div>
-            <p className="text-slate-600 font-medium mb-6">Understand Canada's parliamentary democracy and political system.</p>
+            <p className="text-slate-600 font-medium mb-6">Understand Canada&apos;s parliamentary democracy and political system.</p>
             <ul className="space-y-3 mb-8 font-medium text-slate-500">
               <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-purple-400"></div> Parliamentary system and elections</li>
               <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-purple-400"></div> Federal, provincial, and municipal</li>
@@ -102,7 +102,7 @@ export default function StudyGuidePage() {
               </div>
               <h2 className="text-2xl font-bold text-slate-800">Geography</h2>
             </div>
-            <p className="text-slate-600 font-medium mb-6">Explore Canada's diverse geography, provinces, and territories.</p>
+            <p className="text-slate-600 font-medium mb-6">Explore Canada&apos;s diverse geography, provinces, and territories.</p>
             <ul className="space-y-3 mb-8 font-medium text-slate-500">
               <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-rose-400"></div> Provinces and territories</li>
               <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-rose-400"></div> Major cities and landmarks</li>
@@ -141,7 +141,7 @@ export default function StudyGuidePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
             <a href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors">
-              Read 'Discover Canada'
+              Read &apos;Discover Canada&apos;
             </a>
             <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-citizenship/become-canadian-citizen/citizenship-test.html" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-blue-700 text-white font-bold rounded-xl hover:bg-blue-800 border-2 border-blue-500 transition-colors">
               Official Test Info

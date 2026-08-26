@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import { BookOpenIcon, ChartBarIcon } from '@heroicons/react/24/solid'
+import { CheckCircleIcon, BookOpenIcon, ChartBarIcon, ClockIcon, TrophyIcon, UserGroupIcon } from '@heroicons/react/24/solid'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
 import Script from 'next/script'
 
 export const metadata = {
-  title: 'Canadian Citizenship Test Blog - Study Tips & Resources',
-  description: 'Get expert tips, study guides, and resources to help you pass the Canadian citizenship test. Learn about test format, common questions, and preparation strategies.',
+  title: 'About Canadian Citizenship Test - Your Trusted Study Partner',
+  description: 'Learn about our mission to help thousands of Canadians prepare for and pass the citizenship test with confidence. Discover our comprehensive study platform.',
   alternates: {
-    canonical: 'https://www.citizentestcanada.com/blog',
+    canonical: 'https://www.citizentestcanada.com/about',
   },
   robots: {
     index: true,
@@ -17,97 +17,106 @@ export const metadata = {
   },
 }
 
-const blogPosts = [
+const features = [
   {
-    id: 1,
-    title: 'Top 10 Most Common Canadian Citizenship Test Questions',
-    excerpt: 'Discover the most frequently asked questions on the Canadian citizenship test and learn how to answer them correctly before your exam day.',
-    readTime: '6 min read',
-    category: 'Test Questions',
-    slug: 'canadian-citizenship-test-questions'
+    icon: BookOpenIcon,
+    title: 'Comprehensive Study Materials',
+    description: 'Access to 223 carefully curated practice questions covering all test categories including history, government, and rights.'
+  },
+  {
+    icon: ChartBarIcon,
+    title: 'Progress Tracking',
+    description: 'Monitor your performance with detailed analytics, identify weak areas, and track your improvement over time.'
+  },
+  {
+    icon: ClockIcon,
+    title: 'Realistic Test Environment',
+    description: 'Practice with timed tests that mirror the official 45-minute, 20-question format of the actual citizenship test.'
+  },
+  {
+    icon: TrophyIcon,
+    title: 'Proven Success Rate',
+    description: 'Thousands of successful candidates have used our platform to prepare for and pass their Canadian citizenship test.'
+  },
+  {
+    icon: UserGroupIcon,
+    title: 'Expert Guidance',
+    description: 'Detailed explanations for every question, helping you understand not just the answer, but the reasoning behind it.'
+  },
+  {
+    icon: CheckCircleIcon,
+    title: 'Official Test Format',
+    description: 'Our practice tests follow the exact format of the official citizenship test, ensuring you know what to expect on test day.'
   }
 ]
 
-export default function BlogPage() {
+export default function AboutPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <Script
-        id="blog-structured-data"
+        id="about-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Blog",
-            "name": "Canadian Citizenship Test Blog",
-            "description": "Expert tips, study guides, and resources to help you pass the Canadian citizenship test.",
-            "url": "https://www.citizentestcanada.com/blog"
+            "@type": "Organization",
+            "name": "Canadian Citizenship Test Practice",
+            "url": "https://www.citizentestcanada.com",
+            "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations."
           })
         }}
       />
       <Header />
       
       <main className="flex-grow max-w-6xl mx-auto px-4 py-12 w-full animate-enter">
-        <div className="text-center mb-12">
+        {/* Hero Section */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-100 text-rose-800 font-bold text-sm uppercase tracking-widest mb-6 border-2 border-rose-200">
+            <span>🇨🇦</span> Proudly Canadian
+          </div>
           <h1 className="text-4xl md:text-6xl font-black text-slate-800 mb-6 tracking-tight">
-            Study <span className="text-amber-500">Resources</span>
+            About <span className="text-rose-500">CitizenTest</span>
           </h1>
-          <p className="text-xl text-slate-500 font-medium max-w-3xl mx-auto">
-            Expert tips, study guides, and deep-dives to help you prepare for and absolutely crush the Canadian citizenship test.
+          <p className="text-xl text-slate-500 font-medium max-w-3xl mx-auto leading-relaxed">
+            Your trusted partner in preparing for the Canadian citizenship test. We&apos;re dedicated to helping thousands of candidates achieve their dream of becoming Canadian citizens.
           </p>
         </div>
 
-        {/* Featured Post Card - Gamified */}
-        <Link 
-          href="/blog/canadian-citizenship-test-questions"
-          className="block bg-white rounded-[2rem] shadow-soft border-2 border-slate-200 border-b-[8px] p-8 md:p-10 mb-12 hover:bg-slate-50 active:border-b-[2px] active:translate-y-[6px] transition-all group"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <span className="bg-amber-100 text-amber-700 text-xs font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-lg">
-              Featured Guide
-            </span>
-            <span className="text-slate-400 font-bold text-sm flex items-center gap-1">
-              <ClockIcon className="w-4 h-4" /> 8 min read
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-4 group-hover:text-amber-600 transition-colors">
-            Top 10 Most Common Canadian Citizenship Test Questions
-          </h2>
-          <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-4xl">
-            Discover the most frequently asked questions on the Canadian citizenship test and learn how to answer them correctly. Stop guessing and start studying the material that actually appears on the test.
-          </p>
-        </Link>
-
-        {/* Blog Posts Grid (For future posts) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {/* Mapping future articles here */}
+        {/* Feature Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {features.map((feature, index) => (
+            <div key={index} className="bg-white rounded-[2rem] shadow-soft border-2 border-slate-100 p-8 hover:-translate-y-1 transition-transform">
+              <div className="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center mb-6">
+                <feature.icon className="h-7 w-7 text-teal-600" />
+              </div>
+              <h3 className="text-xl font-extrabold text-slate-800 mb-3">{feature.title}</h3>
+              <p className="text-slate-500 font-medium leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Mini CTA */}
-        <div className="bg-slate-800 rounded-[2rem] p-8 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-soft">
-          <div className="text-left">
-            <h2 className="text-2xl font-black text-white mb-2">Ready to Start Practicing?</h2>
-            <p className="text-slate-400 font-medium">Take our free practice tests to see how well you know the material.</p>
+        <AdZone position="about-content" />
+
+        {/* CTA Section */}
+        <div className="mt-16 bg-gradient-to-br from-rose-500 to-rose-600 rounded-[2rem] p-8 md:p-12 text-center shadow-soft">
+          <h2 className="text-3xl font-black text-white mb-4">Ready to Start Your Journey?</h2>
+          <p className="text-rose-100 font-medium mb-8 max-w-2xl mx-auto text-lg">
+            Join thousands of successful candidates who have used our platform to prepare for the citizenship test.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/practice"
+              className="px-8 py-4 rounded-xl font-extrabold text-rose-600 bg-white border-2 border-white border-b-[6px] hover:bg-slate-50 active:border-b-[2px] active:translate-y-[4px] transition-all flex items-center justify-center gap-2"
+            >
+              <BookOpenIcon className="h-6 w-6" />
+              Start Practice Test
+            </Link>
           </div>
-          <Link 
-            href="/practice"
-            className="px-8 py-4 rounded-xl font-extrabold text-slate-800 bg-white border-2 border-slate-200 border-b-[6px] hover:bg-slate-50 active:border-b-[2px] active:translate-y-[4px] transition-all whitespace-nowrap"
-          >
-            Start Practice Test
-          </Link>
         </div>
       </main>
 
-      <AdZone position="blog-bottom" />
+      <AdZone position="about-bottom" />
       <Footer />
     </div>
-  )
-}
-
-// Inline clock icon for the blog component
-function ClockIcon(props: React.ComponentProps<'svg'>) {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-    </svg>
   )
 }

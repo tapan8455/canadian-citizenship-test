@@ -78,7 +78,7 @@ export default function AboutPage() {
             About <span className="text-rose-500">CitizenTest</span>
           </h1>
           <p className="text-xl text-slate-500 font-medium max-w-3xl mx-auto leading-relaxed">
-            Your trusted partner in preparing for the Canadian citizenship test. We're dedicated to helping thousands of candidates achieve their dream of becoming Canadian citizens.
+            Your trusted partner in preparing for the Canadian citizenship test. We&apos;re dedicated to helping thousands of candidates achieve their dream of becoming Canadian citizens.
           </p>
         </div>
 
