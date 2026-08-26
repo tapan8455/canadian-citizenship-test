@@ -182,7 +182,7 @@ export default function PracticeCategoryClient() {
           <div className="text-7xl mb-6">🏜️</div>
           <h1 className="text-3xl font-black text-slate-800 mb-4">No Questions Found</h1>
           <p className="text-slate-500 font-medium mb-8">
-            We don't have questions for this specific category and province yet.
+            We don&apos;t have questions for this specific category and province yet.
           </p>
           <button
             onClick={() => router.push('/practice')}
