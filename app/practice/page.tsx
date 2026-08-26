@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import PracticePageClient from './PracticePageClient'
 
 export const metadata: Metadata = {
@@ -29,5 +30,13 @@ export const metadata: Metadata = {
 }
 
 export default function PracticePage() {
-  return <PracticePageClient />
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-teal-500/20 border-t-teal-500 rounded-full animate-spin"></div>
+      </div>
+    }>
+      <PracticePageClient />
+    </Suspense>
+  )
 }
