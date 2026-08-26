@@ -29,7 +29,7 @@ export default function Footer() {
                 <EnvelopeIcon className="w-5 h-5 text-slate-500" />
                 info@citizentestcanada.com
               </a>
-              <a href="tel:+10000000000" className="flex items-center gap-3 hover:text-teal-400 transition-colors">
+              <a href="tel:+1-519-639-5744" className="flex items-center gap-3 hover:text-teal-400 transition-colors">
                 <PhoneIcon className="w-5 h-5 text-slate-500" />
                 (555) 123-4567 {/* <-- Replace with your actual phone number */}
               </a>
