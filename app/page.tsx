@@ -39,7 +39,7 @@ export default function Home() {
           </h1>
           
           <p className="mt-4 text-xl md:text-2xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed mb-12">
-            Master the official Discover Canada guide with 223+ gamified practice questions. Fast, fun, and 100% free.
+            Master the official Discover Canada guide with 500+ gamified practice questions. Fast, fun, and 100% free.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
@@ -61,7 +61,7 @@ export default function Home() {
           {/* Gamified Stat Bar */}
           <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <div className="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-soft">
-              <div className="text-4xl font-extrabold text-teal-500 mb-2">223+</div>
+              <div className="text-4xl font-extrabold text-teal-500 mb-2">500+</div>
               <div className="font-bold text-slate-400 uppercase text-sm tracking-wider">Official Questions</div>
             </div>
             <div className="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-soft">

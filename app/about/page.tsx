@@ -21,7 +21,7 @@ const features = [
   {
     icon: BookOpenIcon,
     title: 'Comprehensive Study Materials',
-    description: 'Access to 223 carefully curated practice questions covering all test categories including history, government, and rights.'
+    description: 'Access to 500 carefully curated practice questions covering all test categories including history, government, and rights.'
   },
   {
     icon: ChartBarIcon,
@@ -62,7 +62,7 @@ export default function AboutPage() {
             "@type": "Organization",
             "name": "Canadian Citizenship Test Practice",
             "url": "https://www.citizentestcanada.com",
-            "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations."
+            "description": "Free Canadian Citizenship Test practice platform with 500+ questions, official format, and detailed explanations."
           })
         }}
       />

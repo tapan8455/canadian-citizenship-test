@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     default: 'Canadian Citizenship Test Practice 2026 - Free Online Practice Tests',
     template: '%s | CitizenTest Canada'
   },
-  description: 'Master the 2026 Canadian Citizenship Test with our free online practice platform. 223+ official format questions, detailed explanations, and progress tracking.',
+  description: 'Master the 2026 Canadian Citizenship Test with our free online practice platform. 500+ official format questions, detailed explanations, and progress tracking.',
   keywords: [
     'Canadian citizenship test 2026',
     'citizenship practice test',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.citizentestcanada.com'),
   openGraph: {
     title: 'Canadian Citizenship Test Practice 2026 - Free Online Practice Tests',
-    description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations.',
+    description: 'Master the Canadian Citizenship Test with our free online practice platform. 500+ questions, official format, detailed explanations.',
     url: 'https://www.citizentestcanada.com',
     siteName: 'CitizenTest Canada',
     images: [
@@ -126,7 +126,7 @@ export default function RootLayout({
               "@type": "WebSite",
               "name": "Canadian Citizenship Test Practice",
               "url": "https://www.citizentestcanada.com",
-              "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations.",
+              "description": "Free Canadian Citizenship Test practice platform with 500+ questions, official format, and detailed explanations.",
               "potentialAction": {
                 "@type": "SearchAction",
                 "target": "https://www.citizentestcanada.com/search?q={search_term_string}",

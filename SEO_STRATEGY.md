@@ -156,7 +156,7 @@
 
 ### **Competitive Advantages**
 - ✅ Completely free access
-- ✅ 223+ practice questions
+- ✅ 500+ practice questions
 - ✅ Progress tracking
 - ✅ Mobile-friendly design
 - ✅ Comprehensive study materials
