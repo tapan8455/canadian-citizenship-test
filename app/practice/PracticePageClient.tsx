@@ -100,9 +100,9 @@ export default function PracticePageClient() {
         {/* Ad Zone */}
         <AdZone position="practice-hero" />
 
-        {/* Province Selection */}
-        <section className="py-8 px-4 animate-enter" style={{ animationDelay: '0.1s' }}>
-          <div className="max-w-xl mx-auto bg-white p-6 rounded-[2rem] border-2 border-slate-200 shadow-soft">
+        {/* Province Selection Section */}
+        <section className="relative z-30 py-8 px-4 animate-enter" style={{ animationDelay: '0.1s' }}>
+          <div className="max-w-xl mx-auto bg-white p-6 rounded-[2rem] border-2 border-slate-200 shadow-soft relative z-30">
              <ProvinceSelector
                 selectedProvince={selectedProvince}
                 onProvinceChange={setSelectedProvince}
@@ -110,8 +110,8 @@ export default function PracticePageClient() {
           </div>
         </section>
 
-        {/* Test Categories */}
-        <section className="py-12 px-4">
+        {/* Test Categories Grid Section */}
+        <section className="relative z-10 py-12 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-enter" style={{ animationDelay: '0.2s' }}>
               {testCategories.map((category) => (
