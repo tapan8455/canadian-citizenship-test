@@ -43,8 +43,7 @@ export default function ProvinceSelector({ selectedProvince, onProvinceChange, c
   }, [dropdownRef])
 
   return (
-    // FIXED: Added high z-index to parent container
-    <div className={`relative w-full z-40 ${className}`} ref={dropdownRef}>
+    <div className={`relative w-full z-30 ${className}`} ref={dropdownRef}>
       <label className="block text-sm font-bold uppercase tracking-wider text-slate-400 mb-3 text-center">
         Customize Test For Your Province
       </label>
@@ -66,8 +65,7 @@ export default function ProvinceSelector({ selectedProvince, onProvinceChange, c
       </button>
 
       {isOpen && (
-        // FIXED: Elevated to z-50 to ensure it overlaps everything
-        <div className="absolute z-50 w-full mt-2 bg-white border-2 border-slate-100 shadow-2xl max-h-80 rounded-2xl py-2 overflow-y-auto animate-fade-in">
+        <div className="absolute z-50 left-0 right-0 w-full mt-2 bg-white border-2 border-slate-100 shadow-2xl max-h-80 rounded-2xl py-2 overflow-y-auto animate-fade-in">
           {provinces.map((province) => {
             const isSelected = selectedProvince === province.code;
             return (
