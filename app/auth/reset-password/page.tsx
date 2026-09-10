@@ -1,4 +1,3 @@
-// app/auth/reset-password/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -9,7 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 const resetPasswordSchema = z.object({
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
@@ -56,51 +55,55 @@ export default function ResetPasswordPage() {
         toast.error("An unexpected error occurred");
       }
     } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!token) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-primary-50">
-        <p className="text-canada-red font-medium">Invalid password reset link. Please request a new one.</p>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <p className="text-rose-600 font-medium">Invalid password reset link. Please request a new one.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-primary-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-soft border border-primary-100">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-[2rem] shadow-soft border-2 border-slate-100">
         <div>
-          <h2 className="text-center text-3xl font-extrabold text-gray-900">Create new password</h2>
+          <h2 className="text-center text-3xl font-black text-slate-800 tracking-tight">Create new password</h2>
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">New Password</label>
+              <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">New Password</label>
               <input
                 {...register("password")}
                 type="password"
-                className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium"
+                placeholder="Enter new password"
               />
-              {errors.password && <p className="mt-1 text-sm text-canada-red">{errors.password.message}</p>}
+              {errors.password && <p className="mt-2 text-sm font-bold text-rose-500">{errors.password.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
+              <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Confirm Password</label>
               <input
                 {...register("confirmPassword")}
                 type="password"
-                className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium"
+                placeholder="Confirm new password"
               />
-              {errors.confirmPassword && <p className="mt-1 text-sm text-canada-red">{errors.confirmPassword.message}</p>}
+              {errors.confirmPassword && <p className="mt-2 text-sm font-bold text-rose-500">{errors.confirmPassword.message}</p>}
             </div>
           </div>
 
-          <div>
+          <div className="pt-4">
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+              className="w-full py-4 rounded-2xl font-extrabold text-white text-lg bg-teal-500 border-2 border-teal-600 border-b-[6px] hover:bg-teal-400 active:border-b-[2px] active:translate-y-[4px] disabled:opacity-70 disabled:cursor-not-allowed transition-all flex justify-center"
             >
               {isLoading ? "Resetting..." : "Reset Password"}
             </button>
