@@ -2,94 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-gray-50 text-gray-900;
+    /* A very subtle, cool-toned background instead of harsh white */
+    @apply bg-slate-50 text-slate-800 antialiased selection:bg-primary-200 selection:text-primary-900;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight text-slate-900;
   }
 }
 
 @layer components {
+  /* Modern Gradient Button */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transform hover:scale-105 active:scale-95;
+    @apply relative overflow-hidden bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold py-3 px-6 rounded-xl shadow-[0_4px_14px_0_rgba(20,184,166,0.39)] hover:shadow-[0_6px_20px_rgba(20,184,166,0.23)] hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 active:scale-95 flex items-center justify-center;
   }
   
+  /* Clean Secondary Button */
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium py-2 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transform hover:scale-105 active:scale-95;
+    @apply bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-medium py-3 px-6 rounded-xl shadow-sm transition-all duration-300 hover:shadow hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 active:scale-95 flex items-center justify-center;
   }
   
+  /* Glassmorphism Card */
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6 transition-all duration-200 hover:shadow-md hover:border-gray-300;
+    @apply bg-white/80 backdrop-blur-md rounded-2xl shadow-soft border border-white/40 p-6 md:p-8 transition-all duration-300 hover:shadow-lg;
   }
   
+  /* Modern Input Fields */
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+    @apply w-full px-4 py-3 bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all duration-300 hover:border-slate-300;
   }
   
   .ad-zone {
-    @apply bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center text-gray-500;
+    @apply bg-slate-100/50 border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center text-slate-500 font-medium tracking-wide text-sm flex items-center justify-center min-h-[100px];
   }
 
-  /* Enhanced loading animation */
-  .loading-spinner {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #3b82f6;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
-  }
-
-  /* Gradient text effect */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-600 via-primary-500 to-blue-600 bg-clip-text text-transparent font-extrabold;
   }
 
-  /* Enhanced focus states */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
-  }
-
-  /* Smooth transitions for all interactive elements */
-  * {
-    @apply transition-colors duration-200;
+  /* Utility class to animate elements coming into view */
+  .animate-enter {
+    @apply animate-slide-up opacity-0;
   }
 }
 
-/* Custom scrollbar */
+/* Custom minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #94a3b8;
 }
 
-/* Loading animation */
+/* Sleek loading spinner */
 .loading-spinner {
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid #3b82f6;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(20, 184, 166, 0.1);
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
+  border-top-color: #14b8a6;
+  animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }

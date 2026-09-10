@@ -56,126 +56,123 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <Header />
-      <div className="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <div className="mx-auto h-12 w-12 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">C</span>
-            </div>
-            <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-              Sign in to your account
-            </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{' '}
-              <Link href="/auth/signup" className="font-medium text-primary-600 hover:text-primary-500">
-                create a new account
-              </Link>
-            </p>
-          </div>
+      <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-enter relative">
+        {/* Decorative elements */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
 
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            {error && (
-              <div className="bg-red-50 border border-red-200 rounded-md p-4">
-                <p className="text-sm text-red-600">{error}</p>
+        <div className="max-w-md w-full relative z-10">
+          <div className="bg-white rounded-[2rem] shadow-soft border-2 border-slate-100 p-8 md:p-10">
+            <div className="text-center mb-10">
+              <div className="mx-auto h-16 w-16 bg-teal-500 rounded-2xl flex items-center justify-center shadow-lg border-b-[4px] border-teal-700 mb-6">
+                <span className="text-white font-black text-3xl">C</span>
               </div>
-            )}
-
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email address
-                </label>
-                <input
-                  {...register('email')}
-                  type="email"
-                  id="email"
-                  className="input-field mt-1"
-                  placeholder="Enter your email"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <div className="relative mt-1">
-                  <input
-                    {...register('password')}
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    className="input-field pr-10"
-                    placeholder="Enter your password"
-                  />
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeSlashIcon className="h-5 w-5 text-gray-400" />
-                    ) : (
-                      <EyeIcon className="h-5 w-5 text-gray-400" />
-                    )}
-                  </button>
-                </div>
-                {errors.password && (
-                  <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm text-gray-500">
-                Forgot your password? Contact support at
-                {' '}
-                <a href="mailto:info@citizentestcanada.com" className="text-primary-600 hover:text-primary-500">
-                  info@citizentestcanada.com
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="btn-primary w-full flex justify-center py-3 text-base font-medium"
-              >
-                {isLoading ? (
-                  <div className="loading-spinner"></div>
-                ) : (
-                  'Sign in'
-                )}
-              </button>
-            </div>
-
-            <div className="text-center">
-              <p className="text-sm text-gray-600">
-                Don&apos;t have an account?{' '}
-                <Link href="/auth/signup" className="font-medium text-primary-600 hover:text-primary-500">
-                  Sign up here
-                </Link>
+              <h2 className="text-3xl font-black text-slate-800 tracking-tight">
+                Welcome back!
+              </h2>
+              <p className="mt-3 text-slate-500 font-medium">
+                Log in to continue your progress
               </p>
             </div>
-          </form>
+
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+              {error && (
+                <div className="bg-rose-50 border-2 border-rose-200 rounded-xl p-4 animate-fade-in">
+                  <p className="text-sm font-bold text-rose-600 text-center">{error}</p>
+                </div>
+              )}
+
+              <div className="space-y-5">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                    Email address
+                  </label>
+                  <input
+                    {...register('email')}
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium"
+                    placeholder="Enter your email"
+                  />
+                  {errors.email && (
+                    <p className="mt-2 text-sm font-bold text-rose-500">{errors.email.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="password" className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      {...register('password')}
+                      type={showPassword ? 'text' : 'password'}
+                      id="password"
+                      className="w-full px-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-slate-800 font-medium pr-12"
+                      placeholder="Enter your password"
+                    />
+                    <button
+                      type="button"
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <EyeSlashIcon className="h-6 w-6 text-slate-400 hover:text-teal-600 transition-colors" />
+                      ) : (
+                        <EyeIcon className="h-6 w-6 text-slate-400 hover:text-teal-600 transition-colors" />
+                      )}
+                    </button>
+                  </div>
+                  {errors.password && (
+                    <p className="mt-2 text-sm font-bold text-rose-500">{errors.password.message}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+                <div className="flex items-center">
+                  <input
+                    id="remember-me"
+                    name="remember-me"
+                    type="checkbox"
+                    className="h-5 w-5 text-teal-600 focus:ring-teal-500 border-2 border-slate-300 rounded text-teal-500"
+                  />
+                  <label htmlFor="remember-me" className="ml-3 block text-sm font-bold text-slate-600">
+                    Remember me
+                  </label>
+                </div>
+
+                <div className="text-sm font-bold">
+                  <a href="mailto:info@citizentestcanada.com" className="text-teal-600 hover:text-teal-500 transition-colors">
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full py-4 rounded-2xl font-extrabold text-white text-lg bg-teal-500 border-2 border-teal-600 border-b-[6px] hover:bg-teal-400 active:border-b-[2px] active:translate-y-[4px] disabled:opacity-70 disabled:cursor-not-allowed transition-all flex justify-center"
+                >
+                  {isLoading ? 'Signing in...' : 'Sign In'}
+                </button>
+              </div>
+
+              <div className="text-center pt-4 border-t-2 border-slate-100">
+                <p className="text-slate-500 font-medium">
+                  Don&apos;t have an account?{' '}
+                  <Link href="/auth/signup" className="font-extrabold text-teal-600 hover:text-teal-500">
+                    Sign up here
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   )

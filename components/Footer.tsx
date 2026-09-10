@@ -1,142 +1,98 @@
- 'use client'
-
 import Link from 'next/link'
-import { MapPinIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import { HeartIcon, EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/solid'
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
-
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">C</span>
+    <footer className="bg-slate-800 text-slate-300 py-12 md:py-16 mt-auto border-t-8 border-slate-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+          
+          {/* Brand & Contact Section */}
+          <div className="lg:col-span-2">
+            <Link href="/" className="flex items-center gap-2 group mb-6 w-max">
+              <div className="bg-teal-500 text-white w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-lg group-hover:scale-105 transition-transform">
+                C
               </div>
-              <span className="text-xl font-bold">CitizenTest Canada</span>
-            </div>
-            <p className="text-gray-300 mb-4 max-w-md">
-              The most comprehensive Canadian Citizenship Test practice platform. 
-              Help thousands of candidates prepare for and pass their citizenship exam with confidence.
+              <span className="font-extrabold tracking-tight text-2xl text-white">
+                Citizen<span className="text-teal-400">Test</span>
+              </span>
+            </Link>
+            
+            <p className="text-slate-400 font-medium mb-8 max-w-sm leading-relaxed">
+              Helping thousands of people prepare for and pass their Canadian Citizenship test with gamified, 100% free practice exams.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">Facebook</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                </svg>
+
+            {/* Contact Details */}
+            <div className="space-y-4 font-medium text-slate-400">
+              <a href="mailto:info@citizentestcanada.com" className="flex items-center gap-3 hover:text-teal-400 transition-colors">
+                <EnvelopeIcon className="w-5 h-5 text-slate-500" />
+                info@citizentestcanada.com
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">Twitter</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                </svg>
+              <a href="tel:+1-519-639-5744" className="flex items-center gap-3 hover:text-teal-400 transition-colors">
+                <PhoneIcon className="w-5 h-5 text-slate-500" />
+                (519) 639-5744 {/* <-- Replace with your actual phone number */}
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">LinkedIn</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
-                </svg>
-              </a>
+              <div className="flex items-center gap-3">
+                <MapPinIcon className="w-5 h-5 text-slate-500" />
+                Toronto, Ontario, Canada
+              </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/practice" className="text-gray-300 hover:text-white transition-colors">
-                  Practice Tests
-                </Link>
-              </li>
-              <li>
-                <Link href="/study-guide" className="text-gray-300 hover:text-white transition-colors">
-                  Study Guide
-                </Link>
-              </li>
-              <li>
-                <Link href="/progress" className="text-gray-300 hover:text-white transition-colors">
-                  Progress Tracking
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-
+            <h3 className="text-white font-extrabold mb-6 uppercase tracking-wider text-sm">Practice</h3>
+            <ul className="space-y-4 font-medium">
+              <li><Link href="/practice" className="hover:text-teal-400 transition-colors">Practice Tests</Link></li>
+              <li><Link href="/practice/full" className="hover:text-teal-400 transition-colors">Official Mock Exam</Link></li>
+              <li><Link href="/study-guide" className="hover:text-teal-400 transition-colors">Study Guide</Link></li>
+              <li><Link href="/dashboard" className="hover:text-teal-400 transition-colors">My Progress</Link></li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Company Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/faq" className="text-gray-300 hover:text-white transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-citizenship/become-canadian-citizen/citizenship-test.html" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   className="text-gray-300 hover:text-white transition-colors">
-                  Official Resources
-                </a>
-              </li>
+            <h3 className="text-white font-extrabold mb-6 uppercase tracking-wider text-sm">CitizenTest</h3>
+            <ul className="space-y-4 font-medium">
+              <li><Link href="/about" className="hover:text-teal-400 transition-colors">About Us</Link></li>
+              <li><Link href="/faq" className="hover:text-teal-400 transition-colors">FAQ</Link></li>
+              <li><Link href="/blog" className="hover:text-teal-400 transition-colors">Blog & Tips</Link></li>
+              <li><Link href="/privacy" className="hover:text-teal-400 transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
+
+          {/* Donation Section */}
+          <div className="lg:col-span-1">
+            <div className="bg-slate-700/50 p-6 rounded-3xl border-2 border-slate-600 flex flex-col h-full justify-center text-center">
+              <p className="text-sm font-bold text-white mb-4">Found this site helpful?</p>
+              <a 
+                href="https://buymeacoffee.com/citizentestcanada" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-extrabold text-white bg-rose-500 border-2 border-rose-600 border-b-[4px] hover:bg-rose-400 active:border-b-0 active:translate-y-[4px] transition-all w-full"
+              >
+                <HeartIcon className="w-5 h-5" />
+                Support Us
+              </a>
+              <p className="text-xs font-medium text-slate-400 mt-4 leading-relaxed">
+                Your donations keep this platform 100% free and ad-light.
+              </p>
+            </div>
+          </div>
+
         </div>
 
-        {/* Contact Info */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="flex items-center space-x-3">
-              <MapPinIcon className="h-5 w-5 text-primary-400" />
-              <span className="text-gray-300">Toronto, Ontario, Canada</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <EnvelopeIcon className="h-5 w-5 text-primary-400" />
-              <a href="mailto:info@citizentestcanada.com" className="text-gray-300 hover:text-white transition-colors">
-                info@citizentestcanada.com
-              </a>
-            </div>
-            <div className="flex items-center space-x-3">
-              <PhoneIcon className="h-5 w-5 text-primary-400" />
-              <a href="tel:+1-416-555-0123" className="text-gray-300 hover:text-white transition-colors">
-                +1 (416) 555-0123
-              </a>
-            </div>
+        {/* Copyright */}
+        <div className="pt-8 border-t-2 border-slate-700 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4 font-medium text-sm text-slate-500">
+          <p>© {new Date().getFullYear()} CitizenTest Canada. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada.html" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300 transition-colors">Official Discover Canada Guide</a>
+            <span>•</span>
+            <p>Not affiliated with the Government of Canada.</p>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
-            © {currentYear} CitizenTest Canada. All rights reserved.
-          </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Privacy Policy
-            </Link>
-            <span className="text-gray-400 text-sm">
-              Terms of Service
-            </span>
-            <span className="text-gray-400 text-sm">
-              Cookie Policy
-            </span>
-          </div>
-        </div>
       </div>
     </footer>
   )

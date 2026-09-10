@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { BookOpenIcon, ChartBarIcon } from '@heroicons/react/24/outline'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AdZone from '@/components/AdZone'
@@ -8,41 +7,18 @@ import Script from 'next/script'
 export const metadata = {
   title: 'Canadian Citizenship Test Blog - Study Tips & Resources',
   description: 'Get expert tips, study guides, and resources to help you pass the Canadian citizenship test. Learn about test format, common questions, and preparation strategies.',
-  keywords: [
-    'Canadian citizenship test tips',
-    'citizenship test study guide',
-    'Canada citizenship exam preparation',
-    'citizenship test questions and answers',
-    'Canadian citizenship test blog',
-    'citizenship test resources'
-  ],
   alternates: {
-    canonical: 'https://citizentestcanada.com/blog',
+    canonical: 'https://www.citizentestcanada.com/blog',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
   },
 }
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Top 10 Most Common Canadian Citizenship Test Questions',
-    excerpt: 'Discover the most frequently asked questions on the Canadian citizenship test and learn how to answer them correctly.',
-    readTime: '6 min read',
-    category: 'Test Questions',
-    slug: 'canadian-citizenship-test-questions'
-  }
-]
-
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <Script
         id="blog-structured-data"
         type="application/ld+json"
@@ -52,97 +28,73 @@ export default function BlogPage() {
             "@type": "Blog",
             "name": "Canadian Citizenship Test Blog",
             "description": "Expert tips, study guides, and resources to help you pass the Canadian citizenship test.",
-            "url": "https://citizentestcanada.com/blog",
-            "publisher": {
-              "@type": "Organization",
-              "name": "CitizenTest Canada",
-              "url": "https://citizentestcanada.com"
-            },
-            "blogPost": blogPosts.map(post => ({
-              "@type": "BlogPosting",
-              "headline": post.title,
-              "description": post.excerpt,
-              "url": `https://citizentestcanada.com/blog/${post.slug}`,
-              "datePublished": "2024-01-01",
-              "author": {
-                "@type": "Organization",
-                "name": "CitizenTest Canada"
-              }
-            }))
+            "url": "https://www.citizentestcanada.com/blog"
           })
         }}
       />
       <Header />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
+      <main className="flex-grow max-w-6xl mx-auto px-4 py-12 w-full animate-enter">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Canadian Citizenship Test Blog
+          <h1 className="text-4xl md:text-6xl font-black text-slate-800 mb-6 tracking-tight">
+            Study <span className="text-amber-500">Resources</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Expert tips, study guides, and resources to help you prepare for and pass the Canadian citizenship test
+          <p className="text-xl text-slate-500 font-medium max-w-3xl mx-auto">
+            Expert tips, study guides, and deep-dives to help you prepare for and absolutely crush the Canadian citizenship test.
           </p>
         </div>
 
-        {/* Featured Post */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-12">
-          <div className="flex items-center mb-4">
-            <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-              Featured
+        {/* Featured Post Card - Gamified */}
+        <Link 
+          href="/blog/canadian-citizenship-test-questions"
+          className="block bg-white rounded-[2rem] shadow-soft border-2 border-slate-200 border-b-[8px] p-8 md:p-10 mb-12 hover:bg-slate-50 active:border-b-[2px] active:translate-y-[6px] transition-all group"
+        >
+          <div className="flex items-center gap-4 mb-6">
+            <span className="bg-amber-100 text-amber-700 text-xs font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-lg">
+              Featured Guide
             </span>
-            <span className="text-gray-500 text-sm ml-4">8 min read</span>
+            <span className="text-slate-400 font-bold text-sm flex items-center gap-1">
+              <ClockIcon className="w-4 h-4" /> 8 min read
+            </span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl md:text-4xl font-black text-slate-800 mb-4 group-hover:text-amber-600 transition-colors">
             Top 10 Most Common Canadian Citizenship Test Questions
           </h2>
-          <p className="text-gray-600 mb-4">
-            Discover the most frequently asked questions on the Canadian citizenship test and learn how to answer them correctly.
+          <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-4xl">
+            Discover the most frequently asked questions on the Canadian citizenship test and learn how to answer them correctly before your exam day.
           </p>
+        </Link>
+
+        {/* Blog Posts Grid (For future posts) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {/* Mapping future articles here */}
+        </div>
+
+        {/* Mini CTA */}
+        <div className="bg-slate-800 rounded-[2rem] p-8 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-soft">
+          <div className="text-left">
+            <h2 className="text-2xl font-black text-white mb-2">Ready to Start Practicing?</h2>
+            <p className="text-slate-400 font-medium">Take our free practice tests to see how well you know the material.</p>
+          </div>
           <Link 
-            href="/blog/canadian-citizenship-test-questions"
-            className="text-blue-600 hover:text-blue-700 font-medium"
+            href="/practice"
+            className="px-8 py-4 rounded-xl font-extrabold text-slate-800 bg-white border-2 border-slate-200 border-b-[6px] hover:bg-slate-50 active:border-b-[2px] active:translate-y-[4px] transition-all whitespace-nowrap"
           >
-            Read full article →
+            Start Practice Test
           </Link>
         </div>
+      </main>
 
-        {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* More articles coming soon */}
-        </div>
-
-        {/* CTA Section */}
-        <div className="bg-blue-600 rounded-lg p-8 mt-12 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            Ready to Start Practicing?
-          </h2>
-          <p className="text-blue-100 mb-6">
-            Take our free practice tests to see how well you know the material
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/practice"
-              className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center"
-            >
-              <BookOpenIcon className="h-5 w-5 mr-2" />
-              Start Practice Test
-            </Link>
-            <Link 
-              href="/progress"
-              className="bg-blue-700 text-white hover:bg-blue-800 font-semibold py-3 px-6 rounded-lg inline-flex items-center justify-center"
-            >
-              <ChartBarIcon className="h-5 w-5 mr-2" />
-              Go to Dashboard
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Ad Zone */}
       <AdZone position="blog-bottom" />
-
       <Footer />
     </div>
+  )
+}
+
+function ClockIcon(props: React.ComponentProps<'svg'>) {
+  return (
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
   )
 }

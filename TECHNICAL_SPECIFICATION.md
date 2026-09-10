@@ -20,7 +20,7 @@
 - Session management and persistence
 
 #### **2. Practice Test System**
-- 223+ practice questions covering all citizenship test topics
+- 500+ practice questions covering all citizenship test topics
 - 20 questions per test with 45-minute time limit
 - Multiple choice and true/false question types
 - Real-time scoring and feedback

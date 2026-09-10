@@ -6,45 +6,22 @@ import { AuthProvider } from '@/components/providers/AuthProvider'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Canadian Citizenship Test Practice - Free Online Practice Tests | Pass Your Exam',
-    template: '%s | Canadian Citizenship Test Practice'
+    default: 'Canadian Citizenship Test Practice 2026 - Free Online Practice Tests',
+    template: '%s | CitizenTest Canada'
   },
-  description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ official format questions, detailed explanations, progress tracking. Pass your citizenship exam with confidence!',
+  description: 'Master the 2026 Canadian Citizenship Test with our free online practice platform. 500+ official format questions, detailed explanations, and progress tracking.',
   keywords: [
-    'Canadian citizenship test',
+    'Canadian citizenship test 2026',
     'citizenship practice test',
     'Canada citizenship exam',
     'citizenship test questions',
     'Canadian citizenship study guide',
     'citizenship test preparation',
-    'Canada immigration test',
-    'citizenship practice questions',
-    'free citizenship test',
-    'Canadian citizenship exam practice',
-    'citizenship test online',
-    'Canada citizenship practice',
-    'citizenship test study guide',
-    'Canadian citizenship questions',
-    'citizenship exam preparation',
-    'Canada citizenship test questions',
-    'citizenship test practice online',
-    'Canadian citizenship exam questions',
-    'citizenship test study materials',
-    'Canada citizenship exam practice',
-    'citizenship test free',
-    'Canadian citizenship test preparation',
-    'citizenship test questions and answers',
-    'Canada citizenship test study guide',
-    'citizenship test practice questions',
-    'Canadian citizenship test online',
-    'citizenship exam questions',
-    'Canada citizenship test preparation',
-    'citizenship test study materials',
-    'Canadian citizenship test guide'
+    'free citizenship test'
   ],
   authors: [{ name: 'CitizenTest Canada' }],
   creator: 'CitizenTest Canada',
@@ -54,14 +31,12 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://citizentestcanada.com'),
-  alternates: {
-    canonical: 'https://citizentestcanada.com',
-  },
+  // Essential for preventing relative URL errors in GSC
+  metadataBase: new URL('https://www.citizentestcanada.com'),
   openGraph: {
-    title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
-    description: 'Master the Canadian Citizenship Test with our free online practice platform. 223+ questions, official format, detailed explanations.',
-    url: 'https://citizentestcanada.com',
+    title: 'Canadian Citizenship Test Practice 2026 - Free Online Practice Tests',
+    description: 'Master the Canadian Citizenship Test with our free online practice platform. 500+ questions, official format, detailed explanations.',
+    url: 'https://www.citizentestcanada.com',
     siteName: 'CitizenTest Canada',
     images: [
       {
@@ -76,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Canadian Citizenship Test Practice - Free Online Practice Tests',
+    title: 'Canadian Citizenship Test Practice 2026 - Free Online Practice Tests',
     description: 'Master the Canadian Citizenship Test with our free online practice platform.',
     images: ['/og-image.svg'],
   },
@@ -90,6 +65,9 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  alternates: {
+    canonical: '/',
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
@@ -106,7 +84,11 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="google-adsense-account" content="ca-pub-8085911050404684" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossOrigin="anonymous" />
       </head>
       <body className={inter.className}>
         {process.env.GA_MEASUREMENT_ID && (
@@ -126,12 +108,12 @@ export default function RootLayout({
           </>
         )}
         
-        {/* Google AdSense */}
-        <Script
-          async
+        {/* Global Google AdSense Script - Optimized for Next.js App Router */}
+        <Script 
+          id="adsbygoogle-init"
+          strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8085911050404684"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
         
         {/* Structured Data Schema */}
@@ -143,17 +125,17 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Canadian Citizenship Test Practice",
-              "url": "https://citizentestcanada.com",
-              "description": "Free Canadian Citizenship Test practice platform with 223+ questions, official format, and detailed explanations.",
+              "url": "https://www.citizentestcanada.com",
+              "description": "Free Canadian Citizenship Test practice platform with 500+ questions, official format, and detailed explanations.",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://citizentestcanada.com/search?q={search_term_string}",
+                "target": "https://www.citizentestcanada.com/search?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "CitizenTest Canada",
-                "url": "https://citizentestcanada.com"
+                "url": "https://www.citizentestcanada.com"
               },
               "offers": {
                 "@type": "Offer",
@@ -205,7 +187,9 @@ export default function RootLayout({
         
         <ErrorBoundary>
           <AuthProvider>
-            {children}
+            <main role="main">
+              {children}
+            </main>
             <Toaster 
               position="top-right"
               toastOptions={{

@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { getDatabase } from './database'
 
-// Extend the session type to include user id
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -40,8 +39,9 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
+        let db;
         try {
-          const db = await getDatabase()
+          db = await getDatabase()
           const user = await db.get(
             'SELECT * FROM users WHERE email = ?',
             [credentials.email]
@@ -51,10 +51,7 @@ export const authOptions: NextAuthOptions = {
             return null
           }
 
-          const isPasswordValid = await bcrypt.compare(
-            credentials.password,
-            user.password_hash
-          )
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password_hash)
 
           if (!isPasswordValid) {
             return null
@@ -68,6 +65,8 @@ export const authOptions: NextAuthOptions = {
         } catch (error) {
           console.error('Auth error:', error)
           return null
+        } finally {
+          if (db) await db.close()
         }
       }
     })

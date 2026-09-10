@@ -2,6 +2,12 @@
 
 import { useEffect } from 'react'
 
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[]
+  }
+}
+
 interface AdSenseProps {
   className?: string
   style?: React.CSSProperties
@@ -12,10 +18,8 @@ export function HeaderAd({ className, style }: AdSenseProps) {
   useEffect(() => {
     try {
       console.log('🔍 AdSense Debug: Checking for adsbygoogle...')
-      // @ts-expect-error - Google AdSense types
-      if (window.adsbygoogle) {
+      if (typeof window !== 'undefined' && Array.isArray(window.adsbygoogle)) {
         console.log('✅ AdSense Debug: adsbygoogle found, pushing ad...')
-        // @ts-expect-error - Google AdSense push method
         window.adsbygoogle.push({})
         console.log('✅ AdSense Debug: Ad pushed successfully')
       } else {
@@ -44,9 +48,7 @@ export function HeaderAd({ className, style }: AdSenseProps) {
 export function SidebarAd({ className, style }: AdSenseProps) {
   useEffect(() => {
     try {
-      // @ts-expect-error - Google AdSense types
-      if (window.adsbygoogle) {
-        // @ts-expect-error - Google AdSense push method
+      if (typeof window !== 'undefined' && Array.isArray(window.adsbygoogle)) {
         window.adsbygoogle.push({})
       }
     } catch (error) {
@@ -72,9 +74,7 @@ export function SidebarAd({ className, style }: AdSenseProps) {
 export function FooterAd({ className, style }: AdSenseProps) {
   useEffect(() => {
     try {
-      // @ts-expect-error - Google AdSense types
-      if (window.adsbygoogle) {
-        // @ts-expect-error - Google AdSense push method
+      if (typeof window !== 'undefined' && Array.isArray(window.adsbygoogle)) {
         window.adsbygoogle.push({})
       }
     } catch (error) {
@@ -100,9 +100,7 @@ export function FooterAd({ className, style }: AdSenseProps) {
 export function InContentAd({ className, style }: AdSenseProps) {
   useEffect(() => {
     try {
-      // @ts-expect-error - Google AdSense types
-      if (window.adsbygoogle) {
-        // @ts-expect-error - Google AdSense push method
+      if (typeof window !== 'undefined' && Array.isArray(window.adsbygoogle)) {
         window.adsbygoogle.push({})
       }
     } catch (error) {
@@ -128,9 +126,7 @@ export function InContentAd({ className, style }: AdSenseProps) {
 export function StickySidebarAd({ className, style }: AdSenseProps) {
   useEffect(() => {
     try {
-      // @ts-expect-error - Google AdSense types
-      if (window.adsbygoogle) {
-        // @ts-expect-error - Google AdSense push method
+      if (typeof window !== 'undefined' && Array.isArray(window.adsbygoogle)) {
         window.adsbygoogle.push({})
       }
     } catch (error) {
@@ -156,9 +152,7 @@ export function StickySidebarAd({ className, style }: AdSenseProps) {
 export function ArticleInContentAd({ className, style }: AdSenseProps) {
   useEffect(() => {
     try {
-      // @ts-expect-error - Google AdSense types
-      if (window.adsbygoogle) {
-        // @ts-expect-error - Google AdSense push method
+      if (typeof window !== 'undefined' && Array.isArray(window.adsbygoogle)) {
         window.adsbygoogle.push({})
       }
     } catch (error) {

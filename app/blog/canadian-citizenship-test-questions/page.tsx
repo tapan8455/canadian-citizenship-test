@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'citizenship test questions free'
   ],
   alternates: {
-    canonical: 'https://citizentestcanada.com/blog/canadian-citizenship-test-questions',
+    canonical: 'https://www.citizentestcanada.com/blog/canadian-citizenship-test-questions',
   },
 }
 

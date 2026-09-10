@@ -16,24 +16,20 @@ class PostgresDatabase implements DatabaseInterface {
   }
 
   async all(sql: string, params?: unknown[]): Promise<unknown[]> {
-    // Convert SQLite-style ? placeholders to PostgreSQL $1, $2, etc.
     const convertedSql = this.convertPlaceholders(sql)
     const result = await this.client.query(convertedSql, params)
     return result.rows
   }
 
   async get(sql: string, params?: unknown[]): Promise<unknown> {
-    // Convert SQLite-style ? placeholders to PostgreSQL $1, $2, etc.
     const convertedSql = this.convertPlaceholders(sql)
     const result = await this.client.query(convertedSql, params)
     return result.rows[0]
   }
 
   async run(sql: string, params?: unknown[]): Promise<{ lastID: number }> {
-    // Convert SQLite-style ? placeholders to PostgreSQL $1, $2, etc.
     const convertedSql = this.convertPlaceholders(sql)
     
-    // For INSERT statements, we need to return the inserted ID
     if (convertedSql.trim().toUpperCase().startsWith('INSERT')) {
       const result = await this.client.query(convertedSql + ' RETURNING id', params)
       return { lastID: result.rows[0]?.id || 0 }
@@ -44,8 +40,25 @@ class PostgresDatabase implements DatabaseInterface {
   }
 
   private convertPlaceholders(sql: string): string {
-    let paramIndex = 1
-    return sql.replace(/\?/g, () => `$${paramIndex++}`)
+    let paramIndex = 1;
+    let inString = false;
+    let result = '';
+    
+    for (let i = 0; i < sql.length; i++) {
+      // Toggle string state if we hit a single quote
+      if (sql[i] === "'") {
+        inString = !inString;
+        result += sql[i];
+      } 
+      // Only replace '?' if we are NOT inside a string literal
+      else if (sql[i] === '?' && !inString) {
+        result += `$${paramIndex++}`;
+      } 
+      else {
+        result += sql[i];
+      }
+    }
+    return result;
   }
 
   async close(): Promise<void> {
@@ -87,5 +100,7 @@ export async function query(text: string, params?: unknown[]) {
   } catch (error) {
     console.error('Database query error:', error)
     throw error
+  } finally {
+    await client.close()
   }
 }
