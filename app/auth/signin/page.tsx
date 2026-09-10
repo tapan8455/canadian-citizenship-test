@@ -144,10 +144,14 @@ export default function SignInPage() {
                   </label>
                 </div>
 
-                <div className="text-sm font-bold">
-                  <a href="mailto:info@citizentestcanada.com" className="text-teal-600 hover:text-teal-500 transition-colors">
-                    Forgot password?
-                  </a>
+
+              <div className="flex items-center justify-between mt-4">
+                <div className="text-sm">
+                  <Link 
+                    href="/auth/forgot-password" 
+                    className="font-medium text-primary-600 hover:text-primary-500" >
+                    Forgot your password?
+                  </Link>
                 </div>
               </div>
 
