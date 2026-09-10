@@ -131,6 +131,7 @@ export default function SignInPage() {
                 </div>
               </div>
 
+              {/* FIXED JSX STRUCTURE HERE */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
                 <div className="flex items-center">
                   <input
@@ -144,12 +145,11 @@ export default function SignInPage() {
                   </label>
                 </div>
 
-
-              <div className="flex items-center justify-between mt-4">
                 <div className="text-sm">
                   <Link 
                     href="/auth/forgot-password" 
-                    className="font-medium text-primary-600 hover:text-primary-500" >
+                    className="font-bold text-teal-600 hover:text-teal-500 transition-colors"
+                  >
                     Forgot your password?
                   </Link>
                 </div>
