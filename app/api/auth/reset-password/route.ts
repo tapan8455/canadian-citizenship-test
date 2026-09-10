@@ -7,11 +7,11 @@ export async function POST(req: Request) {
     const { token, password } = await req.json();
     const db = await getDatabase();
 
-    // 1. Verify token exists and is not expired
+    // 1. Verify token exists and is not expired using a strict type instead of any[]
     const tokenRecords = await db.all(
       'SELECT email FROM password_reset_tokens WHERE token = $1 AND expires_at > CURRENT_TIMESTAMP',
       [token]
-    ) as any[];
+    ) as { email: string }[];
 
     if (!tokenRecords || tokenRecords.length === 0) {
       return NextResponse.json({ error: "Invalid or expired token" }, { status: 400 });

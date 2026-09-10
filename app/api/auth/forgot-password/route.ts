@@ -7,8 +7,9 @@ export async function POST(req: Request) {
     const { email } = await req.json();
     const db = await getDatabase();
 
-    // 1. Verify user exists
-    const users = await db.all('SELECT id FROM users WHERE email = $1', [email]) as any[];
+    // 1. Verify user exists using a strict type instead of any[]
+    const users = await db.all('SELECT id FROM users WHERE email = $1', [email]) as { id: number }[];
+    
     if (!users || users.length === 0) {
       // Return success silently to prevent email enumeration attacks
       return NextResponse.json({ success: true });
