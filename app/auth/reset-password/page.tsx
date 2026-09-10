@@ -49,11 +49,13 @@ export default function ResetPasswordPage() {
       
       toast.success("Password reset successfully! Please sign in.");
       router.push("/auth/signin");
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
-      setIsLoading(false);
-    }
   };
 
   if (!token) {
