@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     
     // Replace the TODO with this implementation:
     await resend.emails.send({
-      from: 'No-reply <no-reply@citizentestcanada.com>', // Replace with your verified domain email later
+      from: 'No-reply <onboarding@resend.dev>', // Replace with your verified domain email later
       to: email,
       subject: 'Reset your Canadian Citizenship Test password',
       html: `
