@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       [email, resetToken, expiresAt]
     );
 
-    const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/reset-password?token=${resetToken}`;
+    const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/reset-password?token=${resetToken}`;
     
     // Replace the TODO with this implementation:
     await resend.emails.send({
