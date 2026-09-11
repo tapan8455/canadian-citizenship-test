@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '@/components/providers/AuthProvider'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
@@ -202,6 +203,7 @@ export default function RootLayout({
             />
           </AuthProvider>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   )
